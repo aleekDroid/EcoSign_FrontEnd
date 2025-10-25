@@ -3,8 +3,9 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import theme from './theme';
 
 import LoginPage from './pages/login';
-import adminHome from './pages/adminHome';
-import userHome from './pages/userHome';
+import AdminHome from './pages/adminHome';
+import UserHome from './pages/userHome';
+import Usuario from './pages/usuario';
 
 function App() {
   return (
@@ -12,8 +13,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/adminHome" element={<adminHome />} />
-          <Route path="/userHome" element={<userHome />} />
+          <Route path="/adminHome" element={<AdminHome />} />
+          <Route path="/userHome" element={<UserHome />} />
+          <Route path="/usuario" element={<Usuario />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
           <Route path="/" element={<Navigate to="/login" replace />} />
           </Routes>

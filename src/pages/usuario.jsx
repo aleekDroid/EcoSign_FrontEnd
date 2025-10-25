@@ -1,10 +1,10 @@
-import { Box, Flex, Heading, Image, Table, Thead, Center, VStack, Tr, Th, TableContainer, Td, Tbody, Text, Button, InputGroup, Input, InputRightElement, Icon, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react"; import EcoSign from "../assets/EcoSign.PNG";
-import UserSidebar from "../components/layout/Usersidebar";
-import { useNavigate } from "react-router-dom";
+import { Box, Flex, Heading, Image, Table, Thead, Tr, Th, TableContainer, Td, Tbody, Text, Button, Icon, Menu, MenuButton, MenuList, MenuItem, navigate } from "@chakra-ui/react"; import EcoSign from "../assets/EcoSign.PNG";
+import AdminSidebar from "../components/layout/AdminSidebar";
 import { User, ChevronDown } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import EcoSignInput from "../components/forms/EcoSignInput";
 
-function AdminDashboard() {
+function Usuario() {
 
     const navigate = useNavigate();
 
@@ -31,36 +31,8 @@ function AdminDashboard() {
         </Menu>
     );
 
-    const SignBox = () => (
-        <Box
-            w="full"
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            p={2}
-            bg="background"
-            borderColor="secondary"
-            borderWidth="2px"
-            borderRadius="lg"
-            fontFamily="body"
-            color="secondary"
-            mb="4">
-            <Text color="secondary" fontWeight="medium">Firmar documento</Text>
-            <Button
-                as="b"
-                size="sm"
-                borderRadius="md"
-                bg="secondary"
-                w="20%"
-                color="background"
-                _hover={{ bg: 'text' }}>
-                Subir archivo
-            </Button>
-        </Box>
-    );
-
     const DocumentsTable = () => (
-        <TableContainer W="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="secondary" bg="background" color="secondary">
+        <TableContainer W="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent" bg="background" color="secondary">
             <Table size="md"> {/*variant="simple" */}
                 <Thead>
                     <Tr>
@@ -80,15 +52,15 @@ function AdminDashboard() {
 
     return (
         <Flex minH="100vh" bg="background" W="full">
-            <UserSidebar />
+            <AdminSidebar />
             <Box flex="1" p={10} maxW="full">
                 <Box display="flex" justifyContent="flex-end" mb={4}>
                     <Header />
                 </Box>
                 <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />
                 <SignBox />
-                <Text as="b" fontSize="30px" mt={8} mb={4} color="primary" textAlign="left">
-                    Documentos recientes
+                <Text as="b" fontSize="30px" mt={8} mb={4} color="text" textAlign="left">
+                    Usuarios
                 </Text>
                 <DocumentsTable />
             </Box>
@@ -96,4 +68,4 @@ function AdminDashboard() {
     )
 }
 
-export default AdminDashboard;
+export default Usuario;

@@ -1,4 +1,4 @@
-import { extendTheme } from "@chakra-ui/react";
+import { Box, extendTheme } from "@chakra-ui/react";
 
 const theme = extendTheme({
   colors: {
@@ -17,6 +17,58 @@ const theme = extendTheme({
     heading: 'Cormorant Garamond, serif',
     body: 'Source Sans 3, sans-serif',
   },
+
+  components: {
+    Table: {
+      baseStyle: {
+        table: {
+          borderCollapse: 'separate',
+          borderSpacing: '0 8px',
+        }
+      },
+
+      // Prueba para crear una variante con el estilo de EcoSign.
+      variants: {
+        ecosign: {
+          thead: {
+            th: {
+              border: 'none',
+              color: 'text',
+              fontWeight: 'bold',
+              fontFamily: 'body',
+              fontSize: 'sm',
+            },
+          },
+          tbody: {
+            tr: {
+              bg: 'background',
+              _hover: {
+                bg: "gris.100",
+                boxShadow: 'lg',
+                transition: 'all 0.2s ease-in-out',
+              },
+              td: {
+                
+                borderColor: 'accent',
+                py: 3,
+                '&:first-of-type': {
+                  borderTopLeftRadius: 'lg',
+                  borderBottomLeftRadius: 'lg',
+                },
+                '&:last-of-type': {
+                  borderTopRightRadius: 'lg',
+                  borderBottomRightRadius: 'lg',
+                },
+              }
+            }
+          }
+        }
+      },
+      defaultProps: {
+        variant: 'ecosign',
+      }
+    }
+  }
 });
 
 export default theme;

@@ -27,7 +27,7 @@ function LoginPage() {
         <Center minHeight="100vh" bg="background">
             <Box
                 textAlign="center"
-                p={8}
+                p={8} // P de padding, nota.
                 bg="background"
                 maxW="md"
                 w="70%"
