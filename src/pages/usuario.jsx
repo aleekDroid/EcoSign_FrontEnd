@@ -58,7 +58,6 @@ function Usuario() {
                     <Header />
                 </Box>
                 <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />
-                <SignBox />
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text" textAlign="left">
                     Usuarios
                 </Text>

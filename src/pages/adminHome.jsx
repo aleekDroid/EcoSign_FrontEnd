@@ -21,7 +21,7 @@ function AdminDashboard() {
             leftIcon={<Icon as={User} boxSize={5} />} 
             rightIcon={<Icon as={ChevronDown} boxSize={5} />}
                 bg="background">
-                Nombre del usuario
+                Nombre del administrador
             </MenuButton>
             <MenuList>
                 <MenuItem

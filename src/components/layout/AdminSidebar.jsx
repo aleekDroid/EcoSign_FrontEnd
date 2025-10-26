@@ -1,9 +1,9 @@
 import { Box, VStack, Button, Icon, Text } from '@chakra-ui/react';
 import { Home, Users, Folder, Edit } from 'lucide-react'; 
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-const SidebarLink = ({ icon, text, isActive }) => (
+const SidebarLink = ({ icon, text, isActive, onClick }) => (
     <Button
         w="full"
         bg={isActive ? 'accent' : 'transparent'} 
@@ -13,6 +13,7 @@ const SidebarLink = ({ icon, text, isActive }) => (
         borderRadius="lg"
         py={6}
         px={4}
+        onClick={onClick}
     >
         <Icon as={icon} mr={3} boxSize={5} />
         <Text fontSize="md" fontWeight="medium">{text}</Text>
@@ -20,6 +21,12 @@ const SidebarLink = ({ icon, text, isActive }) => (
 );
 
 function AdminSidebar() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const handleNavigation = (path ) => {
+        navigate(path);
+    }
+
     return (
         <Box
             minH="100vh"
@@ -35,8 +42,8 @@ function AdminSidebar() {
         >
             
             <VStack spacing={4} justifyItems="center">
-                <SidebarLink icon={Home} text="Inicio"/>
-                <SidebarLink icon={Users} text="Usuarios" />
+                <SidebarLink icon={Home} isActive={location.pathname === '/adminHome'} onClick={() => handleNavigation('/adminHome')} text="Inicio"/>
+                <SidebarLink icon={Users} isActive={location.pathname === '/usuario'} onClick={() => handleNavigation('/usuario')} text="Usuarios" />
                 <SidebarLink icon={Folder} text= "Archivos" />
                 <SidebarLink icon={Edit} text="Firmar" />
             </VStack>
