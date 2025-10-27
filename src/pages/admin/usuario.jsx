@@ -1,10 +1,10 @@
-import { Box, Flex, Heading, Image, Table, Thead, Tr, Th, TableContainer, Td, Tbody, Text, Button, Icon, Menu, MenuButton, MenuList, MenuItem, navigate } from "@chakra-ui/react"; import EcoSign from "../assets/EcoSign.PNG";
-import AdminSidebar from "../components/layout/AdminSidebar";
+import { Box, Flex, Heading, Image, Table, Thead, Tr, Th, TableContainer, Td, Tbody, Text, Button, Icon, Menu, MenuButton, MenuList, MenuItem, navigate } from "@chakra-ui/react"; 
+import EcoSign from "../../assets/EcoSign.PNG";
+import AdminSidebar from "../../components/layout/AdminSidebar";
 import { User, ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import EcoSignInput from "../components/forms/EcoSignInput";
-
-function AdminDashboard() {
+import Header from "../../components/layout/Header";
+function Usuario() {
 
     const navigate = useNavigate();
 
@@ -12,52 +12,6 @@ function AdminDashboard() {
         if (e & e.preventDefault) e.preventDefault();
         navigate('/login', { replace: true });
     }
-
-    const Header = () => (
-        <Menu
-            bg="background">
-            <MenuButton 
-            as={Button} 
-            leftIcon={<Icon as={User} boxSize={5} />} 
-            rightIcon={<Icon as={ChevronDown} boxSize={5} />}
-                bg="background">
-                Nombre del administrador
-            </MenuButton>
-            <MenuList>
-                <MenuItem
-                    onClick={logOut}
-                    color="#BD0606">Cerrar sesión</MenuItem>
-            </MenuList>
-        </Menu>
-    );
-
-    const SignBox = () => (
-        <Box
-            w="full"
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            p={2}
-            bg="background"
-            borderColor="accent"
-            borderWidth="2px"
-            borderRadius="lg"
-            fontFamily="body"
-            color="secondary"
-            mb="4">
-            <Text color="secondary" fontWeight="medium">Firmar documento</Text>
-            <Button
-                as="b"
-                size="sm"
-                borderRadius="md"
-                bg="accent"
-                w="20%"
-                color="background"
-                _hover={{ bg: 'primary' }}>
-                Subir archivo
-            </Button>
-        </Box>
-    );
 
     const DocumentsTable = () => (
         <TableContainer W="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent" bg="background" color="secondary">
@@ -86,9 +40,8 @@ function AdminDashboard() {
                     <Header />
                 </Box>
                 <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />
-                <SignBox />
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text" textAlign="left">
-                    Documentos recientes
+                    Usuarios
                 </Text>
                 <DocumentsTable />
             </Box>
@@ -96,4 +49,4 @@ function AdminDashboard() {
     )
 }
 
-export default AdminDashboard;
+export default Usuario;

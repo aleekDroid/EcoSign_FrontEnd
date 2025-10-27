@@ -1,8 +1,8 @@
-import { Box, Flex, Heading, Image, Table, Thead, Center, VStack, Tr, Th, TableContainer, Td, Tbody, Text, Button, InputGroup, Input, InputRightElement, Icon, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react"; import EcoSign from "../assets/EcoSign.PNG";
-import UserSidebar from "../components/layout/Usersidebar";
+import { Box, Flex, Heading, Image, Table, Thead, Tr, Th, TableContainer, Td, Tbody, Text, Button, Icon, Menu, MenuButton, MenuList, MenuItem, navigate } from "@chakra-ui/react"; 
+import EcoSign from "../../assets/EcoSign.PNG";
+import AdminSidebar from "../../components/layout/AdminSidebar";
 import { useNavigate } from "react-router-dom";
-import { User, ChevronDown } from "lucide-react";
-import EcoSignInput from "../components/forms/EcoSignInput";
+import Header from "../../components/layout/Header";
 
 function AdminDashboard() {
 
@@ -13,24 +13,6 @@ function AdminDashboard() {
         navigate('/login', { replace: true });
     }
 
-    const Header = () => (
-        <Menu
-            bg="background">
-            <MenuButton 
-            as={Button} 
-            leftIcon={<Icon as={User} boxSize={5} />} 
-            rightIcon={<Icon as={ChevronDown} boxSize={5} />}
-                bg="background">
-                Nombre del usuario
-            </MenuButton>
-            <MenuList>
-                <MenuItem
-                    onClick={logOut}
-                    color="#BD0606">Cerrar sesión</MenuItem>
-            </MenuList>
-        </Menu>
-    );
-
     const SignBox = () => (
         <Box
             w="full"
@@ -39,7 +21,7 @@ function AdminDashboard() {
             alignItems="center"
             p={2}
             bg="background"
-            borderColor="secondary"
+            borderColor="accent"
             borderWidth="2px"
             borderRadius="lg"
             fontFamily="body"
@@ -50,17 +32,17 @@ function AdminDashboard() {
                 as="b"
                 size="sm"
                 borderRadius="md"
-                bg="secondary"
+                bg="accent"
                 w="20%"
                 color="background"
-                _hover={{ bg: 'text' }}>
+                _hover={{ bg: 'primary' }}>
                 Subir archivo
             </Button>
         </Box>
     );
 
     const DocumentsTable = () => (
-        <TableContainer W="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="secondary" bg="background" color="secondary">
+        <TableContainer W="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent" bg="background" color="secondary">
             <Table size="md"> {/*variant="simple" */}
                 <Thead>
                     <Tr>
@@ -80,14 +62,14 @@ function AdminDashboard() {
 
     return (
         <Flex minH="100vh" bg="background" W="full">
-            <UserSidebar />
+            <AdminSidebar />
             <Box flex="1" p={10} maxW="full">
                 <Box display="flex" justifyContent="flex-end" mb={4}>
                     <Header />
                 </Box>
                 <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />
                 <SignBox />
-                <Text as="b" fontSize="30px" mt={8} mb={4} color="primary" textAlign="left">
+                <Text as="b" fontSize="30px" mt={8} mb={4} color="text" textAlign="left">
                     Documentos recientes
                 </Text>
                 <DocumentsTable />

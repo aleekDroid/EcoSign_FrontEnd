@@ -5,19 +5,21 @@ import React from 'react';
 const EcoSignInput = React.forwardRef((props, ref) => {
     const defaultStyles = {
         size: "md",
-        borderRadius: "full",
-        borderColor: "primary",
+        borderRadius: "lg",
+        borderWidth: "2px",
+        bg: "background",
+        color: "secondary",
+        borderColor: "accent",
         _focus: {
-            borderColor: 'accent',
             boxShadow: '0 0 0 1px #34553F'
         }
     };
 
     return (
-        <Input 
-            {...defaultStyles}  // Se aplican los estilos comunes primero.
-            {...props}          // Sobrescribe con cualquier prop pasado (placeholder, type, etc.).
-            ref={ref}     
+        <Input
+            {...defaultStyles}
+            {...props}
+            ref={ref}
         />
     );
 });

@@ -1,6 +1,6 @@
 import { Center, Box, Heading, Image, Button, VStack, Input } from "@chakra-ui/react";
 import EcoSign from "../assets/EcoSign.PNG";
-import EcoSignInput from "../components/forms/EcoSignInput";
+import LoginInput from "../components/forms/LoginInput";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -41,13 +41,13 @@ function LoginPage() {
                             mx="auto"
                             mb={0}
                         />
-                        <EcoSignInput 
+                        <LoginInput 
                         placeholder="Correo electrónico" 
                         type="email" 
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         />
-                        <EcoSignInput 
+                        <LoginInput 
                         placeholder="Contraseña"
                         type="password" 
                         value={password}

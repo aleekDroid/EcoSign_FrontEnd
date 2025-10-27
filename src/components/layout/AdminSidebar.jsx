@@ -44,7 +44,7 @@ function AdminSidebar() {
             <VStack spacing={4} justifyItems="center">
                 <SidebarLink icon={Home} isActive={location.pathname === '/adminHome'} onClick={() => handleNavigation('/adminHome')} text="Inicio"/>
                 <SidebarLink icon={Users} isActive={location.pathname === '/usuario'} onClick={() => handleNavigation('/usuario')} text="Usuarios" />
-                <SidebarLink icon={Folder} text= "Archivos" />
+                <SidebarLink icon={Folder} isActive={location.pathname === '/archivo'} onClick={() => handleNavigation('/archivo')} text= "Archivos" />
                 <SidebarLink icon={Edit} text="Firmar" />
             </VStack>
         </Box>
