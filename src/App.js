@@ -1,39 +1,32 @@
-import { ChakraProvider, Box, Heading, Text, Center, VStack } from '@chakra-ui/react';
-import './App.css';
+import { Box, ChakraProvider, Center, Heading } from '@chakra-ui/react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import theme from './theme';
+
+import LoginPage from './pages/login';
+
+import AdminHome from './pages/admin/adminHome'
+import UserHome from './pages/user/userHome';
+import Usuario from './pages/admin/usuario';
+import Archivo from './pages/archivo';
+import Register from './pages/admin/register';
+
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Center height="100vh" bg="background">
-        <Box
-          textAlign="center"
-          p={8}
-          borderRadius="md"
-          boxShadow="lg"
-          bg="background"
-          maxW="md"
-          w="90%"
-        >
-          <Heading as="h1" size="2xl" mb={4} color="text" fontFamily="heading">
-            Bienvenido a EcoSign.
-          </Heading>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/adminHome" element={<AdminHome />} />
+          <Route path="/userHome" element={<UserHome />} />
+          <Route path="/usuario" element={<Usuario />} />
+          <Route path="/archivo" element={<Archivo />} />
+          <Route path="/register" element={<Register />} />
 
-          <Text fontSize="lg" mb={6} color="primary" textAlign="center">
-            Probando texto 1.
-          </Text>
-
-          <Text fontSize="sm" color="accent" textAlign="center">
-            Probando texto 2.
-          </Text>
-
-          <VStack spacing={4} mt={6}>
-            <Text fontSize="lg" color="primary">Primary.</Text>
-            <Text fontSize="lg" color="secondary">Secondary.</Text>
-            <Text fontSize="lg" color="accent">Accent.</Text>
-          </VStack>
-        </Box>
-      </Center>
+          <Route path="*" element={<Navigate to="/login" replace />} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          </Routes>
+      </BrowserRouter>
     </ChakraProvider>
   );
 }
