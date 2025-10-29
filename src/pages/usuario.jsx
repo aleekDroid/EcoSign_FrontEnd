@@ -1,12 +1,26 @@
+<<<<<<< Updated upstream:src/pages/usuario.jsx
 import { Box, Flex, Heading, Image, Table, Thead, Tr, Th, TableContainer, Td, Tbody, Text, Button, Icon, Menu, MenuButton, MenuList, MenuItem, navigate } from "@chakra-ui/react"; import EcoSign from "../assets/EcoSign.PNG";
 import AdminSidebar from "../components/layout/AdminSidebar";
 import { User, ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import EcoSignInput from "../components/forms/EcoSignInput";
+=======
+import { Box, Flex, Image, Table, Thead, Tr, Th, TableContainer, Td, Tbody, Text, Button, Icon, Menu, MenuButton, MenuList, MenuItem, navigate } from "@chakra-ui/react"; 
+import EcoSign from "../../assets/EcoSign.PNG";
+import AdminSidebar from "../../components/layout/AdminSidebar";
+import { User, ChevronDown } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
+import SearchInput from "../../components/forms/SearchInput";
+import Header from "../../components/layout/Header";    
+>>>>>>> Stashed changes:src/pages/admin/usuario.jsx
 
 function Usuario() {
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const handleNavigation = (path) => {
+        navigate(path);
+    }
 
     const logOut = (e) => {
         if (e & e.preventDefault) e.preventDefault();
@@ -53,11 +67,26 @@ function Usuario() {
     return (
         <Flex minH="100vh" bg="background" W="full">
             <AdminSidebar />
-            <Box flex="1" p={10} maxW="full">
+            <Box flex="1" p={10} maxW="full" marginLeft="250px">
                 <Box display="flex" justifyContent="flex-end" mb={4}>
                     <Header />
                 </Box>
                 <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />
+                <Flex
+                gap={4}>
+                    <Button
+                    isActive={location.pathname === '/register'}
+                    onClick={() => handleNavigation('/register')}
+                    as="b"
+                    borderRadius="md"
+                    bg="accent"
+                    w="20%"
+                    color="background"
+                    _hover={{ bg: 'primary' }}
+                    >Registrar Usuario</Button>
+                    <SearchInput placeholder="Buscar usuario" mb={4} />
+                </Flex>
+                
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text" textAlign="left">
                     Usuarios
                 </Text>

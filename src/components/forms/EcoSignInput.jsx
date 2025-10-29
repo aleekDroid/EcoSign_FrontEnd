@@ -5,8 +5,17 @@ import React from 'react';
 const EcoSignInput = React.forwardRef((props, ref) => {
     const defaultStyles = {
         size: "md",
+<<<<<<< Updated upstream
         borderRadius: "full",
         borderColor: "primary",
+=======
+        borderRadius: "lg",
+        borderWidth: "2px",
+        bg: "background",
+        color: "secondary",
+        borderColor: "accent",
+        mb: 4,
+>>>>>>> Stashed changes
         _focus: {
             borderColor: 'accent',
             boxShadow: '0 0 0 1px #34553F'
