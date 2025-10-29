@@ -1,4 +1,5 @@
-import { Input } from "@chakra-ui/react";
+import { Input, InputGroup, InputRightElement, Icon } from "@chakra-ui/react";
+import { Search } from "lucide-react";
 import React from 'react';
 
 // Se utiliza React.forwardRef para poder usar 'ref' si es necesario en el futuro.
@@ -19,11 +20,16 @@ const EcoSignInput = React.forwardRef((props, ref) => {
     };
 
     return (
+        <InputGroup>
         <Input 
-            {...defaultStyles}  // Se aplican los estilos comunes primero.
-            {...props}          // Sobrescribe con cualquier prop pasado (placeholder, type, etc.).
+            {...defaultStyles}  
+            {...props}       
             ref={ref}     
         />
+        <InputRightElement pointerEvents="none">
+            <Icon as={Search} color="secondary" boxSize={5} /> 
+        </InputRightElement>
+    </InputGroup>
     );
 });
 

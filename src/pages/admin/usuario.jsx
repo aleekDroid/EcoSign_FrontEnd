@@ -1,49 +1,23 @@
-<<<<<<< Updated upstream:src/pages/usuario.jsx
-import { Box, Flex, Heading, Image, Table, Thead, Tr, Th, TableContainer, Td, Tbody, Text, Button, Icon, Menu, MenuButton, MenuList, MenuItem, navigate } from "@chakra-ui/react"; import EcoSign from "../assets/EcoSign.PNG";
-import AdminSidebar from "../components/layout/AdminSidebar";
-import { User, ChevronDown } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import EcoSignInput from "../components/forms/EcoSignInput";
-=======
-import { Box, Flex, Image, Table, Thead, Tr, Th, TableContainer, Td, Tbody, Text, Button, Icon, Menu, MenuButton, MenuList, MenuItem, navigate } from "@chakra-ui/react"; 
+import { Box, Flex, Heading, Image, Table, Thead, Tr, Th, TableContainer, Td, Tbody, Text, Button, Icon, Menu, MenuButton, MenuList, MenuItem, navigate } from "@chakra-ui/react"; 
 import EcoSign from "../../assets/EcoSign.PNG";
 import AdminSidebar from "../../components/layout/AdminSidebar";
 import { User, ChevronDown } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import Header from "../../components/layout/Header";
 import SearchInput from "../../components/forms/SearchInput";
-import Header from "../../components/layout/Header";    
->>>>>>> Stashed changes:src/pages/admin/usuario.jsx
 
 function Usuario() {
 
-    const navigate = useNavigate();
-    const location = useLocation();
-    const handleNavigation = (path) => {
-        navigate(path);
-    }
+        const navigate = useNavigate();
+        const location = useLocation();
+        const handleNavigation = (path ) => {
+            navigate(path);
+        }
 
     const logOut = (e) => {
         if (e & e.preventDefault) e.preventDefault();
         navigate('/login', { replace: true });
     }
-
-    const Header = () => (
-        <Menu
-            bg="background">
-            <MenuButton 
-            as={Button} 
-            leftIcon={<Icon as={User} boxSize={5} />} 
-            rightIcon={<Icon as={ChevronDown} boxSize={5} />}
-                bg="background">
-                Nombre del usuario
-            </MenuButton>
-            <MenuList>
-                <MenuItem
-                    onClick={logOut}
-                    color="#BD0606">Cerrar sesión</MenuItem>
-            </MenuList>
-        </Menu>
-    );
 
     const DocumentsTable = () => (
         <TableContainer W="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent" bg="background" color="secondary">
@@ -63,6 +37,10 @@ function Usuario() {
             </Table>
         </TableContainer>
     )
+
+    const onClick = () => {
+        navigate('/register');
+    }
 
     return (
         <Flex minH="100vh" bg="background" W="full">
@@ -86,7 +64,6 @@ function Usuario() {
                     >Registrar Usuario</Button>
                     <SearchInput placeholder="Buscar usuario" mb={4} />
                 </Flex>
-                
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text" textAlign="left">
                     Usuarios
                 </Text>
