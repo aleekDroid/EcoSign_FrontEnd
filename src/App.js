@@ -7,6 +7,7 @@ import AdminHome from './pages/admin/adminHome';
 import UserHome from './pages//user/userHome';
 import Usuario from './pages/admin/usuario';
 import Archivo from './pages/archivo';
+import Register from './pages/admin/register';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/userHome" element={<UserHome />} />
           <Route path="/usuario" element={<Usuario />} />
           <Route path="/archivo" element={<Archivo />} />
+          <Route path="/register" element={<Register />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
           <Route path="/" element={<Navigate to="/login" replace />} />
           </Routes>

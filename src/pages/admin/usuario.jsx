@@ -2,11 +2,17 @@ import { Box, Flex, Heading, Image, Table, Thead, Tr, Th, TableContainer, Td, Tb
 import EcoSign from "../../assets/EcoSign.PNG";
 import AdminSidebar from "../../components/layout/AdminSidebar";
 import { User, ChevronDown } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Header from "../../components/layout/Header";
+import SearchInput from "../../components/forms/SearchInput";
+
 function Usuario() {
 
-    const navigate = useNavigate();
+        const navigate = useNavigate();
+        const location = useLocation();
+        const handleNavigation = (path ) => {
+            navigate(path);
+        }
 
     const logOut = (e) => {
         if (e & e.preventDefault) e.preventDefault();
@@ -32,6 +38,10 @@ function Usuario() {
         </TableContainer>
     )
 
+    const onClick = () => {
+        navigate('/register');
+    }
+
     return (
         <Flex minH="100vh" bg="background" W="full">
             <AdminSidebar />
@@ -40,6 +50,20 @@ function Usuario() {
                     <Header />
                 </Box>
                 <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />
+                <Flex justifyContent="space-between" gap={4} >
+                    <Button
+                        bg="accent"
+                        color="background"
+                        borderRadius="lg"
+                        W="20%"
+                        _hover={{ bg: 'primary' }}
+                        isActive={location.pathname === '/register'} 
+                        onClick={() => handleNavigation('/register')}
+                        >
+                        Agregar usuario
+                    </Button>
+                    <SearchInput placeholder="Buscar usuario" W="full" mb={4} />
+                </Flex>
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text" textAlign="left">
                     Usuarios
                 </Text>
