@@ -45,10 +45,10 @@ function Archivo() {
                     </Tr>
                 </Thead>
                 <Tbody>
-                    <Tr><Td color="secondary">Documento de ejemplo 1</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Contrato</Td><Td><signButton/></Td></Tr>
-                    <Tr><Td color="secondary">Documento de ejemplo 2</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Oficio</Td><Td><signedButton/></Td></Tr>
-                    <Tr><Td color="secondary">Documento de ejemplo 3</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Facturas</Td><Td><signButton/></Td></Tr>
-                    <Tr><Td color="secondary">Documento de ejemplo 4</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Contrato</Td><Td><signedButton/></Td></Tr>
+                    <Tr><Td color="secondary">Documento de ejemplo 1</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Contrato</Td><Td color="secondary">Firmado</Td><Td><signButton/></Td></Tr>
+                    <Tr><Td color="secondary">Documento de ejemplo 2</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Oficio</Td><Td color="accent">Firmar</Td><Td><signedButton/></Td></Tr>
+                    <Tr><Td color="secondary">Documento de ejemplo 3</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Facturas</Td><Td color="accent">Firmar</Td><Td><signButton/></Td></Tr>
+                    <Tr><Td color="secondary">Documento de ejemplo 4</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Contrato</Td><Td color="secondary">Firmado</Td><Td><signedButton/></Td></Tr>
                 </Tbody>
             </Table>
         </TableContainer>

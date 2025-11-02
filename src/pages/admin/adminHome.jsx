@@ -1,9 +1,8 @@
 import { Box, Flex, Heading, Image, Table, Thead, Tr, Th, TableContainer, Td, Tbody, Text, Button, Icon, Menu, MenuButton, MenuList, MenuItem, navigate } from "@chakra-ui/react"; 
 import EcoSign from "../../assets/EcoSign.PNG";
 import AdminSidebar from "../../components/layout/AdminSidebar";
-import { User, ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import EcoSignInput from "../../components/forms/EcoSignInput";
+import Header from "../../components/layout/Header";
 
 function AdminDashboard() {
 
@@ -13,24 +12,6 @@ function AdminDashboard() {
         if (e & e.preventDefault) e.preventDefault();
         navigate('/login', { replace: true });
     }
-
-    const Header = () => (
-        <Menu
-            bg="background">
-            <MenuButton 
-            as={Button} 
-            leftIcon={<Icon as={User} boxSize={5} />} 
-            rightIcon={<Icon as={ChevronDown} boxSize={5} />}
-                bg="background">
-                Nombre del administrador
-            </MenuButton>
-            <MenuList>
-                <MenuItem
-                    onClick={logOut}
-                    color="#BD0606">Cerrar sesión</MenuItem>
-            </MenuList>
-        </Menu>
-    );
 
     const SignBox = () => (
         <Box
