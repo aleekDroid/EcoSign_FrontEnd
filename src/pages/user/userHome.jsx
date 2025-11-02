@@ -80,7 +80,7 @@ function AdminDashboard() {
     )
 
     return (
-        <Flex minH="100vh" bg="background" W="full">
+        <Flex minH="100vh" bg="background" w="full">
             <UserSidebar />
             <Box flex="1" p={10} maxW="full" marginLeft="250px">
                 <Box display="flex" justifyContent="flex-end" mb={4}>

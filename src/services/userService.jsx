@@ -2,13 +2,13 @@ const API_BASE_URL = 'https://api.example.com/users';
 
 export async function getAllUsers() {
 
-    const response = await fetch(API_BASE_URL);
-    if (!response.ok) {
-        throw new Error('No se pudieron obtener los usuarios.');
-    }
+    // const response = await fetch(API_BASE_URL);
+    // if (!response.ok) {
+    //     throw new Error('No se pudieron obtener los usuarios.');
+    // }
 
-    const data = await response.json();
-    return data;
+    // const data = await response.json();
+    // return data;
     
     return new Promise((resolve) => {
         setTimeout(() => {

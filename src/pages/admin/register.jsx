@@ -39,7 +39,7 @@ function Register() {
     )
 
     return (
-        <Flex minH="100vh" bg="background" W="full">
+        <Flex minH="100vh" bg="background" w="full">
             <AdminSidebar />
             <Box flex="1" p={10} maxW="full" marginLeft="250px">
                 <Box display="flex" justifyContent="flex-end" mb={4} marginLeft="250px">
@@ -78,7 +78,7 @@ function Register() {
                 </EcoSignSelect>
                 <Button
                     type="submit"
-                    W="30%"
+                    w="30%"
                     bg="accent"
                     color="background"
                     mb={10}

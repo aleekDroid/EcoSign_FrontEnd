@@ -26,7 +26,7 @@ function Usuario() {
     }
 
     const DocumentsTable = () => (
-        <TableContainer W="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent" bg="background" color="secondary">
+        <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent" bg="background" color="secondary">
             <Table size="md"> {/*variant="simple" */}
                 <Thead>
                     <Tr>
@@ -49,7 +49,7 @@ function Usuario() {
     }
 
     return (
-        <Flex minH="100vh" bg="background" W="full">
+        <Flex minH="100vh" bg="background" w="full">
             <AdminSidebar />
             <Box flex="1" p={10} maxW="full" marginLeft="250px">
                 <Box display="flex" justifyContent="flex-end" mb={4}>
