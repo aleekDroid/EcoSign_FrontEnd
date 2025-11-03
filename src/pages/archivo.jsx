@@ -4,9 +4,12 @@ import AdminSidebar from '../components/layout/AdminSidebar';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import SearchInput from '../components/forms/SearchInput';
+import { DocumentTable } from '../components/documents/DocumentTable';
+import { useFetchDocuments } from '../hooks/useFetchDocuments';
 
 function Archivo() {
 
+    const { documents, isLoading, error } = useFetchDocuments();
     const navigate = useNavigate();
 
     const logOut = (e) => {
@@ -70,7 +73,7 @@ function Archivo() {
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text" textAlign="left">
                     Todos los documentos
                 </Text>
-                <DocumentsTable />
+                <DocumentTable documents={documents} isLoading={isLoading} error={error} />
             </Box>
         </Flex>
     )

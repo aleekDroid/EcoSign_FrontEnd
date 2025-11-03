@@ -15,7 +15,7 @@ export function UserTable({ users, isLoading, error }) {
     }
 
     return (
-        <TableContainer w="full" mt={4}>
+        <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent" bg="background" color="secondary">
             <Table size="md">
                 <Thead>
                     <Tr>

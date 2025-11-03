@@ -8,7 +8,7 @@ import Header from "../../components/layout/Header";
 import SearchInput from "../../components/forms/SearchInput";
 import AdminSidebar from "../../components/layout/AdminSidebar";
 import { useFetchUsers } from "../../hooks/useFetchUsers";
-import { UserTable} from "../../components/users/UserTable"
+import { UserTable } from "../../components/users/UserTable";
 
 function Usuario() {
 

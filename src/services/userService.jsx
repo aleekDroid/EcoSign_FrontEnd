@@ -13,9 +13,12 @@ export async function getAllUsers() {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve([
-                { id: 1, name: "Admin", email: "admin@uteq.mx", role: "Administrador" },
-                { id: 2, name: "User", email: "user@uteq.mx", role: "Usuario" },
-                { id: 3, name: "Maria", email: "maria@uteq.mx", role: "Usuario" }
+                { id: 1, name: "Admin", email: "admin@uteq.edu", role: "Administrador" },
+                { id: 2, name: "User", email: "user@uteq.edu", role: "Usuario" },
+                { id: 3, name: "María Ríos Campos", email: "mariaRiosC@uteq.edu", role: "Usuario" },
+                { id: 4, name: "Carlos Rivera Guerra", email: "carlosRiverG@uteq.edu", role: "Administrador" },
+                { id: 5, name: "Luisa Fernanda López", email: "luisaRiveraL@uteq.edu", role: "Usuario" },
+                { id: 6, name: "Ana Sofía Martínez Olvera", email: "anaMartinezO@uteq.edu", role: "Usuario" }
             ]);
         }, 500);
     });
