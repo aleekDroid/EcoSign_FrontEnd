@@ -1,11 +1,15 @@
 import { Box, Flex, Heading, Image, Table, Thead, Tr, Th, TableContainer, Td, Tbody, Text, Button, Icon, Menu, MenuButton, MenuList, MenuItem, navigate } from "@chakra-ui/react"; 
 import EcoSign from "../../assets/EcoSign.PNG";
-import AdminSidebar from "../../components/layout/AdminSidebar";
-import { useNavigate } from "react-router-dom";
+
+import SignBox from "../../components/forms/SignBox";
 import Header from "../../components/layout/Header";
+import AdminSidebar from "../../components/layout/AdminSidebar";
+
+import { useNavigate } from "react-router-dom";
 import { useFetchDocuments } from "../../hooks/useFetchDocuments";
 import { DocumentTable } from "../../components/documents/DocumentTable";
 import { getRecentDocuments } from "../../utils/recentDocuments";
+
 
 function AdminDashboard() {
 
@@ -18,38 +22,10 @@ function AdminDashboard() {
         navigate('/login', { replace: true });
     }
 
-    const SignBox = () => (
-        <Box
-            w="full"
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            p={2}
-            bg="background"
-            borderColor="accent"
-            borderWidth="2px"
-            borderRadius="lg"
-            fontFamily="body"
-            color="secondary"
-            mb="4">
-            <Text color="secondary" fontWeight="medium">Firmar documento</Text>
-            <Button
-                as="b"
-                size="sm"
-                borderRadius="md"
-                bg="accent"
-                w="20%"
-                color="background"
-                _hover={{ bg: 'primary' }}>
-                Subir archivo
-            </Button>
-        </Box>
-    );
-
     return (
         <Flex minH="100vh" bg="background" w="full">
             <AdminSidebar />
-            <Box flex="1" p={10} maxW="full" marginLeft="250px">
+            <Box w="full" p={10} maxW="full" pl="300px">
                 <Box display="flex" justifyContent="flex-end" mb={4}>
                     <Header />
                 </Box>
