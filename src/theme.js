@@ -1,21 +1,36 @@
 import { Box, extendTheme } from "@chakra-ui/react";
 
 const theme = extendTheme({
-  colors: {
-    // Verde oscuro.
-    primary: '#34553F',
-    // Azul grisáceo.
-    secondary: '#648096',
-    // Verde grisáceo-sade.
-    accent: '#909C86',
-    // Neutro claro.
-    background: '#ECEFF1',
-    // Texto oscuro.
-    text: '#1C3E5A',
-  },
-  fonts: {
-    heading: 'Cormorant Garamond, serif',
-    body: 'Source Sans 3, sans-serif',
+  semanticTokens: {
+    colors: {
+      // Verde oscuro.
+      primary: '#34553F',
+      // Azul grisáceo.
+      secondary: '#648096',
+      // Verde grisáceo-sade.
+      accent: '#909C86',
+      // Neutro claro.
+      // background: '#ECEFF1',
+      // Texto oscuro.
+      // text: '#1C3E5A',
+      'bg-default' : {
+        default: '#ECEFF1',
+        _dark: '#1C3E5A',
+      },
+      'text-default' : {
+        default: '#1C3E5A',
+        _dark: '#ECEFF1',
+      }
+
+    },
+    fonts: {
+      heading: 'Cormorant Garamond, serif',
+      body: 'Source Sans 3, sans-serif',
+    },
+    config : {
+      initialColorMode: 'system',
+      useSystemColorMode: true, 
+    }
   },
 
   components: {
@@ -48,7 +63,7 @@ const theme = extendTheme({
                 transition: 'all 0.2s ease-in-out',
               },
               td: {
-                
+
                 borderColor: 'accent',
                 py: 3,
                 '&:first-of-type': {
