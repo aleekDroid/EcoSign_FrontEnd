@@ -3,7 +3,7 @@ import { Search } from "lucide-react";
 import React from 'react';
 
 // Se utiliza React.forwardRef para poder usar 'ref' si es necesario en el futuro.
-const EcoSignInput = React.forwardRef((props, ref) => {
+const SearchInput = React.forwardRef((props, ref) => {
     const defaultStyles = {
         size: "md",
 
@@ -33,5 +33,5 @@ const EcoSignInput = React.forwardRef((props, ref) => {
     );
 });
 
-EcoSignInput.displayName = 'EcoSignInput';
-export default EcoSignInput;
+SearchInput.displayName = 'SearchInput';
+export default SearchInput;
