@@ -29,6 +29,10 @@ const theme = extendTheme({
         default: '#001221',
         _dark: '#ECEFF1',
       },
+      'user-default' : {
+        default: '#1C3E5A',
+        _dark: '#1c2a36ff',
+      },
 
       // Extra.
       'red-default' : {
