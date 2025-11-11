@@ -1,83 +1,44 @@
-import { Box, Flex, Heading, Image, Table, Thead, Center, VStack, Tr, Th, TableContainer, Td, Tbody, Text, Button, InputGroup, Input, InputRightElement, Icon, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react"; 
+import { Box, Flex, Heading, Image, Table, Thead, Center, VStack, Tr, Th, TableContainer, Td, Tbody, Text, Button, InputGroup, Input, InputRightElement, Icon, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import EcoSign from "../../assets/EcoSign.PNG";
+
+import UserSignBox from "../../components/forms/user/UserSignBox";
+import Header from "../../components/layout/Header";
 import UserSidebar from "../../components/layout/Usersidebar";
+
 import { useNavigate } from "react-router-dom";
-import { User, ChevronDown } from "lucide-react";
-import EcoSignInput from "../../components/forms/EcoSignInput";
+import { useFetchDocuments } from "../../hooks/useFetchDocuments";
+import { UserDocumentTable } from "../../components/documents/user/UserDocumentTable";
+import { getRecentDocuments } from "../../utils/recentDocuments";
 
 function AdminDashboard() {
 
     const navigate = useNavigate();
+    const { documents, isLoading, error } = useFetchDocuments();
+    const recentDocuments = getRecentDocuments(documents);
 
     const logOut = (e) => {
         if (e & e.preventDefault) e.preventDefault();
         navigate('/login', { replace: true });
     }
 
-    const Header = () => (
-        <Menu
-            bg="bg-default">
-            <MenuButton 
-            as={Button} 
-            leftIcon={<Icon as={User} boxSize={5} />} 
-            rightIcon={<Icon as={ChevronDown} boxSize={5} />}
-                bg="bg-default">
-                Nombre del usuario
-            </MenuButton>
-            <MenuList>
-                <MenuItem
-                    onClick={logOut}
-                    color="#BD0606">Cerrar sesión</MenuItem>
-            </MenuList>
-        </Menu>
-    );
-
-    const SignBox = () => (
-        <Box
-            w="full"
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            p={2}
-            bg="bg-default"
-            borderColor="secondary"
-            borderWidth="2px"
-            borderRadius="lg"
-            fontFamily="body"
-            color="secondary"
-            mb="4">
-            <Text color="secondary" fontWeight="medium">Firmar documento</Text>
-            <Button
-                as="b"
-                size="sm"
-                borderRadius="md"
-                bg="secondary"
-                w="20%"
-                color="bg-default"
-                _hover={{ bg: 'text' }}>
-                Subir archivo
-            </Button>
-        </Box>
-    );
-
-    const DocumentsTable = () => (
-        <TableContainer W="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="secondary" bg="bg-default" color="secondary">
-            <Table size="md"> {/*variant="simple" */}
-                <Thead>
-                    <Tr>
-                        <Th color="secondary" fontWeight="bold" fontFamily="body">Nombre</Th>
-                        <Th color="secondary" fontWeight="bold" fontFamily="body">Fecha</Th>
-                        <Th color="secondary" fontWeight="bold" fontFamily="body">Tipo</Th>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    <Tr><Td color="secondary">Documento de ejemplo 1</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Contrato</Td></Tr>
-                    <Tr><Td color="secondary">Documento de ejemplo 2</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Oficio</Td></Tr>
-                    <Tr><Td color="secondary">Documento de ejemplo 3</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Facturas</Td></Tr>
-                </Tbody>
-            </Table>
-        </TableContainer>
-    )
+    // const DocumentsTable = () => (
+    //     <TableContainer W="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="secondary" bg="bg-default" color="secondary">
+    //         <Table size="md"> {/*variant="simple" */}
+    //             <Thead>
+    //                 <Tr>
+    //                     <Th color="secondary" fontWeight="bold" fontFamily="body">Nombre</Th>
+    //                     <Th color="secondary" fontWeight="bold" fontFamily="body">Fecha</Th>
+    //                     <Th color="secondary" fontWeight="bold" fontFamily="body">Tipo</Th>
+    //                 </Tr>
+    //             </Thead>
+    //             <Tbody>
+    //                 <Tr><Td color="secondary">Documento de ejemplo 1</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Contrato</Td></Tr>
+    //                 <Tr><Td color="secondary">Documento de ejemplo 2</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Oficio</Td></Tr>
+    //                 <Tr><Td color="secondary">Documento de ejemplo 3</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Facturas</Td></Tr>
+    //             </Tbody>
+    //         </Table>
+    //     </TableContainer>
+    // )
 
     return (
         <Flex minH="100vh" bg="bg-default" w="full">
@@ -87,11 +48,11 @@ function AdminDashboard() {
                     <Header />
                 </Box>
                 <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />
-                <SignBox />
-                <Text as="b" fontSize="30px" mt={8} mb={4} color="primary-default" textAlign="left">
+                <UserSignBox />
+                <Text as="b" fontSize="30px" mt={8} mb={4} color="text -default" textAlign="left">
                     Documentos recientes
                 </Text>
-                <DocumentsTable />
+                <UserDocumentTable documents={recentDocuments} isLoading={isLoading} error={error}/>
             </Box>
         </Flex>
     )

@@ -6,9 +6,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const SidebarLink = ({ icon, text, isActive, onClick }) => (
     <Button
         w="full"
-        bg={isActive ? 'secondary' : 'transparent'}
+        bg={isActive ? 'secondary-default' : 'transparent'}
         color={isActive ? 'white' : 'whiteAlpha.900'}
-        _hover={{ bg: 'secondary' }}
+        _hover={{ bg: 'secondary-default' }}
         justifyContent="flex-start"
         borderRadius="lg"
         py={6}

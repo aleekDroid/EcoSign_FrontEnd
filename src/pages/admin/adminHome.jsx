@@ -10,7 +10,6 @@ import { useFetchDocuments } from "../../hooks/useFetchDocuments";
 import { DocumentTable } from "../../components/documents/DocumentTable";
 import { getRecentDocuments } from "../../utils/recentDocuments";
 
-
 function AdminDashboard() {
 
     const { documents, isLoading, error } = useFetchDocuments();
@@ -31,7 +30,7 @@ function AdminDashboard() {
                 </Box>
                 <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />
                 <SignBox />
-                <Text as="b" fontSize="30px" mt={8} mb={4} color="text" textAlign="left">
+                <Text as="b" fontSize="30px" mt={8} mb={4} color="text-default" textAlign="left">
                     Documentos recientes
                 </Text>
                 <DocumentTable documents={recentDocuments} isLoading={isLoading} error={error} />

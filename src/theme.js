@@ -6,7 +6,7 @@ const theme = extendTheme({
       // Verde oscuro.
       // primary: '#34553F',
       // Azul grisáceo.
-      secondary: '#648096',
+      // secondary: '#648096',
       // Verde grisáceo-sade.
       // accent: '#909C86',
       // Neutro claro.
@@ -16,6 +16,10 @@ const theme = extendTheme({
       'primary-default' : {
         default: '#34553F',
         _dark: '#0a2511ff',
+      },
+      'secondary-default' : {
+        default: '#648096',
+        _dark: '#48657a',
       },
       'accent-default' : {
         default: '#909C86',
