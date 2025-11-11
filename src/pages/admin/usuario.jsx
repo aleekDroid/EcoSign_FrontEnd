@@ -25,25 +25,6 @@ function Usuario() {
         navigate('/login', { replace: true });
     }
 
-    const DocumentsTable = () => (
-        <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent-default" bg="bg-default" color="secondary">
-            <Table size="md"> {/*variant="simple" */}
-                <Thead>
-                    <Tr>
-                        <Th color="secondary" fontWeight="bold" fontFamily="body">Nombre</Th>
-                        <Th color="secondary" fontWeight="bold" fontFamily="body">Fecha</Th>
-                        <Th color="secondary" fontWeight="bold" fontFamily="body">Tipo</Th>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    <Tr><Td color="secondary">Documento de ejemplo 1</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Contrato</Td></Tr>
-                    <Tr><Td color="secondary">Documento de ejemplo 2</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Oficio</Td></Tr>
-                    <Tr><Td color="secondary">Documento de ejemplo 3</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Facturas</Td></Tr>
-                </Tbody>
-            </Table>
-        </TableContainer>
-    )
-
     const onClick = () => {
         navigate('/register');
     }
@@ -70,10 +51,9 @@ function Usuario() {
                     >Registrar Usuario</Button>
                     <SearchInput placeholder="Buscar usuario" mb={4} />
                 </Flex>
-                <Text as="b" fontSize="30px" mt={8} mb={4} color="text" textAlign="left">
+                <Text as="b" fontSize="30px" mt={8} mb={4} color="text-default" textAlign="left">
                     Usuarios
                 </Text>
-                {/* <DocumentsTable /> */}
                 <UserTable users={users} isLoading={isLoading} error={error} />
             </Box>
         </Flex>

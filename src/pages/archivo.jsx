@@ -49,7 +49,7 @@ function Archivo() {
                     type="text" 
                     mb={4}
                 />
-                <Text as="b" fontSize="30px" mt={8} mb={4} color="text" textAlign="left">
+                <Text as="b" fontSize="30px" mt={8} mb={4} color="text-default" textAlign="left">
                     Todos los documentos
                 </Text>
                 <DocumentTable documents={documents} isLoading={isLoading} error={error} />

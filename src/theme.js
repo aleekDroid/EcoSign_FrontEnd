@@ -30,7 +30,7 @@ const theme = extendTheme({
         _dark: '#10202eff',
       },
       'text-default' : {
-        default: '#001221',
+        default: '#1C3E5A',
         _dark: '#ECEFF1',
       },
       'user-default' : {

@@ -15,7 +15,7 @@ export function UserTable({ users, isLoading, error }) {
     }
 
     return (
-        <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent-default" bg="bg-default" color="secondary">
+        <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent-default" bg="bg-default" color="text-default">
             <Table size="md">
                 <Thead>
                     <Tr>
@@ -28,9 +28,9 @@ export function UserTable({ users, isLoading, error }) {
                     {/* Iteramos sobre el array de usuarios */}
                     {users.map(user => (
                         <Tr key={user.id}>
-                            <Td color="text">{user.name}</Td>
-                            <Td color="secondary">{user.email}</Td>
-                            <Td color="secondary">{user.role}</Td>
+                            <Td color="secondary-default">{user.name}</Td>
+                            <Td color="secondary-default">{user.email}</Td>
+                            <Td color="secondary-default">{user.role}</Td>
                         </Tr>
                     ))}
                 </Tbody>

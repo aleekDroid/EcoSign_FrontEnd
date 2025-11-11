@@ -14,9 +14,9 @@ const SignBox = React.forwardRef((props, ref) => {
             borderWidth="2px"
             borderRadius="lg"
             fontFamily="body"
-            color="secondary"
+            color="secondary-default"
             mb="4">
-            <Text color="secondary" fontWeight="medium">Firmar documento</Text>
+            <Text color="text-default" fontWeight="medium">Firmar documento</Text>
             <Button
                 as="b"
                 size="sm"

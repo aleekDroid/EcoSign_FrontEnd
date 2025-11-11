@@ -11,11 +11,11 @@ export function DocumentTable({ documents, isLoading, error }) {
     }
     
     if (!documents ||  documents.length === 0) {
-        return <Center py={10}><Text color="secondary">No hay documentos registrados.</Text></Center>;
+        return <Center py={10}><Text color="user-default">No hay documentos registrados.</Text></Center>;
     }
 
     return (
-        <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent-default" bg="bg-default" color="secondary">
+        <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent-default" bg="bg-default" color="text-default">
             <Table size="md">
                 <Thead>
                     <Tr>
@@ -28,10 +28,10 @@ export function DocumentTable({ documents, isLoading, error }) {
                 <Tbody>
                     {documents.map(document => (
                         <Tr key={document.id}>
-                            <Td color="text">{ document.name}</Td>
-                            <Td color="secondary">{ document.date}</Td>
-                            <Td color="secondary">{ document.type}</Td>
-                            <Td color="secondary">{ document.status}</Td>
+                            <Td color="secondary-default">{ document.name}</Td>
+                            <Td color="secondary-default">{ document.date}</Td>
+                            <Td color="secondary-default">{ document.type}</Td>
+                            <Td color="secondary-default">{ document.status}</Td>
                         </Tr>
                     ))}
                 </Tbody>

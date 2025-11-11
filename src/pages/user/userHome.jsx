@@ -21,25 +21,6 @@ function AdminDashboard() {
         navigate('/login', { replace: true });
     }
 
-    // const DocumentsTable = () => (
-    //     <TableContainer W="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="secondary" bg="bg-default" color="secondary">
-    //         <Table size="md"> {/*variant="simple" */}
-    //             <Thead>
-    //                 <Tr>
-    //                     <Th color="secondary" fontWeight="bold" fontFamily="body">Nombre</Th>
-    //                     <Th color="secondary" fontWeight="bold" fontFamily="body">Fecha</Th>
-    //                     <Th color="secondary" fontWeight="bold" fontFamily="body">Tipo</Th>
-    //                 </Tr>
-    //             </Thead>
-    //             <Tbody>
-    //                 <Tr><Td color="secondary">Documento de ejemplo 1</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Contrato</Td></Tr>
-    //                 <Tr><Td color="secondary">Documento de ejemplo 2</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Oficio</Td></Tr>
-    //                 <Tr><Td color="secondary">Documento de ejemplo 3</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Facturas</Td></Tr>
-    //             </Tbody>
-    //         </Table>
-    //     </TableContainer>
-    // )
-
     return (
         <Flex minH="100vh" bg="bg-default" w="full">
             <UserSidebar />
@@ -49,7 +30,7 @@ function AdminDashboard() {
                 </Box>
                 <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />
                 <UserSignBox />
-                <Text as="b" fontSize="30px" mt={8} mb={4} color="text -default" textAlign="left">
+                <Text as="b" fontSize="30px" mt={8} mb={4} color="text-default" textAlign="left">
                     Documentos recientes
                 </Text>
                 <UserDocumentTable documents={recentDocuments} isLoading={isLoading} error={error}/>
