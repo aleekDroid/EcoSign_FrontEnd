@@ -8,10 +8,10 @@ const EcoSignSelect = React.forwardRef((props, ref) => {
         borderWidth: "2px",
         bg: "background",
         color: "secondary",
-        borderColor: "accent",
+        borderColor: "accent-default",
         mb: 4,
         _focus: {
-            boxShadow: '0 0 0 1px #34553F'
+            boxShadow: '0 0 0 1px primary-default',
         }
     };
 

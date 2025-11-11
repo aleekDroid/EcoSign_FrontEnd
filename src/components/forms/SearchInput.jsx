@@ -9,13 +9,13 @@ const EcoSignInput = React.forwardRef((props, ref) => {
 
         borderRadius: "lg",
         borderWidth: "2px",
-        bg: "background",
+        bg: "bg-default",
         color: "secondary",
-        borderColor: "accent",
+        borderColor: "accent-default",
         mb: 4,
         _focus: {
-            borderColor: 'accent',
-            boxShadow: '0 0 0 1px #34553F'
+            borderColor: 'accent-default',
+            boxShadow: '0 0 0 1px primary-default',
         }
     };
 

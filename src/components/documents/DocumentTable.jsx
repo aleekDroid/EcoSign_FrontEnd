@@ -3,7 +3,7 @@ import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Text, Spinner, Center 
 export function DocumentTable({ documents, isLoading, error }) {
 
     if (isLoading) {
-        return <Center py={10}><Spinner size="xl" color="primary" thickness="4px" /></Center>;
+        return <Center py={10}><Spinner size="xl" color="primary-default" thickness="4px" /></Center>;
     }
 
     if (error) {
@@ -15,7 +15,7 @@ export function DocumentTable({ documents, isLoading, error }) {
     }
 
     return (
-        <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent" bg="background" color="secondary">
+        <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent-default" bg="bg-default" color="secondary">
             <Table size="md">
                 <Thead>
                     <Tr>

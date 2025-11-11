@@ -26,7 +26,7 @@ function Usuario() {
     }
 
     const DocumentsTable = () => (
-        <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent" bg="background" color="secondary">
+        <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent-default" bg="bg-default" color="secondary">
             <Table size="md"> {/*variant="simple" */}
                 <Thead>
                     <Tr>
@@ -49,7 +49,7 @@ function Usuario() {
     }
 
     return (
-        <Flex minH="100vh" bg="background" w="full">
+        <Flex minH="100vh" bg="bg-default" w="full">
             <AdminSidebar />
             <Box flex="1" p={10} maxW="full" marginLeft="250px">
                 <Box display="flex" justifyContent="flex-end" mb={4}>
@@ -63,10 +63,10 @@ function Usuario() {
                         onClick={() => handleNavigation('/register')}
                         as="b"
                         borderRadius="md"
-                        bg="accent"
+                        bg="accent-default"
                         w="20%"
-                        color="background"
-                        _hover={{ bg: 'primary' }}
+                        color="bg-default"
+                        _hover={{ bg: 'primary-default' }}
                     >Registrar Usuario</Button>
                     <SearchInput placeholder="Buscar usuario" mb={4} />
                 </Flex>

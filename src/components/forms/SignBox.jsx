@@ -9,8 +9,8 @@ const SignBox = React.forwardRef((props, ref) => {
             justifyContent="space-between"
             alignItems="center"
             p={2}
-            bg="background"
-            borderColor="accent"
+            bg="bg-default"
+            borderColor="accent-default"
             borderWidth="2px"
             borderRadius="lg"
             fontFamily="body"
@@ -21,10 +21,10 @@ const SignBox = React.forwardRef((props, ref) => {
                 as="b"
                 size="sm"
                 borderRadius="md"
-                bg="accent"
+                bg="accent-default"
                 w="20%"
-                color="background"
-                _hover={{ bg: 'primary' }}>
+                color="bg-default"
+                _hover={{ bg: '#818984ff' }}>
                 Subir archivo
             </Button>
         </Box>

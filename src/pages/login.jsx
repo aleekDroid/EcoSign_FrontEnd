@@ -24,11 +24,11 @@ function LoginPage() {
     }
 
     return (
-        <Center minHeight="100vh" bg="background">
+        <Center minHeight="100vh" bg="bg-default">
             <Box
                 textAlign="center"
                 p={8} // P de padding, nota.
-                bg="background"
+                bg="bg-default"
                 maxW="md"
                 w="70%"
                 fontFamily="body">
@@ -60,7 +60,7 @@ function LoginPage() {
                             borderRadius="full"
                             bg="text"
                             w="40%"
-                            color="background"
+                            color="bg-default"
                             _hover={{ bg: 'secondary' }}>
                             Iniciar sesión
                         </Button>

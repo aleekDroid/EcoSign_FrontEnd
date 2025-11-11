@@ -45,7 +45,7 @@ function Header() {
           <MenuButton
             as={Button}
             leftIcon={<Icon as={User} boxSize={5} />}
-            bg="background"
+            bg="bg-default"
           >
             <Flex align="center">
             Nombre de usuario
@@ -64,7 +64,7 @@ function Header() {
             </Flex>
           </MenuButton>
           <MenuList>
-            <MenuItem onClick={logOut} color="#BD0606">
+            <MenuItem onClick={logOut} color="red-default">
               Cerrar sesión
             </MenuItem>
           </MenuList>

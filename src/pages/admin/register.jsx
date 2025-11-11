@@ -21,10 +21,10 @@ function Register() {
 
     const signButton = () => (
         <Button
-            bg="accent"
-            color="background"
+            bg="accent-default"
+            color="bg-default"
             size='xs'
-            _hover={{ bg: 'primary' }}>
+            _hover={{ bg: 'primary-default' }}>
             Firmar
         </Button>
     )
@@ -32,14 +32,14 @@ function Register() {
     const signedButton = () => (
         <Button
             bg="text"
-            color="background"
+            color="bg-default"
             size='xs'>
             Firmado
         </Button>
     )
 
     return (
-        <Flex minH="100vh" bg="background" w="full">
+        <Flex minH="100vh" bg="bg-default" w="full">
             <AdminSidebar />
             <Box flex="1" p={10} maxW="full" marginLeft="250px">
                 <Box display="flex" justifyContent="flex-end" mb={4} marginLeft="250px">
@@ -79,11 +79,11 @@ function Register() {
                 <Button
                     type="submit"
                     w="30%"
-                    bg="accent"
-                    color="background"
+                    bg="accent-default"
+                    color="bg-default"
                     mb={10}
                     mr={10}
-                    _hover={{ bg: 'primary' }}
+                    _hover={{ bg: 'primary-default' }}
                 >
                     Registrar
                 </Button>
