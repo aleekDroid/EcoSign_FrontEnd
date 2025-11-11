@@ -6,9 +6,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const SidebarLink = ({ icon, text, isActive, onClick }) => (
     <Button
         w="full"
-        bg={isActive ? 'accent' : 'transparent'}
+        bg={isActive ? 'accent-default' : 'transparent'}
         color={isActive ? 'white' : 'whiteAlpha.900'}
-        _hover={{ bg: 'accent' }}
+        _hover={{ bg: 'accent-default' }}
         justifyContent="flex-start"
         borderRadius="lg"
         py={6}
@@ -30,7 +30,7 @@ function AdminSidebar() {
     return (
         <Box
             minH="100vh"
-            bg="primary"
+            bg="primary-default"
             p={4}
             w="250px"
             position="fixed"

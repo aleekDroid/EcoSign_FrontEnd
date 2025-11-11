@@ -16,12 +16,12 @@ function AdminDashboard() {
 
     const Header = () => (
         <Menu
-            bg="background">
+            bg="bg-default">
             <MenuButton 
             as={Button} 
             leftIcon={<Icon as={User} boxSize={5} />} 
             rightIcon={<Icon as={ChevronDown} boxSize={5} />}
-                bg="background">
+                bg="bg-default">
                 Nombre del usuario
             </MenuButton>
             <MenuList>
@@ -39,7 +39,7 @@ function AdminDashboard() {
             justifyContent="space-between"
             alignItems="center"
             p={2}
-            bg="background"
+            bg="bg-default"
             borderColor="secondary"
             borderWidth="2px"
             borderRadius="lg"
@@ -53,7 +53,7 @@ function AdminDashboard() {
                 borderRadius="md"
                 bg="secondary"
                 w="20%"
-                color="background"
+                color="bg-default"
                 _hover={{ bg: 'text' }}>
                 Subir archivo
             </Button>
@@ -61,7 +61,7 @@ function AdminDashboard() {
     );
 
     const DocumentsTable = () => (
-        <TableContainer W="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="secondary" bg="background" color="secondary">
+        <TableContainer W="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="secondary" bg="bg-default" color="secondary">
             <Table size="md"> {/*variant="simple" */}
                 <Thead>
                     <Tr>
@@ -80,7 +80,7 @@ function AdminDashboard() {
     )
 
     return (
-        <Flex minH="100vh" bg="background" W="full">
+        <Flex minH="100vh" bg="bg-default" w="full">
             <UserSidebar />
             <Box flex="1" p={10} maxW="full" marginLeft="250px">
                 <Box display="flex" justifyContent="flex-end" mb={4}>
@@ -88,7 +88,7 @@ function AdminDashboard() {
                 </Box>
                 <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />
                 <SignBox />
-                <Text as="b" fontSize="30px" mt={8} mb={4} color="primary" textAlign="left">
+                <Text as="b" fontSize="30px" mt={8} mb={4} color="primary-default" textAlign="left">
                     Documentos recientes
                 </Text>
                 <DocumentsTable />

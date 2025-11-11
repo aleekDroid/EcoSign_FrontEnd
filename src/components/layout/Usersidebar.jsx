@@ -1,17 +1,19 @@
 import { Box, VStack, Button, Icon, Text } from '@chakra-ui/react';
-import { Home, Users, Folder, Edit } from 'lucide-react'; 
+import { Home, Users, Folder, Edit } from 'lucide-react';
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-const SidebarLink = ({ icon, text, isActive }) => (
+const SidebarLink = ({ icon, text, isActive, onClick }) => (
     <Button
         w="full"
-        bg={isActive ? 'secondary' : 'transparent'} 
-        color={isActive ? 'white' : 'whiteAlpha.900'} 
-        _hover={{ bg: 'secondary' }} 
-        justifyContent="flex-start" 
+        bg={isActive ? 'secondary' : 'transparent'}
+        color={isActive ? 'white' : 'whiteAlpha.900'}
+        _hover={{ bg: 'secondary' }}
+        justifyContent="flex-start"
         borderRadius="lg"
         py={6}
         px={4}
+        onClick={onClick}
     >
         <Icon as={icon} mr={3} boxSize={5} />
         <Text fontSize="md" fontWeight="medium">{text}</Text>
@@ -19,23 +21,29 @@ const SidebarLink = ({ icon, text, isActive }) => (
 );
 
 function UserSidebar() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const handleNavigation = (path) => {
+        navigate(path);
+    }
+
     return (
         <Box
             minH="100vh"
-            bg= "text"
+            bg="text"
             p={4}
             w="250px"
-            position="sticky"
+            position="fixed"
             top="0"
             zIndex="banner"
             display="flex"
             flexDirection="column"
             justifyContent="center"
         >
-            
+
             <VStack spacing={4} justifyItems="center">
-                <SidebarLink icon={Home} text="Inicio"/>
-                <SidebarLink icon={Folder} text= "Archivos" />
+                <SidebarLink icon={Home} isActive={location.pathname === '/userHome'} onClick={() => handleNavigation('/userHome')} text="Inicio" />
+                <SidebarLink icon={Folder} isActive={location.pathname === '/archivo'} onClick={() => handleNavigation('/archivo')} text="Archivos" />
                 <SidebarLink icon={Edit} text="Firmar" />
             </VStack>
         </Box>

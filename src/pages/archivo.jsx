@@ -4,9 +4,12 @@ import AdminSidebar from '../components/layout/AdminSidebar';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import SearchInput from '../components/forms/SearchInput';
+import { DocumentTable } from '../components/documents/DocumentTable';
+import { useFetchDocuments } from '../hooks/useFetchDocuments';
 
 function Archivo() {
 
+    const { documents, isLoading, error } = useFetchDocuments();
     const navigate = useNavigate();
 
     const logOut = (e) => {
@@ -16,10 +19,10 @@ function Archivo() {
 
     const signButton = () => (
         <Button 
-        bg="accent" 
-        color="background" 
+        bg="accent-default" 
+        color="bg-default" 
         size='xs'
-        _hover={{ bg: 'primary' }}>
+        _hover={{ bg: 'primary-default' }}>
             Firmar
         </Button>
     )
@@ -27,14 +30,14 @@ function Archivo() {
     const signedButton = () => (
         <Button 
         bg="text" 
-        color="background"
+        color="bg-default"
         size='xs'>
             Firmado
         </Button>
     )
 
     const DocumentsTable = () => (
-        <TableContainer W="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent" bg="background" color="secondary">
+        <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent-default" bg="bg-default" color="secondary">
             <Table size="md"> {/*variant="simple" */}
                 <Thead>
                     <Tr>
@@ -45,17 +48,17 @@ function Archivo() {
                     </Tr>
                 </Thead>
                 <Tbody>
-                    <Tr><Td color="secondary">Documento de ejemplo 1</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Contrato</Td><Td><signButton/></Td></Tr>
-                    <Tr><Td color="secondary">Documento de ejemplo 2</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Oficio</Td><Td><signedButton/></Td></Tr>
-                    <Tr><Td color="secondary">Documento de ejemplo 3</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Facturas</Td><Td><signButton/></Td></Tr>
-                    <Tr><Td color="secondary">Documento de ejemplo 4</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Contrato</Td><Td><signedButton/></Td></Tr>
+                    <Tr><Td color="secondary">Documento de ejemplo 1</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Contrato</Td><Td color="secondary">Firmado</Td><Td><signButton/></Td></Tr>
+                    <Tr><Td color="secondary">Documento de ejemplo 2</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Oficio</Td><Td color="accent-default">Firmar</Td><Td><signedButton/></Td></Tr>
+                    <Tr><Td color="secondary">Documento de ejemplo 3</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Facturas</Td><Td color="accent-default">Firmar</Td><Td><signButton/></Td></Tr>
+                    <Tr><Td color="secondary">Documento de ejemplo 4</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Contrato</Td><Td color="secondary">Firmado</Td><Td><signedButton/></Td></Tr>
                 </Tbody>
             </Table>
         </TableContainer>
     )
 
     return (
-        <Flex minH="100vh" bg="background" W="full">
+        <Flex minH="100vh" bg="bg-default" w="full">
             <AdminSidebar />
             <Box flex="1" p={10} maxW="full" marginLeft="250px">
                 <Box display="flex" justifyContent="flex-end" mb={4}>
@@ -70,7 +73,7 @@ function Archivo() {
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text" textAlign="left">
                     Todos los documentos
                 </Text>
-                <DocumentsTable />
+                <DocumentTable documents={documents} isLoading={isLoading} error={error} />
             </Box>
         </Flex>
     )

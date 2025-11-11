@@ -1,12 +1,20 @@
 import { Box, Flex, Heading, Image, Table, Thead, Tr, Th, TableContainer, Td, Tbody, Text, Button, Icon, Menu, MenuButton, MenuList, MenuItem, navigate } from "@chakra-ui/react"; 
 import EcoSign from "../../assets/EcoSign.PNG";
+
+import SignBox from "../../components/forms/SignBox";
+import Header from "../../components/layout/Header";
 import AdminSidebar from "../../components/layout/AdminSidebar";
-import { User, ChevronDown } from "lucide-react";
+
 import { useNavigate } from "react-router-dom";
-import EcoSignInput from "../../components/forms/EcoSignInput";
+import { useFetchDocuments } from "../../hooks/useFetchDocuments";
+import { DocumentTable } from "../../components/documents/DocumentTable";
+import { getRecentDocuments } from "../../utils/recentDocuments";
+
 
 function AdminDashboard() {
 
+    const { documents, isLoading, error } = useFetchDocuments();
+    const recentDocuments = getRecentDocuments(documents);
     const navigate = useNavigate();
 
     const logOut = (e) => {
@@ -14,75 +22,10 @@ function AdminDashboard() {
         navigate('/login', { replace: true });
     }
 
-    const Header = () => (
-        <Menu
-            bg="background">
-            <MenuButton 
-            as={Button} 
-            leftIcon={<Icon as={User} boxSize={5} />} 
-            rightIcon={<Icon as={ChevronDown} boxSize={5} />}
-                bg="background">
-                Nombre del administrador
-            </MenuButton>
-            <MenuList>
-                <MenuItem
-                    onClick={logOut}
-                    color="#BD0606">Cerrar sesión</MenuItem>
-            </MenuList>
-        </Menu>
-    );
-
-    const SignBox = () => (
-        <Box
-            w="full"
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            p={2}
-            bg="background"
-            borderColor="accent"
-            borderWidth="2px"
-            borderRadius="lg"
-            fontFamily="body"
-            color="secondary"
-            mb="4">
-            <Text color="secondary" fontWeight="medium">Firmar documento</Text>
-            <Button
-                as="b"
-                size="sm"
-                borderRadius="md"
-                bg="accent"
-                w="20%"
-                color="background"
-                _hover={{ bg: 'primary' }}>
-                Subir archivo
-            </Button>
-        </Box>
-    );
-
-    const DocumentsTable = () => (
-        <TableContainer W="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent" bg="background" color="secondary">
-            <Table size="md"> {/*variant="simple" */}
-                <Thead>
-                    <Tr>
-                        <Th color="secondary" fontWeight="bold" fontFamily="body">Nombre</Th>
-                        <Th color="secondary" fontWeight="bold" fontFamily="body">Fecha</Th>
-                        <Th color="secondary" fontWeight="bold" fontFamily="body">Tipo</Th>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    <Tr><Td color="secondary">Documento de ejemplo 1</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Contrato</Td></Tr>
-                    <Tr><Td color="secondary">Documento de ejemplo 2</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Oficio</Td></Tr>
-                    <Tr><Td color="secondary">Documento de ejemplo 3</Td><Td color="secondary">01/10/2025</Td><Td color="secondary">Facturas</Td></Tr>
-                </Tbody>
-            </Table>
-        </TableContainer>
-    )
-
     return (
-        <Flex minH="100vh" bg="background" W="full">
+        <Flex minH="100vh" bg="bg-default" w="full">
             <AdminSidebar />
-            <Box flex="1" p={10} maxW="full" marginLeft="250px">
+            <Box w="full" p={10} maxW="full" pl="300px">
                 <Box display="flex" justifyContent="flex-end" mb={4}>
                     <Header />
                 </Box>
@@ -91,7 +34,7 @@ function AdminDashboard() {
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text" textAlign="left">
                     Documentos recientes
                 </Text>
-                <DocumentsTable />
+                <DocumentTable documents={recentDocuments} isLoading={isLoading} error={error} />
             </Box>
         </Flex>
     )
