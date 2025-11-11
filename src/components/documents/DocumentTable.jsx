@@ -3,7 +3,7 @@ import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Text, Spinner, Center 
 export function DocumentTable({ documents, isLoading, error }) {
 
     if (isLoading) {
-        return <Center py={10}><Spinner size="xl" color="primary-default" thickness="4px" /></Center>;
+        return <Center py={10}><Spinner size="xl" color="accent-default" thickness="4px" /></Center>;
     }
 
     if (error) {
