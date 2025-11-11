@@ -3,8 +3,8 @@ import EcoSign from "../../assets/EcoSign.PNG";
 import UserSidebar from '../../components/layout/Usersidebar';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/layout/Header';
-import SearchInput from '../../components/forms/SearchInput';
-import { DocumentTable } from '../../components/documents/DocumentTable';
+import UserSearchInput from '../../components/forms/user/UserSearchInput';
+import { UserDocumentTable } from '../../components/documents/user/UserDocumentTable';
 import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 
 function ArchivoUser() {
@@ -19,10 +19,10 @@ function ArchivoUser() {
 
     const signButton = () => (
         <Button 
-        bg="accent-default" 
+        bg="secondary-default" 
         color="bg-default" 
         size='xs'
-        _hover={{ bg: 'primary-default' }}>
+        _hover={{ bg: 'user-default' }}>
             Firmar
         </Button>
     )
@@ -65,7 +65,7 @@ function ArchivoUser() {
                     <Header />
                 </Box>
                 <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />
-                <SearchInput 
+                <UserSearchInput 
                     placeholder="Buscar documento" 
                     type="text" 
                     mb={4}
@@ -73,7 +73,7 @@ function ArchivoUser() {
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text" textAlign="left">
                     Todos los documentos
                 </Text>
-                <DocumentTable documents={documents} isLoading={isLoading} error={error} />
+                <UserDocumentTable documents={documents} isLoading={isLoading} error={error} />
             </Box>
         </Flex>
     )
