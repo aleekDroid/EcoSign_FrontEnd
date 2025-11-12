@@ -58,10 +58,10 @@ function LoginPage() {
                             type="submit"
                             size="sm"
                             borderRadius="full"
-                            bg="text"
+                            bg="text-default"
                             w="40%"
                             color="bg-default"
-                            _hover={{ bg: 'secondary' }}>
+                            _hover={{ bg: 'secondary-default' }}>
                             Iniciar sesión
                         </Button>
                     </VStack>
