@@ -6,8 +6,8 @@ const EcoSignSelect = React.forwardRef((props, ref) => {
         size: "md",
         borderRadius: "lg",
         borderWidth: "2px",
-        bg: "background",
-        color: "secondary",
+        bg: "bg-default",
+        color: "secondary-default",
         borderColor: "accent-default",
         mb: 4,
         _focus: {

@@ -10,7 +10,7 @@ const SearchInput = React.forwardRef((props, ref) => {
         borderRadius: "lg",
         borderWidth: "2px",
         bg: "bg-default",
-        color: "secondary",
+        color: "secondary-default",
         borderColor: "accent-default",
         mb: 4,
         _focus: {
@@ -27,7 +27,7 @@ const SearchInput = React.forwardRef((props, ref) => {
             ref={ref}     
         />
         <InputRightElement pointerEvents="none">
-            <Icon as={Search} color="secondary" boxSize={5} /> 
+            <Icon as={Search} color="secondary-default" boxSize={5} /> 
         </InputRightElement>
     </InputGroup>
     );

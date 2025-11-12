@@ -25,7 +25,9 @@ function Header() {
             aria-label="Cambiar tema de la interfaz."
             onClick={toggleColorMode}
             mr={4}
-            bg="transparent"          >
+            bg="transparent"
+            _hover={{ bg: 'transparent', color: 'accent-default' }}
+            >
             <AnimatePresence mode="wait">
               <motion.div
                 key={colorMode === "light" ? 'moon' : 'sun'}
@@ -46,6 +48,7 @@ function Header() {
             as={Button}
             leftIcon={<Icon as={User} boxSize={5} />}
             bg="bg-default"
+            _hover ={{ bg: 'transparent', color: 'accent-default' }}
           >
             <Flex align="center">
             Nombre de usuario

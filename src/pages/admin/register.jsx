@@ -46,7 +46,7 @@ function Register() {
                     <Header />
                 </Box>
                 <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />
-                <Text as="b" fontSize="30px" mt={8} mb={5} color="text" textAlign="left">
+                <Text as="b" fontSize="30px" mt={8} mb={5} color="text-default" textAlign="left">
                     Registro de usuarios
                 </Text>
                 <EcoSignInput
