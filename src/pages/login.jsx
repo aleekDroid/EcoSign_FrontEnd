@@ -13,9 +13,9 @@ function LoginPage() {
     const handleLogin = (e) => {
         e.preventDefault();
 
-        if (email === 'admin@uteq.edu' && password === 'admin123') {
+        if (email === 'admin@uteq.edu' && password === 'Admin$123') {
             navigate('/adminHome');
-        } else if (email === 'user@uteq.edu' && password === 'user123') {
+        } else if (email === 'user@uteq.edu' && password === 'User$123') {
             navigate('/userHome');
         } else {
             alert('Correo o contraseña incorrecta. Por favor, inténtalo de nuevo.');
