@@ -41,7 +41,7 @@ export function UserTable({ users, isLoading, error }) {
 
     return (
         <>
-            <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent-default" bg="bg-default" color="text-default">
+            <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent-default" bg="bg-default" color="secondary-default">
                 <Table size="md">
                     <Thead>
                         <Tr>
@@ -54,16 +54,20 @@ export function UserTable({ users, isLoading, error }) {
                     <Tbody>
                         {users.map(user => (
                             <Tr key={user.id}>
-                                <Td color="secondary-default">{user.name}</Td>
-                                <Td color="secondary-default">{user.email}</Td>
-                                <Td color="secondary-default">
+                                <Td color="text-default">
+                                    {user.nombres}{' '}{user.apellidoPaterno} {' '}{user.apellidoMaterno}
+                                </Td>
+                                <Td color="text-default">
+                                    {user.correo}
+                                </Td>
+                                <Td color="text-default">
                                     <Tooltip label="Cambiar rol del usuario" placement="top">
                                     <Button
                                         onClick={() => handleRoleClick(user.id)}
                                         color="secondary-default"
                                         bg="transparent"
                                         _hover={{ bg: 'transparent', color: 'accent-default' }}>
-                                    {user.role}
+                                    {user.rol}
                                     </Button>
                                     </Tooltip>
                                 </Td>
@@ -71,6 +75,7 @@ export function UserTable({ users, isLoading, error }) {
                                     <Button
                                         onClick={() => handleDeleteClick(user.id)}
                                         bg="transparent"
+                                        color="secondary-default"
                                         _hover={{ bg: 'transparent' }}
                                     >
                                         <Tooltip label="Eliminar usuario" placement="top">

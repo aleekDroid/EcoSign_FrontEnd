@@ -27,7 +27,7 @@ export function useRegisterForm() {
         const { correo, password, confirmPassword, telefono, rol } = formData;
 
         if (!correo.endsWith('@uteq.edu.mx') && !correo.endsWith('@uteq.edu')) {
-            showToast("Error", "El correo debe ser institucional (@uteq.edu.mx)", "error");
+            showToast("Error", "El correo debe ser institucional (@uteq.edu)", "error");
             return false;
         }
 

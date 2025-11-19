@@ -128,8 +128,8 @@ function Register() {
                         onChange={handleChange}
                         placeholder="Selecciona un rol de usuario"
                     >
-                        <option value="admin">Administrador</option>
-                        <option value="user">Usuario</option>
+                        <option value="administrador">Administrador</option>
+                        <option value="usuario">Usuario</option>
                     </EcoSignSelect>
                     <Button
                         type="submit"
