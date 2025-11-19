@@ -64,11 +64,9 @@ function Register() {
                 />
                 <EcoSignInput
                     placeholder="Contraseña"
-                    type="password"
                 />
                 <EcoSignInput
                     placeholder="Confirmar Contraseña"
-                    type="password"
                 />
                 <EcoSignInput
                     placeholder="Número de teléfono"
