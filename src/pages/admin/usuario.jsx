@@ -58,8 +58,8 @@ function Usuario() {
                         _hover={{ bg: 'primary-default' }}
                     >
                         Registrar 
-                        <Box as="span" display={{ base: 'none', md: 'inline' }}>
-                            &nbsp; Usuario
+                        <Box as="span" display={{ base: 'none', md: 'inline' }} ml={1}>
+                            usuario
                         </Box>
                     </Button>
                     <SearchInput 

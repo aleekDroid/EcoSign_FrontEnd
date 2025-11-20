@@ -1,4 +1,5 @@
 import { Box, Flex, Heading, Image, Table, Thead, Tr, Th, TableContainer, Td, Tbody, Text, Button, Icon, Menu, MenuButton, MenuList, MenuItem, navigate } from "@chakra-ui/react"; 
+import { useColorMode } from "@chakra-ui/react";
 import EcoSign from "../../assets/EcoSign.PNG";
 
 import SignBox from "../../components/forms/SignBox";
@@ -15,6 +16,8 @@ function AdminDashboard() {
     const { documents, isLoading, error } = useFetchDocuments();
     const recentDocuments = getRecentDocuments(documents);
     const navigate = useNavigate();
+
+    const { colorMode } = useColorMode();
 
     const logOut = (e) => {
         if (e & e.preventDefault) e.preventDefault();
@@ -34,7 +37,13 @@ function AdminDashboard() {
                 <Box display="flex" justifyContent="flex-end" mb={4}>
                     <Header />
                 </Box>
-                <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />
+                <Image 
+                    src={EcoSign} 
+                    alt="EcoSign Logo" 
+                    w="40%" 
+                    mb={4}
+                    // filter={colorMode === 'dark' ? 'brightness(0) invert(1)' : 'none'} 
+                />
                 <SignBox />
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text-default" textAlign="left">
                     Documentos recientes

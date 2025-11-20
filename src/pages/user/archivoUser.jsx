@@ -1,5 +1,7 @@
 import { Text, Box, Image, Flex, Table, Thead, Tr, Th, TableContainer, Td, Tbody, Button } from '@chakra-ui/react';
 import EcoSign from "../../assets/EcoSign.PNG";
+import { useColorMode } from '@chakra-ui/react';
+
 import UserSidebar from '../../components/layout/Usersidebar';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/layout/Header';
@@ -11,6 +13,8 @@ function ArchivoUser() {
 
     const { documents, isLoading, error } = useFetchDocuments();
     const navigate = useNavigate();
+
+    const { colorMode } = useColorMode();
 
     return (
         <Flex minH="100vh" bg="bg-default" w="full">
@@ -24,7 +28,13 @@ function ArchivoUser() {
                 <Box display="flex" justifyContent="flex-end" mb={4}>
                     <Header />
                 </Box>
-                <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />
+                <Image 
+                    src={EcoSign} 
+                    alt="EcoSign Logo" 
+                    w="40%" 
+                    mb={4} 
+                    filter={colorMode === 'dark' ? 'brightness(0) invert(1)' : 'none'}
+                />
                 <UserSearchInput 
                     placeholder="Buscar documento" 
                     type="text" 
