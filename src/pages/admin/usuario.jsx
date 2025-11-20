@@ -8,11 +8,13 @@ import Header from "../../components/layout/Header";
 import SearchInput from "../../components/forms/SearchInput";
 import AdminSidebar from "../../components/layout/AdminSidebar";
 import { useFetchUsers } from "../../hooks/useFetchUsers";
+import { useSearchFilterUsers } from "../../hooks/useSearchFilterUsers";
 import { UserTable } from "../../components/users/UserTable";
 
 function Usuario() {
 
     const { users, isLoading, error } = useFetchUsers();
+    const { filteredUsers, searchTerm, setSearchTerm } = useSearchFilterUsers(users);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -49,12 +51,17 @@ function Usuario() {
                         color="bg-default"
                         _hover={{ bg: 'primary-default' }}
                     >Registrar Usuario</Button>
-                    <SearchInput placeholder="Buscar usuario" mb={4} />
+                    <SearchInput 
+                    placeholder="Buscar usuario" 
+                    mb={4} 
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    />
                 </Flex>
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text-default" textAlign="left">
                     Usuarios
                 </Text>
-                <UserTable users={users} isLoading={isLoading} error={error} />
+                <UserTable users={filteredUsers} isLoading={isLoading} error={error} />
             </Box>
         </Flex>
     )

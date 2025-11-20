@@ -22,7 +22,7 @@ function AdminDashboard() {
     }
 
     return (
-        <Flex minH="100vh" bg="bg-default" w="full">
+        <Flex bg="bg-default" w="full">
             <AdminSidebar />
             <Box w="full" p={10} maxW="full" pl="300px">
                 <Box display="flex" justifyContent="flex-end" mb={4}>
