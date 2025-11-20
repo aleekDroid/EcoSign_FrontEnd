@@ -30,8 +30,13 @@ function Register() {
     return (
         <Flex minH="100vh" bg="bg-default" w="full">
             <AdminSidebar />
-            <Box flex="1" p={10} maxW="full" marginLeft="250px">
-                <Box display="flex" justifyContent="flex-end" mb={4} marginLeft="250px">
+            <Box    
+                w="full" 
+                p={10} 
+                maxW="full" 
+                pl = {{ base: '90px', md: '290px' }}
+                >
+                <Box display="flex" justifyContent="flex-end" mb={4}>
                     <Header />
                 </Box>
                 <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />

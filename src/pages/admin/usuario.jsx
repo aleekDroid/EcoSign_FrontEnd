@@ -34,7 +34,12 @@ function Usuario() {
     return (
         <Flex minH="100vh" bg="bg-default" w="full">
             <AdminSidebar />
-            <Box flex="1" p={10} maxW="full" marginLeft="250px">
+            <Box 
+                w="full" 
+                p={10} 
+                maxW="full" 
+                pl = {{ base: '90px', md: '290px' }}
+            >
                 <Box display="flex" justifyContent="flex-end" mb={4}>
                     <Header />
                 </Box>
@@ -47,10 +52,16 @@ function Usuario() {
                         as="b"
                         borderRadius="md"
                         bg="accent-default"
-                        w="20%"
+                        w = {{ base: 'auto', md: '20%' }}
+                        p = {4}
                         color="bg-default"
                         _hover={{ bg: 'primary-default' }}
-                    >Registrar Usuario</Button>
+                    >
+                        Registrar 
+                        <Box as="span" display={{ base: 'none', md: 'inline' }}>
+                            &nbsp; Usuario
+                        </Box>
+                    </Button>
                     <SearchInput 
                     placeholder="Buscar usuario" 
                     mb={4} 

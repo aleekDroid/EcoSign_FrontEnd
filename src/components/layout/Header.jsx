@@ -20,7 +20,7 @@ function Header() {
   };
 
   return (
-    <Flex w="full" align="center" justify="flex-end">
+    <Flex w="full" align="center" justify="flex-end" h="full" bg="bg-default">
       <IconButton
             aria-label="Cambiar tema de la interfaz."
             onClick={toggleColorMode}

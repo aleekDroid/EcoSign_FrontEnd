@@ -12,34 +12,15 @@ function ArchivoUser() {
     const { documents, isLoading, error } = useFetchDocuments();
     const navigate = useNavigate();
 
-    const logOut = (e) => {
-        if (e & e.preventDefault) e.preventDefault();
-        navigate('/login', { replace: true });
-    }
-
-    const signButton = () => (
-        <Button 
-        bg="secondary-default" 
-        color="bg-default" 
-        size='xs'
-        _hover={{ bg: 'user-default' }}>
-            Firmar
-        </Button>
-    )
-
-    const signedButton = () => (
-        <Button 
-        bg="text" 
-        color="bg-default"
-        size='xs'>
-            Firmado
-        </Button>
-    )
-
     return (
         <Flex minH="100vh" bg="bg-default" w="full">
             <UserSidebar />
-            <Box flex="1" p={10} maxW="full" marginLeft="250px">
+            <Box 
+                w="full" 
+                p={10} 
+                maxW="full" 
+                pl = {{ base: '90px', md: '290px' }}
+            >
                 <Box display="flex" justifyContent="flex-end" mb={4}>
                     <Header />
                 </Box>
