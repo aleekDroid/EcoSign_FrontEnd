@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from '../firebase/config'; 
+import { db } from '../firebase/config';
 import { useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 export function useLoginForm() {
+
     const toast = useToast();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
@@ -55,14 +56,17 @@ export function useLoginForm() {
             }
 
             const userDoc = querySnapshot.docs[0].data();
-            
+
             if (userDoc.password !== formData.password) {
-                 showToast("Error", "Contraseña incorrecta.", "error");
-                 return;
+                showToast("Error", "Contraseña incorrecta.", "error");
+                return;
             }
 
+            const nombreCompleto = `${userDoc.nombres} ${userDoc.apellidoPaterno}`;
+            localStorage.setItem('ecoSign_userName', nombreCompleto);
+
             showToast("Bienvenido", `Iniciando sesión como ${userDoc.rol}.`, "success");
-            
+
             if (userDoc.rol === 'administrador') {
                 navigate('/adminHome');
             } else {
