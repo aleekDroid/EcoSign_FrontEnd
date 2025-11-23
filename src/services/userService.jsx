@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://api.example.com/users';
+const API_BASE_URL = 'https://localhost:8080/api/users';
 
 export async function getAllUsers() {
 
