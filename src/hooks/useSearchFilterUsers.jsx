@@ -3,8 +3,7 @@ import { useState, useMemo } from 'react';
 export function useSearchFilterUsers(users) {
     const [searchTerm, setSearchTerm] = useState('');
 
-    // useMemo optimiza el rendimiento: solo recalcula la lista filtrada
-    // cuando 'users' o 'searchTerm' cambian.
+    // useMemo solo recalcula la lista filtrada cuando 'users' o 'searchTerm' cambian.
     const filteredUsers = useMemo(() => {
         if (!searchTerm) {
             return users;

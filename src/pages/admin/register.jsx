@@ -21,7 +21,7 @@ const BACKEND_PUBLIC_KEY = 'MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEvK/cRv4McpZnjINlh6oZ
 function Register() {
     const navigate = useNavigate();
 
-// const { formData, handleChange, handleSubmit, isLoading } = useRegisterForm();
+    // const { formData, handleChange, handleSubmit, isLoading } = useRegisterForm();
     // --- 1. ESTADOS DEL FORMULARIO (Coinciden con UserInputDTO) ---
     const [formData, setFormData] = useState({
         name: '',
@@ -120,12 +120,12 @@ function Register() {
     return (
         <Flex minH="100vh" bg="bg-default" w="full">
             <AdminSidebar />
-            <Box    
-                w="full" 
-                p={10} 
-                maxW="full" 
-                pl = {{ base: '90px', md: '290px' }}
-                >
+            <Box
+                w="full"
+                p={10}
+                maxW="full"
+                pl={{ base: '90px', md: '290px' }}
+            >
                 <Box display="flex" justifyContent="flex-end" mb={4}>
                     <Header />
                 </Box>
@@ -134,84 +134,84 @@ function Register() {
                 <Text as="b" fontSize="30px" mt={8} mb={5} color="text-default" textAlign="left">
                     Registro de usuarios (Cifrado)
                 </Text>
-                <form onSubmit={ handleSubmit }>
-                <EcoSignInput
-                    placeholder="Nombre/s"
-                    nombre="name"
-                    value={ formData.name }
-                    onChange = { handleChange }
-                    isRequired
-                />
-                <EcoSignInput
-                    placeholder="Apellido Paterno"
-                    name = "lastName"
-                    value = { formData.lastName }
-                    onChange = { handleChange }
-                    isRequired
-                />
-                <EcoSignInput
-                    placeholder="Apellido Materno"
-                    name = "middleName"
-                    value = { formData.middleName }
-                    onChange = { handleChange }
-                />
-                <EcoSignInput
-                    placeholder="Correo electrónico"
-                    type="email"
-                    name = "email"
-                    value = { formData.email }
-                    onChange = { handleChange }
-                    isRequired
-                />
-                <EcoSignInput
-                    placeholder="Número de Empleado"
-                    name="employeeNumber"
-                    value={formData.employeeNumber}
-                    onChange={handleChange}
-                    isRequired
-                />
-                <EcoSignInput
-                    placeholder="Contraseña"
-                    name = "password"
-                    type = "password"
-                    value = { formData.password }
-                    onChange = { handleChange }
-                    isRequired
-                />
-                <EcoSignInput
-                    placeholder="Confirmar Contraseña"
-                    name = "confirmPassword"
-                    type = "password"
-                    value = { formData.confirmPassword }
-                    onChange = { handleChange }
-                    isRequired
-                />
-                <EcoSignInput
-                    placeholder="Número de teléfono"
-                    type="number"
-                />
-                <EcoSignSelect 
-                    placeholder="Selecciona un rol de usuario"
-                    value = { formData.role }
-                    onChange = { handleRolChange }
-                >
-                    <option value="1">Administrador</option>
-                    <option value="2">Usuario</option>
-                </EcoSignSelect>
-                <Button
-                    type="submit"
-                    w="30%"
-                    bg="accent-default"
-                    color="bg-default"
-                    mb={10}
-                    mr={10}
-                    _hover={{ bg: 'primary-default' }}
-                >
-                    Registrar
-                </Button>
+                <form onSubmit={handleSubmit}>
+                    <EcoSignInput
+                        placeholder="Nombre/s"
+                        nombre="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        isRequired
+                    />
+                    <EcoSignInput
+                        placeholder="Apellido Paterno"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        isRequired
+                    />
+                    <EcoSignInput
+                        placeholder="Apellido Materno"
+                        name="middleName"
+                        value={formData.middleName}
+                        onChange={handleChange}
+                    />
+                    <EcoSignInput
+                        placeholder="Correo electrónico"
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        isRequired
+                    />
+                    <EcoSignInput
+                        placeholder="Número de Empleado"
+                        name="employeeNumber"
+                        value={formData.employeeNumber}
+                        onChange={handleChange}
+                        isRequired
+                    />
+                    <EcoSignInput
+                        placeholder="Contraseña"
+                        name="password"
+                        type="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        isRequired
+                    />
+                    <EcoSignInput
+                        placeholder="Confirmar Contraseña"
+                        name="confirmPassword"
+                        type="password"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        isRequired
+                    />
+                    <EcoSignInput
+                        placeholder="Número de teléfono"
+                        type="number"
+                    />
+                    <EcoSignSelect
+                        placeholder="Selecciona un rol de usuario"
+                        value={formData.role}
+                        onChange={handleRolChange}
+                    >
+                        <option value="1">Administrador</option>
+                        <option value="2">Usuario</option>
+                    </EcoSignSelect>
+                    <Button
+                        type="submit"
+                        w="30%"
+                        bg="accent-default"
+                        color="bg-default"
+                        mb={10}
+                        mr={10}
+                        _hover={{ bg: 'primary-default' }}
+                    >
+                        Registrar
+                    </Button>
                 </form>
 
-                                {responseMessage && (
+                {responseMessage && (
                     <Alert status="success" mt={4} maxW="lg">
                         <AlertIcon />
                         {responseMessage}
@@ -223,7 +223,7 @@ function Register() {
                         {error}
                     </Alert>
                 )}
-                
+
             </Box>
         </Flex>
     )

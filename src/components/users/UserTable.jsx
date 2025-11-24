@@ -62,13 +62,13 @@ export function UserTable({ users, isLoading, error }) {
                                 </Td>
                                 <Td color="text-default">
                                     <Tooltip label="Cambiar rol del usuario" placement="top">
-                                    <Button
-                                        onClick={() => handleRoleClick(user.id)}
-                                        color="secondary-default"
-                                        bg="transparent"
-                                        _hover={{ bg: 'transparent', color: 'accent-default' }}>
-                                    {user.roleId==1 ? "Admin" : "Usuario"}
-                                    </Button>
+                                        <Button
+                                            onClick={() => handleRoleClick(user.id)}
+                                            color="secondary-default"
+                                            bg="transparent"
+                                            _hover={{ bg: 'transparent', color: 'accent-default' }}>
+                                            {user.roleId == 1 ? "Admin" : "Usuario"}
+                                        </Button>
                                     </Tooltip>
                                 </Td>
                                 <Td color="secondary-default">

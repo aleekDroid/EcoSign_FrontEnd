@@ -1,4 +1,4 @@
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Text, Spinner, Center, Button, Badge } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Text, Spinner, Center, Button, Badge, Tooltip } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 export function DocumentTable({ documents, isLoading, error }) {
@@ -38,15 +38,17 @@ export function DocumentTable({ documents, isLoading, error }) {
                             
                             <Td>
                                 {document.status === 'Por firmar' ? (
-                                    <Button 
-                                        size="xs" 
-                                        bg="accent-default" 
-                                        color="bg-default"
-                                        _hover={{ bg: 'primary-default' }}
-                                        onClick={() => navigate('/firmar')}
-                                    >
-                                        Por firmar
-                                    </Button>
+                                    <Tooltip label="Firmar documento" placement="top">
+                                        <Button 
+                                            size="xs" 
+                                            bg="accent-default" 
+                                            color="bg-default"
+                                            _hover={{ bg: 'primary-default' }}
+                                            onClick={() => navigate('/firmar')}
+                                        >
+                                            Por firmar
+                                        </Button>
+                                    </Tooltip>
                                 ) : (
                                     <Badge 
                                         colorScheme={document.status === 'Firmado' ? 'green' : 'gray'} 

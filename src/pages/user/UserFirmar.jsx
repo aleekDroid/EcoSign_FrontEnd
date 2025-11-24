@@ -1,15 +1,12 @@
-import { 
-    Text, Box, Image, Flex, Button, VStack, Center, Icon,
-    Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure, useToast
-} from '@chakra-ui/react';
-import { FileText, ExternalLink, PenTool } from 'lucide-react';
-import EcoSignLogo from "../assets/EcoSign.PNG";
-import AdminSidebar from '../components/layout/AdminSidebar';
-import Header from '../components/layout/Header';
+import { Text, Box, Image, Flex, Button, VStack, Center, Icon, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure, useToast } from '@chakra-ui/react';
+import { FileText } from 'lucide-react';
+import EcoSignLogo from '../../assets/EcoSign.PNG';
+import UserSidebar from '../../components/layout/Usersidebar';
+import Header from '../../components/layout/Header';
 import { useColorMode } from "@chakra-ui/react";
 import React from 'react';
 
-function Firmar() {
+function UserFirmar() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
     const { colorMode } = useColorMode();
@@ -32,7 +29,7 @@ function Firmar() {
 
     return (
         <Flex minH="100vh" bg="bg-default" w="full">
-            <AdminSidebar />
+            <UserSidebar />
             
             <Box 
                 w="full" 
@@ -47,9 +44,9 @@ function Firmar() {
                 <Image 
                     src={EcoSignLogo} 
                     alt="EcoSign Logo" 
-                    w="180px" 
-                    mb={8} 
-                    filter={colorMode === 'dark' ? 'brightness(0) invert(1)' : 'none'}
+                    w="40%" 
+                    mb={4} 
+                    // filter={colorMode === 'dark' ? 'brightness(0) invert(1)' : 'none'}
                 />
 
                 <Text as="h2" fontSize="3xl" fontWeight="bold" mb={6} color="text-default">
@@ -150,4 +147,4 @@ function Firmar() {
     );
 }
 
-export default Firmar;
+export default UserFirmar;

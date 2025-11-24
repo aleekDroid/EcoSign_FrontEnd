@@ -24,7 +24,12 @@ function Archivo() {
                 <Box display="flex" justifyContent="flex-end" mb={4}>
                     <Header />
                 </Box>
-                <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />
+                <Image 
+                    src={EcoSign} 
+                    alt="EcoSign Logo" 
+                    w="40%" 
+                    mb={4} 
+                />
                 <Flex
                     gap={4}>
                     <Button
