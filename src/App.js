@@ -11,7 +11,7 @@ import Archivo from './pages/archivo';
 import Register from './pages/admin/register';
 import ArchivoUser from './pages/user/archivoUser';
 import AdminFirmar from './pages/admin/adminFirmar';
-import UserFirmar from './pages/user/UserFirmar'
+import UserFirmar from './pages/user/userFirmar'
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import RoleRoute from "./routes/RoleRoute";
