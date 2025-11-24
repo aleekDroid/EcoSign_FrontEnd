@@ -1,6 +1,4 @@
 import { Text, Box, Image, Flex, InputGroup, Button, InputRightElement, Alert, AlertIcon } from '@chakra-ui/react';
-import { Eye, EyeClosed } from 'lucide-react';
-import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 
 import AdminSidebar from '../../components/layout/AdminSidebar';
@@ -9,10 +7,7 @@ import EcoSignInput from '../../components/forms/EcoSignInput';
 import EcoSignSelect from '../../components/forms/EcoSignSelect';
 
 import EcoSign from "../../assets/EcoSign.PNG";
-// import { useRegisterForm } from '../../hooks/useRegisterForm';
 import api from '../../services/api';
-import { encryptClientRequest, decryptServerResponse } from '../../utils/cryptoService';
-import { hybridEncrypt } from '../../utils/cryptoService';
 import React, { useState } from 'react';
 
 // --- CLAVE PÚBLICA DEL BACKEND (secp256k1) ---
@@ -31,7 +26,8 @@ function Register() {
         employeeNumber: '',
         password: '',
         confirmPassword: '',
-        role: ''
+        role: '',
+        status: "ACTIVO"
     });
 
     // Estados de UI
@@ -81,7 +77,8 @@ function Register() {
             email: formData.email,
             employeeNumber: formData.employeeNumber,
             password: formData.password,
-            role: formData.role
+            role: formData.role,
+            status: "ACTIVO"
         };
 
         console.log("Datos en claro a cifrar (UserInputDTO):", UserInputDTO);
@@ -137,7 +134,7 @@ function Register() {
                 <form onSubmit={handleSubmit}>
                     <EcoSignInput
                         placeholder="Nombre/s"
-                        nombre="name"
+                        name="name"
                         value={formData.name}
                         onChange={handleChange}
                         isRequired
@@ -185,10 +182,6 @@ function Register() {
                         value={formData.confirmPassword}
                         onChange={handleChange}
                         isRequired
-                    />
-                    <EcoSignInput
-                        placeholder="Número de teléfono"
-                        type="number"
                     />
                     <EcoSignSelect
                         placeholder="Selecciona un rol de usuario"
