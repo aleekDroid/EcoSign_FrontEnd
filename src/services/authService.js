@@ -1,4 +1,3 @@
-//authService.js
 import api, { setAuthToken } from './api';
 import * as keyUtils from '../utils/keyUtils';
 

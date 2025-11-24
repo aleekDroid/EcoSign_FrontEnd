@@ -56,7 +56,7 @@ export function UserTable({ users, isLoading, error }) {
                                         color="secondary-default"
                                         bg="transparent"
                                         _hover={{ bg: 'transparent', color: 'accent-default' }}>
-                                    {user.role}
+                                    {user.roleId==1 ? "Admin" : "Usuario"}
                                     </Button>
                                     </Tooltip>
                                     </Td>

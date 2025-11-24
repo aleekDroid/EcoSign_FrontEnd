@@ -30,8 +30,8 @@ function Register() {
         email: '',
         employeeNumber: '',
         password: '',
-        confirmPassword: '', // Solo para validación en front
-        role: 1 // Default role (ajusta según necesites)
+        confirmPassword: '',
+        role: ''
     });
 
     // Estados de UI
@@ -104,7 +104,6 @@ function Register() {
             //console.log("Respuesta descifrada:", decryptedResponse);
 
             // Mostrar mensaje de éxito
-            // Asumiendo que tu WebResponse tiene un campo 'message'
             setResponseMessage(response.message || "Usuario creado exitosamente.");
 
             // Opcional: Limpiar formulario

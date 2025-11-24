@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { getAllUsers } from '../services/userService'; 
+import { getAllUsers } from '../services/userService';
 
-export function useFetchUsers() {
+export function useFetchUsers(page = 1, size = 10, filters = {}) {
     const [users, setUsers] = useState([]);
+    const [pagination, setPagination] = useState({ totalPages: 0, totalElements: 0 }); // Extra útil
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -10,9 +11,17 @@ export function useFetchUsers() {
         setIsLoading(true);
         setError(null);
 
-        getAllUsers()
+        getAllUsers(page, size, filters)
             .then(data => {
-                setUsers(data);
+                setUsers(data.users || []);
+
+                // Guardamos la info de paginación por si la necesitas
+                setPagination({
+                    totalPages: data.totalPages,
+                    totalElements: data.totalElements,
+                    currentPage: data.currentPage
+                });
+
                 setIsLoading(false);
             })
             .catch(err => {
@@ -20,7 +29,8 @@ export function useFetchUsers() {
                 setError(err.message);
                 setIsLoading(false);
             });
-    }, []); // El array vacío [] asegura que se ejecute solo al montar el componente.
 
-    return { users, isLoading, error };
+    }, [page, size, JSON.stringify(filters)]);
+
+    return { users, pagination, isLoading, error };
 }
