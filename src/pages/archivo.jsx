@@ -12,43 +12,44 @@ function Archivo() {
     const { documents, isLoading, error } = useFetchDocuments();
     const navigate = useNavigate();
 
-    const logOut = (e) => {
-        if (e & e.preventDefault) e.preventDefault();
-        navigate('/login', { replace: true });
-    }
-
-    const signButton = () => (
-        <Button 
-        bg="accent-default" 
-        color="bg-default" 
-        size='xs'
-        _hover={{ bg: 'primary-default' }}>
-            Firmar
-        </Button>
-    )
-
-    const signedButton = () => (
-        <Button 
-        bg="text" 
-        color="bg-default"
-        size='xs'>
-            Firmado
-        </Button>
-    )
-
     return (
         <Flex minH="100vh" bg="bg-default" w="full">
             <AdminSidebar />
-            <Box flex="1" p={10} maxW="full" marginLeft="250px">
+            <Box
+                w="full"
+                p={10}
+                maxW="full"
+                pl={{ base: '90px', md: '290px' }}
+            >
                 <Box display="flex" justifyContent="flex-end" mb={4}>
                     <Header />
                 </Box>
                 <Image src={EcoSign} alt="EcoSign Logo" w="40%" mb={4} />
-                <SearchInput 
-                    placeholder="Buscar documento" 
-                    type="text" 
-                    mb={4}
-                />
+                <Flex
+                    gap={4}>
+                    <Button
+                        as="b"
+                        borderRadius="md"
+                        bg="accent-default"
+                        w={{ base: 'auto', md: '20%' }}
+                        p={4}
+                        color="bg-default"
+                        _hover={{ bg: 'primary-default' }}
+                    >
+                        Subir
+                        <Box as="span" display={{ base: 'none', md: 'inline' }} ml={1}>
+                            documento
+                        </Box>
+                    </Button>
+                    <SearchInput
+                        placeholder="Buscar documento"
+                        // value={searchTerm}
+                        // onChange={(e) => setSearchTerm(e.target.value)}
+                        mb={4}
+                    />
+
+                </Flex>
+
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text-default" textAlign="left">
                     Todos los documentos
                 </Text>

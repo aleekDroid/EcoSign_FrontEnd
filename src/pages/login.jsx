@@ -1,30 +1,37 @@
-import {
-    Center,
-    Box,
-    Image,
-    Button,
-    VStack,
-    Text
-} from "@chakra-ui/react";
+import { Center, Box, Heading, Image, Button, VStack, Input, InputGroup, InputRightElement, Text } from "@chakra-ui/react";
+import { Eye, EyeClosed } from 'lucide-react';
+import { AnimatePresence, motion } from "framer-motion";
 import EcoSign from "../assets/EcoSign.PNG";
 import EcoSignInput from "../components/forms/EcoSignInput";
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+// import { useLoginForm } from "../hooks/useLoginForm";
 import { loginUser } from "../services/authService";
+import React from 'react';
 
 function LoginPage() {
 
+    
+    // const { formData, handleChange, handleSubmit, isLoading } = useLoginForm();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    // 2. AÑADE ESTADO DE CARGA Y ERROR
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
     const navigate = useNavigate();
 
-    // 3. REEMPLAZA LA FUNCIÓN handleLogin
-    const handleLogin = async (e) => {
+    const [show, setShow] = React.useState(false)
+    const handleClick = () => setShow(!show)
+
+    const iconVariants = {
+        hidden: { opacity: 0, scale: 0.5, rotate: -180 },
+        visible: { opacity: 1, scale: 1, rotate: 0 },
+        exit: { opacity: 0, scale: 0.5, rotate: 180 }
+    };
+
+const handleLogin = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         setError(null);
@@ -57,7 +64,8 @@ function LoginPage() {
                 bg="bg-default"
                 maxW="md"
                 w="70%"
-                fontFamily="body">
+                fontFamily="body"
+            >
                 <form onSubmit={handleLogin}>
                     <VStack spacing={8} mb={8}>
                         <Image
@@ -67,37 +75,58 @@ function LoginPage() {
                             mx="auto"
                             mb={0}
                         />
-                        <EcoSignInput
-                            placeholder="Correo electrónico"
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            isDisabled={isLoading}
+                        <EcoSignInput 
+                        placeholder="Correo electrónico" 
+                        type="email" 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        isDisabled = { isLoading }
                         />
-                        <EcoSignInput
+                        <InputGroup>
+                            <EcoSignInput 
                             placeholder="Contraseña"
-                            type="password"
+                            type = { show ? "text" : "password" }
+                            name = "password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            isDisabled={isLoading}
-                        />
+                            isDisabled = { isLoading }
+                            />
 
-                        {/* 4. MUESTRA EL ERROR SI EXISTE */}
-                        {error && (
+                            <InputRightElement width='4.5rem'>
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={show ? 'eye' : 'eyeClosed'}
+                                        variants={iconVariants}
+                                        initial="hidden"
+                                        animate="visible"
+                                        exit="exit"
+                                        transition={{ duration: 0.08 }}
+                                    >
+                                        <Button h='1.75rem' size='sm' onClick={handleClick} bg="transparent" p={0} _hover={{ bg: 'transparent', color: 'accent-default' }}>
+                                            {show ? <Eye /> : <EyeClosed />}
+                                        </Button>
+                                    </motion.div>
+                                </AnimatePresence>
+                            </InputRightElement>
+
+                            {error && (
                             <Text color="red.500" fontSize="sm" px={4}>
                                 {error}
                             </Text>
                         )}
 
+                        </InputGroup>
+
                         <Button
                             type="submit"
+                            isLoading={isLoading}
+                            loadingText="Iniciando sesión..."
                             size="sm"
                             borderRadius="full"
                             bg="text-default"
                             w="40%"
                             color="bg-default"
                             _hover={{ bg: 'secondary-default' }}
-                            isLoading={isLoading}
                         >
                             Iniciar sesión
                         </Button>

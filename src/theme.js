@@ -15,23 +15,23 @@ const theme = extendTheme({
       // text: '#1C3E5A',
       'primary-default' : {
         default: '#34553F',
-        _dark: '#0a2511ff',
+        _dark: '#1A2621',
       },
       'secondary-default' : {
         default: '#648096',
-        _dark: '#48657a',
+        _dark: '#8ECAE6', 
       },
       'accent-default' : {
         default: '#909C86',
-        _dark: '#34553F',
+        _dark: '#4A6650',
       },
       'bg-default' : {
         default: '#ECEFF1',
-        _dark: '#10202eff',
+        _dark: '#171923', 
       },
       'text-default' : {
         default: '#1C3E5A',
-        _dark: '#ECEFF1',
+        _dark: '#F7FAFC', 
       },
       'user-default' : {
         default: '#1C3E5A',
@@ -63,8 +63,6 @@ const theme = extendTheme({
           borderSpacing: '0 8px',
         }
       },
-
-      // Prueba para crear una variante con el estilo de EcoSign.
       variants: {
         ecosign: {
           thead: {

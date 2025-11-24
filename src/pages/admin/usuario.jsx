@@ -8,11 +8,13 @@ import Header from "../../components/layout/Header";
 import SearchInput from "../../components/forms/SearchInput";
 import AdminSidebar from "../../components/layout/AdminSidebar";
 import { useFetchUsers } from "../../hooks/useFetchUsers";
+import { useSearchFilterUsers } from "../../hooks/useSearchFilterUsers";
 import { UserTable } from "../../components/users/UserTable";
 
 function Usuario() {
 
     const { users, isLoading, error } = useFetchUsers();
+    const { filteredUsers, searchTerm, setSearchTerm } = useSearchFilterUsers(users);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -32,7 +34,12 @@ function Usuario() {
     return (
         <Flex minH="100vh" bg="bg-default" w="full">
             <AdminSidebar />
-            <Box flex="1" p={10} maxW="full" marginLeft="250px">
+            <Box 
+                w="full" 
+                p={10} 
+                maxW="full" 
+                pl = {{ base: '90px', md: '290px' }}
+            >
                 <Box display="flex" justifyContent="flex-end" mb={4}>
                     <Header />
                 </Box>
@@ -45,16 +52,27 @@ function Usuario() {
                         as="b"
                         borderRadius="md"
                         bg="accent-default"
-                        w="20%"
+                        w = {{ base: 'auto', md: '20%' }}
+                        p = {4}
                         color="bg-default"
                         _hover={{ bg: 'primary-default' }}
-                    >Registrar Usuario</Button>
-                    <SearchInput placeholder="Buscar usuario" mb={4} />
+                    >
+                        Registrar 
+                        <Box as="span" display={{ base: 'none', md: 'inline' }} ml={1}>
+                            usuario
+                        </Box>
+                    </Button>
+                    <SearchInput 
+                    placeholder="Buscar usuario" 
+                    mb={4} 
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    />
                 </Flex>
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text-default" textAlign="left">
                     Usuarios
                 </Text>
-                <UserTable users={users} isLoading={isLoading} error={error} />
+                <UserTable users={filteredUsers} isLoading={isLoading} error={error} />
             </Box>
         </Flex>
     )

@@ -1,6 +1,8 @@
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Text, Spinner, Center } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Text, Spinner, Center, Button, Badge } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 export function DocumentTable({ documents, isLoading, error }) {
+    const navigate = useNavigate();
 
     if (isLoading) {
         return <Center py={10}><Spinner size="xl" color="accent-default" thickness="4px" /></Center>;
@@ -11,11 +13,11 @@ export function DocumentTable({ documents, isLoading, error }) {
     }
     
     if (!documents ||  documents.length === 0) {
-        return <Center py={10}><Text color="user-default">No hay documentos registrados.</Text></Center>;
+        return <Center py={10}><Text color="text-default">No hay documentos registrados.</Text></Center>;
     }
 
     return (
-        <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent-default" bg="bg-default" color="text-default">
+        <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="secondary-default" bg="bg-default" color="secondary-default">
             <Table size="md">
                 <Thead>
                     <Tr>
@@ -28,10 +30,34 @@ export function DocumentTable({ documents, isLoading, error }) {
                 <Tbody>
                     {documents.map(document => (
                         <Tr key={document.id}>
-                            <Td color="secondary-default">{ document.name}</Td>
-                            <Td color="secondary-default">{ document.date}</Td>
-                            <Td color="secondary-default">{ document.type}</Td>
-                            <Td color="secondary-default">{ document.status}</Td>
+                            <Td color="text-default" maxW="250px" isTruncated title={document.name}>
+                                {document.name}
+                            </Td>
+                            <Td color="text-default">{document.date}</Td>
+                            <Td color="text-default">{document.type}</Td>
+                            
+                            <Td>
+                                {document.status === 'Por firmar' ? (
+                                    <Button 
+                                        size="xs" 
+                                        bg="accent-default" 
+                                        color="bg-default"
+                                        _hover={{ bg: 'primary-default' }}
+                                        onClick={() => navigate('/firmar')}
+                                    >
+                                        Por firmar
+                                    </Button>
+                                ) : (
+                                    <Badge 
+                                        colorScheme={document.status === 'Firmado' ? 'green' : 'gray'} 
+                                        variant="subtle" 
+                                        borderRadius="full" 
+                                        px={2}
+                                    >
+                                        {document.status}
+                                    </Badge>
+                                )}
+                            </Td>
                         </Tr>
                     ))}
                 </Tbody>
@@ -40,4 +66,4 @@ export function DocumentTable({ documents, isLoading, error }) {
     );
 }
 
-export default  DocumentTable;
+export default DocumentTable;
