@@ -1,15 +1,7 @@
 const API_BASE_URL = 'https://api.example.com/documents';
 
 export async function getAllDocuments() {
-
-    // const response = await fetch(API_BASE_URL);
-    // if (!response.ok) {
-    //     throw new Error('No se pudieron obtener los usuarios.');
-    // }
-
-    // const data = await response.json();
-    // return data;
-    
+  
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve([

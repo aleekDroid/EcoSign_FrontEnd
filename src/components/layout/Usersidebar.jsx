@@ -62,7 +62,7 @@ function UserSidebar() {
             <VStack spacing={4} justifyItems="center">
                 <SidebarLink icon={Home} isActive={location.pathname === '/userHome'} onClick={() => handleNavigation('/userHome')} text="Inicio" />
                 <SidebarLink icon={Folder} isActive={location.pathname === '/archivoUser'} onClick={() => handleNavigation('/archivoUser')} text="Archivos" />
-                <SidebarLink icon={Edit} text="Firmar" />
+                {/*<SidebarLink icon={Edit} text="Firmar" />*/}
             </VStack>
         </Box>
     );
