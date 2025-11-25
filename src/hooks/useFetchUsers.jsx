@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getAllUsers } from '../services/userService';
 
-export function useFetchUsers(page = 1, size = 10, filters = {}) {
+export function useFetchUsers(page = 1, size = 100, filters = {}) {
     const [users, setUsers] = useState([]);
     const [pagination, setPagination] = useState({ totalPages: 0, totalElements: 0 }); // Extra útil
     const [isLoading, setIsLoading] = useState(true);

@@ -9,7 +9,7 @@ const ENDPOINT_URL = '/api/user/get/AllUsers';
  * @param {number} size - Tamaño de la página
  * @param {object} filters - Objeto con filtros opcionales (roleId, status, email)
  */
-export async function getAllUsers(page = 1, size = 10, filters = {}) {
+export async function getAllUsers(page = 1, size = 100, filters = {}) {
     try {
         console.log(`[UserService] Solicitando usuarios (Sin Cifrado). Page: ${page}, Size: ${size}`, filters);
 

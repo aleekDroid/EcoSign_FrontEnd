@@ -42,7 +42,6 @@ function AdminDashboard() {
                     alt="EcoSign Logo" 
                     w="40%" 
                     mb={4}
-                    // filter={colorMode === 'dark' ? 'brightness(0) invert(1)' : 'none'} 
                 />
                 <SignBox />
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text-default" textAlign="left">

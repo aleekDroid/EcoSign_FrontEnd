@@ -7,14 +7,14 @@ import Header from "../../components/layout/Header";
 import UserSidebar from "../../components/layout/Usersidebar";
 
 import { useNavigate } from "react-router-dom";
-import { useFetchDocuments } from "../../hooks/useFetchDocuments";
-import { UserDocumentTable } from "../../components/documents/user/UserDocumentTable";
+import { useFetchDocumentsForUser } from "../../hooks/useFetchDocuments";
+import { DocumentTable } from "../../components/documents/DocumentTable";
 import { getRecentDocuments } from "../../utils/recentDocuments";
 
 function AdminDashboard() {
 
     const navigate = useNavigate();
-    const { documents, isLoading, error } = useFetchDocuments();
+    const { documents, isLoading, error } = useFetchDocumentsForUser();
     const recentDocuments = getRecentDocuments(documents);
 
     const { colorMode } = useColorMode();
@@ -42,7 +42,7 @@ function AdminDashboard() {
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text-default" textAlign="left">
                     Documentos recientes
                 </Text>
-                <UserDocumentTable documents={recentDocuments} isLoading={isLoading} error={error} />
+                <DocumentTable documents={recentDocuments} isLoading={isLoading} error={error} />
             </Box>
         </Flex>
     )

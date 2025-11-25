@@ -1,4 +1,4 @@
-import api, { setAuthToken } from './api';
+import api, {setAuthToken, setUserId, setUserName, setUserRole} from './api';
 import * as keyUtils from '../utils/keyUtils';
 
 // Llama a esto una vez para configurar IndexedDB (localforage)
@@ -12,15 +12,12 @@ export const loginUser = async (email, password) => {
     try {
         // --- TAREA 1: GENERAR CLAVES PRIMERO ---
         await keyUtils.clearClientKeys();
-        const { privateKeyHex, publicKeyHex } = keyUtils.generateClientEccKeys();
-        console.log(`[AuthService] Claves ECC generadas (Pública: ${publicKeyHex.substring(0, 20)}...)`);
 
         // --- TAREA 2: LLAMAR A LOGIN CON TODO ---
         console.log('[AuthService] Enviando credenciales y clave pública a /api/auth/login...');
         const response = await api.post('/api/auth/login', {
             email: email,
-            password: password,
-            eccToken: publicKeyHex
+            password: password
         });
 
         if (!(response.data && response.data.codeStatus === 'OK')) {
@@ -34,12 +31,11 @@ export const loginUser = async (email, password) => {
         // --- TAREA 3: GUARDAR EL TOKEN Y LA CLAVE PRIVADA ---
         // Guarda el JWT (que ya tiene la clave pública)
         await setAuthToken(token);
+        await setUserRole(entity.roleId);
+        await setUserId(entity.id);
+        await setUserName(entity.name + ' ' + entity.lastName);
 
-        // Guarda la clave privada (que coincide con la pública que enviamos)
-        await keyUtils.saveClientPrivateKey(privateKeyHex);
-        await keyUtils.saveClientPublicKey(publicKeyHex);
-
-        console.log('[AuthService] LOGIN COMPLETO: Token y clave privada guardados.');
+        console.log('[AuthService] LOGIN COMPLETO: Token y role privada guardados.');
         return entity;
 
     } catch (err) {

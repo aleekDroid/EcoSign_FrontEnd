@@ -2,15 +2,13 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import localforage from "localforage";
 
-const TOKEN_KEY = "jwt_auth_token";
-
 export default function ProtectedRoute({ children }) {
     const [loading, setLoading] = useState(true);
     const [authenticated, setAuthenticated] = useState(false);
 
     useEffect(() => {
         const checkAuth = async () => {
-            const token = await localforage.getItem(TOKEN_KEY);
+            const token = await localforage.getItem('jwt_auth_token');
             setAuthenticated(!!token);
             setLoading(false);
         };

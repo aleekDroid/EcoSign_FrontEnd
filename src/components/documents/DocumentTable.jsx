@@ -1,5 +1,6 @@
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Text, Spinner, Center, Button, Badge, Tooltip } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import localforage from "localforage";
 
 export function DocumentTable({ documents, isLoading, error }) {
     const navigate = useNavigate();
@@ -31,27 +32,27 @@ export function DocumentTable({ documents, isLoading, error }) {
                     {documents.map(document => (
                         <Tr key={document.id}>
                             <Td color="text-default" maxW="250px" isTruncated title={document.name}>
-                                {document.name}
+                                {document.fileName}
                             </Td>
-                            <Td color="text-default">{document.date}</Td>
-                            <Td color="text-default">{document.type}</Td>
+                            <Td color="text-default">{document.createdAt}</Td>
+                            <Td color="text-default">{document.fileCategory}</Td>
                             
                             <Td>
-                                {document.status === 'Por firmar' ? (
+                                {document.status === 'PENDIENTE' ? (
                                     <Tooltip label="Firmar documento" placement="top">
                                         <Button 
                                             size="xs" 
                                             bg="accent-default" 
                                             color="bg-default"
                                             _hover={{ bg: 'primary-default' }}
-                                            onClick={() => navigate('/firmar')}
+                                            onClick={() => navigate(localforage.getItem('user_role')===1?'/adminFirmar': '/userfirmar')}
                                         >
                                             Por firmar
                                         </Button>
                                     </Tooltip>
                                 ) : (
                                     <Badge 
-                                        colorScheme={document.status === 'Firmado' ? 'green' : 'gray'} 
+                                        colorScheme={document.status === 'FIRMADO' ? 'green' : 'gray'}
                                         variant="subtle" 
                                         borderRadius="full" 
                                         px={2}

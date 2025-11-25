@@ -55,10 +55,10 @@ export function UserTable({ users, isLoading, error }) {
                         {users.map(user => (
                             <Tr key={user.id}>
                                 <Td color="text-default">
-                                    {user.nombres}{' '}{user.apellidoPaterno} {' '}{user.apellidoMaterno}
+                                    {user.name}{' '}{user.lastName}
                                 </Td>
                                 <Td color="text-default">
-                                    {user.correo}
+                                    {user.email}
                                 </Td>
                                 <Td color="text-default">
                                     <Tooltip label="Cambiar rol del usuario" placement="top">
