@@ -1,16 +1,19 @@
 import { useState } from 'react';
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from '../firebase/config';
 import { useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../services/authService'
 
 export function useLoginForm() {
 
     const toast = useToast();
     const navigate = useNavigate();
+
+//    const [email, setEmail] = useState('');
+//    const [password, setPassword] = useState('');
+    
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
-        correo: '',
+        email: '',
         password: '',
     });
 
