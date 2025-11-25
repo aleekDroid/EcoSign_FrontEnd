@@ -26,67 +26,67 @@ function App() {
           <Route path="/" element={<Navigate to="/login" replace />} />
 
           <Route path="/adminHome" element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={[1]}>
+            // <ProtectedRoute>
+            //   <RoleRoute allowedRoles={[1]}>
                 <AdminHome />
-              </RoleRoute>
-            </ProtectedRoute>
+            //   </RoleRoute>
+            // </ProtectedRoute>
           } />
 
           <Route path="/userHome" element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={[2]}>
+            // <ProtectedRoute>
+            //   <RoleRoute allowedRoles={[2]}>
                 <UserHome />
-              </RoleRoute>
-            </ProtectedRoute>
+            //   </RoleRoute>
+            // </ProtectedRoute>
           } />
 
           <Route path="/usuario" element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={[1]}>
+            // <ProtectedRoute>
+            //   <RoleRoute allowedRoles={[1]}>
                 <Usuario />
-              </RoleRoute>
-            </ProtectedRoute>
+            //   </RoleRoute>
+            // </ProtectedRoute>
           } />
 
           <Route path="/archivo" element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={[1]}>
+            // <ProtectedRoute>
+            //   <RoleRoute allowedRoles={[1]}>
                 <Archivo />
-              </RoleRoute>
-            </ProtectedRoute>
+            //   </RoleRoute>
+            // </ProtectedRoute>
           } />
 
           <Route path="/archivoUser" element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={[2]}>
+            // <ProtectedRoute>
+            //   <RoleRoute allowedRoles={[2]}>
                 <ArchivoUser />
-              </RoleRoute>
-            </ProtectedRoute>
+            //   </RoleRoute>
+            // </ProtectedRoute>
           } />
 
           <Route path="/register" element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={[1]}>
+            // <ProtectedRoute>
+            //   <RoleRoute allowedRoles={[1]}>
                 <Register />
-              </RoleRoute>
-            </ProtectedRoute>
+            //   </RoleRoute>
+            // </ProtectedRoute>
           } />
 
           <Route path="/adminFirmar/:userFileId/:status" element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={[1]}>
+            // <ProtectedRoute>
+            //   <RoleRoute allowedRoles={[1]}>
                 <AdminFirmar />
-              </RoleRoute>
-            </ProtectedRoute>
+            //   </RoleRoute>
+            // </ProtectedRoute>
           } />
 
           <Route path='/userFirmar/:userFileId/:status' element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={[2]}>
+            // <ProtectedRoute>
+            //   <RoleRoute allowedRoles={[2]}>
                 <UserFirmar />
-              </RoleRoute>
-            </ProtectedRoute>
+            //   </RoleRoute>
+            // </ProtectedRoute>
           } />
 
         </Routes>
