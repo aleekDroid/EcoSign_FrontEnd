@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {getAllDocuments, getDocumentsByUserId} from '../services/documentService';
 import localforage from "localforage";
 
@@ -7,13 +7,15 @@ export function useFetchDocuments(page = 1, size = 100, filters = {}) {
     const [documents, setDocuments] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [pagination, setPagination] = useState({ totalPages: 0, totalElements: 0 }); // Extra útil
+    const [pagination, setPagination] = useState({ totalPages: 0, totalElements: 0 });
 
-    useEffect(() => {
+
+
+    const fetchDocs = useCallback(() => {
         setIsLoading(true);
         setError(null);
 
-        getAllDocuments()
+        getAllDocuments( page, size, filters)
             .then(data => {
                 setDocuments(data.userFiles || []);
                 setPagination({
@@ -31,7 +33,11 @@ export function useFetchDocuments(page = 1, size = 100, filters = {}) {
             });
     }, [page, size, JSON.stringify(filters)]);
 
-    return { documents, isLoading, error };
+    useEffect(() => {
+        fetchDocs();
+    }, [fetchDocs]);
+
+    return { documents, isLoading, error, pagination, refetch: fetchDocs };
 }
 
 export function useFetchDocumentsForUser() {

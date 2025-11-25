@@ -1,4 +1,5 @@
 import api from "./api";
+import localforage from "localforage";
 
 const ENDPOINT_URL = 'api/file/get/AllDocuments';
 
@@ -57,6 +58,45 @@ export async function getDocumentsByUserId(userId) {
         }
     } catch (error) {
         console.error("[DocumentService] Error:", error);
+        throw error;
+    }
+}
+
+export async function uploadDocument(file) {
+    try {
+        // 1. Obtenemos el ID del usuario logueado.
+        const userId = await localforage.getItem('user_id');
+        if (!userId) throw new Error("No se pudo identificar al usuario (Falta ID).");
+
+        const formData = new FormData();
+        
+        formData.append('file', file);
+        formData.append('userId', userId);
+        formData.append('fileName', file.name); 
+        
+        // Aquí se definen valores por defecto. 
+        // Si después se dicidiera agregar el select para categorías, lo cambiaríamos.
+        formData.append('fileCategory', 'DOCUMENTO_GENERAL'); 
+        
+        // El backend espera un ENUM, revisar que 'ACTIVO' exista en FileStatus.java
+        // Revisar si es activo o active.
+        formData.append('status', 'ACTIVE'); 
+
+        const response = await api.post('/api/file/upload', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        const data = response.data;
+
+        if (data.codeStatus === 'OK' || response.status === 200) {
+            return data.entity;
+        } else {
+            throw new Error(data.message || "Error al subir el documento");
+        }
+    } catch (error) {
+        console.error("[DocumentService] Error subiendo archivo:", error);
         throw error;
     }
 }
