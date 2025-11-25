@@ -1,16 +1,13 @@
 export function getRecentDocuments(documents) {
-    if (documents && documents.length === 0) {
+    if (!documents || !Array.isArray(documents) || documents.length === 0) {
         return [];
     }
 
     const sortedDocuments = [...documents].sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
 
-        // N O T A para mi Y O del futuro: 
-        // Con esto, se convierte el formato de fecha 'DD/MM/YYYY' a Date.getTime() para que la comparación sea numérica y no String.
-        const dateA = new Date(a.date.split('/').reverse().join('-')); 
-        const dateB = new Date(b.date.split('/').reverse().join('-'));
-
-        return dateB.getTime() - dateA.getTime();
+        return dateB - dateA;
     });
 
     return sortedDocuments.slice(0, 3);

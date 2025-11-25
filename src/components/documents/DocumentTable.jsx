@@ -31,13 +31,13 @@ export function DocumentTable({ documents, isLoading, error }) {
                     {documents.map(document => (
                         <Tr key={document.id}>
                             <Td color="text-default" maxW="250px" isTruncated title={document.name}>
-                                {document.name}
+                                {document.fileName}
                             </Td>
-                            <Td color="text-default">{document.date}</Td>
-                            <Td color="text-default">{document.type}</Td>
+                            <Td color="text-default">{document.createdAt}</Td>
+                            <Td color="text-default">{document.fileCategory}</Td>
                             
                             <Td>
-                                {document.status === 'Por firmar' ? (
+                                {document.status === 'PENDIENTE' ? (
                                     <Tooltip label="Firmar documento" placement="top">
                                         <Button 
                                             size="xs" 
@@ -51,7 +51,7 @@ export function DocumentTable({ documents, isLoading, error }) {
                                     </Tooltip>
                                 ) : (
                                     <Badge 
-                                        colorScheme={document.status === 'Firmado' ? 'green' : 'gray'} 
+                                        colorScheme={document.status === 'FIRMADO' ? 'green' : 'gray'}
                                         variant="subtle" 
                                         borderRadius="full" 
                                         px={2}

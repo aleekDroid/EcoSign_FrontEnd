@@ -1,21 +1,40 @@
-const API_BASE_URL = 'https://api.example.com/documents';
+import api from "./api";
 
-export async function getAllDocuments() {
-  
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve([
-                { id: 1, name: "Factura Compra de insumos para impresora ", date: "10/10/2025", type: "Factura", status: "Firmado" },
-                { id: 2, name: "Contrato de prestación de servicios ", date: "15/10/2025", type: "Contrato", status: "Por firmar" },
-                { id: 3, name: "Oficio de solicitud de información ", date: "20/10/2025", type: "Oficio", status: "Por firmar" },
-                { id: 4, name: "Factura Venta de productos para la división de idiomas", date: "25/10/2025", type: "Factura", status: "Firmado" },
-                { id: 5, name: "Contrato de arrendamiento de oficina ", date: "30/10/2025", type: "Contrato", status: "Firmado"},
-                { id: 6, name: "Oficio de invitación a evento institucional por el día de muertos", date: "05/11/2025", type: "Oficio", status: "Por firmar" },
-                { id: 7, name: "Factura Compra de equipos de cómputo para la división de Mercadotecnia", date: "10/11/2025", type: "Factura", status: "Firmado" },
-                { id: 8, name: "Contrato de servicios de mantenimiento para el edificio administrativo", date: "15/11/2025", type: "Contrato", status: "Por firmar" },
-                { id: 9, name: "Oficio de agradecimiento por participación en evento académico  'Hakaton'", date: "20/11/2025", type: "Oficio", status: "Firmado" }
-            ]);
-        }, 500);
-    });
+const ENDPOINT_URL = 'api/file/get/AllDocuments';
 
+export async function getAllDocuments(page = 1, size = 100, filters = {}) {
+
+    try {
+        console.log(`[UserFileService] Solicitando usuarios  Page: ${page}, Size: ${size}`, filters);
+        const queryParams = {
+            page: page,
+            size: size,
+            ...filters
+        };
+
+        const cleanParams = Object.fromEntries(
+            Object.entries(queryParams).filter(([_, v]) => v != null && v !== '')
+        );
+
+        const response = await api.get(ENDPOINT_URL, {
+            params: cleanParams
+        });
+
+        const data = response.data;
+
+        if (data.codeStatus === 'OK') {
+            return {
+                userFiles: data.entity || [],
+                totalPages: data.totalPages,
+                totalElements: data.totalElements,
+                currentPage: data.currentPage
+            };
+        } else {
+            throw new Error(data.message || "Error al obtener usuarios");
+        }
+
+    } catch (error) {
+        console.error("[UserService] Error:", error);
+        throw error;
+    }
 }
