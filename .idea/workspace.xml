@@ -5,20 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="391e0803-da1a-4465-a81b-04e7cdcf7e09" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/services/signService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/documents/DocumentTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/documents/DocumentTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layout/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useFetchDocuments.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useFetchDocuments.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/user/archivoUser.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/archivoUser.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/user/userHome.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/userHome.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/authService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/authService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/documentService.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/documentService.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/user/UserFirmar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/UserFirmar.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -76,7 +79,7 @@
       <updated>1762990322870</updated>
       <workItem from="1764009989249" duration="4035000" />
       <workItem from="1764031242529" duration="171000" />
-      <workItem from="1764087281083" duration="5706000" />
+      <workItem from="1764087281083" duration="11181000" />
     </task>
     <servers />
   </component>
