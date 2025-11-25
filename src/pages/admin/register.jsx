@@ -1,4 +1,4 @@
-import { Text, Box, Image, Flex, InputGroup, Button, InputRightElement, Alert, AlertIcon, InputGroup, InputRightElement, Text } from '@chakra-ui/react';
+import { Text, Box, Image, Flex, Button, InputRightElement, Alert, AlertIcon, InputGroup } from '@chakra-ui/react';
 import { Eye, EyeClosed } from 'lucide-react';
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
@@ -46,6 +46,15 @@ function Register() {
             ...prev,
             [name]: value
         }));
+    };
+
+    const [show, setShow] = React.useState(false)
+    const handleClick = () => setShow(!show)
+
+    const iconVariants = {
+        hidden: { opacity: 0, scale: 0.5, rotate: -180 },
+        visible: { opacity: 1, scale: 1, rotate: 0 },
+        exit: { opacity: 0, scale: 0.5, rotate: 180 }
     };
 
     // Manejador para el Select de Rol (si usas EcoSignSelect o un select normal)
