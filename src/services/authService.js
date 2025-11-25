@@ -1,4 +1,4 @@
-import api, {setAuthToken, setUserRole} from './api';
+import api, {setAuthToken, setUserId, setUserName, setUserRole} from './api';
 import * as keyUtils from '../utils/keyUtils';
 
 // Llama a esto una vez para configurar IndexedDB (localforage)
@@ -32,6 +32,8 @@ export const loginUser = async (email, password) => {
         // Guarda el JWT (que ya tiene la clave pública)
         await setAuthToken(token);
         await setUserRole(entity.roleId);
+        await setUserId(entity.id);
+        await setUserName(entity.name + ' ' + entity.lastName);
 
         console.log('[AuthService] LOGIN COMPLETO: Token y role privada guardados.');
         return entity;

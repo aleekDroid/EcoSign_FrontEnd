@@ -1,5 +1,6 @@
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Text, Spinner, Center, Button, Badge, Tooltip } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import localforage from "localforage";
 
 export function DocumentTable({ documents, isLoading, error }) {
     const navigate = useNavigate();
@@ -44,7 +45,7 @@ export function DocumentTable({ documents, isLoading, error }) {
                                             bg="accent-default" 
                                             color="bg-default"
                                             _hover={{ bg: 'primary-default' }}
-                                            onClick={() => navigate('/firmar')}
+                                            onClick={() => navigate(localforage.getItem('user_role')===1?'/adminFirmar': '/userfirmar')}
                                         >
                                             Por firmar
                                         </Button>

@@ -38,3 +38,25 @@ export async function getAllDocuments(page = 1, size = 100, filters = {}) {
         throw error;
     }
 }
+
+export async function getDocumentsByUserId(userId) {
+    try {
+        const response = await api.get(`/api/file/get/filesBy/${userId}`);
+        const data = response.data;
+
+        if (data.codeStatus === 'OK') {
+            // Tu endpoint devuelve la lista en 'entity'
+            return {
+                userFiles: data.entity || [],
+                totalPages: 1,
+                totalElements: (data.entity || []).length,
+                currentPage: 1
+            };
+        } else {
+            throw new Error(data.message || "Error al obtener documentos del usuario");
+        }
+    } catch (error) {
+        console.error("[DocumentService] Error:", error);
+        throw error;
+    }
+}
