@@ -8,14 +8,14 @@ export function useRegisterForm() {
     const [isLoading, setIsLoading] = useState(false);
 
     const [formData, setFormData] = useState({
-        nombres: '',
-        apellidoPaterno: '',
-        apellidoMaterno: '',
-        correo: '',
-        password: '',
+        name: '',
+        lastName: '',
+        middleName: '',
+        email: '',
+        employeeNumber: '',
         confirmPassword: '',
-        telefono: '',
-        rol: ''
+        password: '',
+        role: ''
     });
 
     const handleChange = (e) => {
@@ -24,9 +24,9 @@ export function useRegisterForm() {
     };
 
     const validateForm = () => {
-        const { correo, password, confirmPassword, telefono, rol } = formData;
+        const { email, password, confirmPassword, telefono, rol } = formData;
 
-        if (!correo.endsWith('@uteq.edu.mx') && !correo.endsWith('@uteq.edu')) {
+        if (!email.endsWith('@uteq.edu.mx') && !email.endsWith('@uteq.edu')) {
             showToast("Error", "El correo debe ser institucional (@uteq.edu)", "error");
             return false;
         }
@@ -44,12 +44,7 @@ export function useRegisterForm() {
             return false;
         }
 
-        if (telefono.length > 10) {
-            showToast("Error", "El número de teléfono no debe exceder los 10 dígitos.", "error");
-            return false;
-        }
-
-        if (!rol) {
+        if (!role) {
             showToast("Error", "Selecciona un rol.", "error");
             return false;
         }
@@ -78,7 +73,7 @@ export function useRegisterForm() {
 
             showToast("Usuario Creado", "El usuario se ha registrado exitosamente.", "success");
 
-            setFormData({ nombres: '', apellidoPaterno: '', apellidoMaterno: '', correo: '', password: '', confirmPassword: '', telefono: '', rol: '' });
+            setFormData({ name: '', lastName: '', middleName: '', email: '', password: '', confirmPassword: '', role: '' });
 
         } catch (error) {
             console.error("Error:", error);

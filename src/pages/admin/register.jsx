@@ -231,10 +231,6 @@ function Register() {
                             </AnimatePresence>
                         </InputRightElement>
                     </InputGroup>
-                    <EcoSignInput
-                        placeholder="Número de teléfono"
-                        type="number"
-                    />
                     <EcoSignSelect
                         placeholder="Selecciona un rol de usuario"
                         value={formData.role}
