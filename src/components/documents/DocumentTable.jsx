@@ -45,7 +45,10 @@ export function DocumentTable({ documents, isLoading, error }) {
                                             bg="accent-default" 
                                             color="bg-default"
                                             _hover={{ bg: 'primary-default' }}
-                                            onClick={() => navigate(localforage.getItem('user_role')===1?'/adminFirmar': '/userfirmar')}
+                                            onClick={() =>{
+                                                const basePath = localforage.getItem('user_role') === 1 ? '/adminFirmar' : '/userfirmar';
+                                                navigate(`${basePath}/${document.id}/${document.status}`); }
+                                            }
                                         >
                                             Por firmar
                                         </Button>

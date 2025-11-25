@@ -73,7 +73,7 @@ function App() {
             </ProtectedRoute>
           } />
 
-          <Route path="/adminFirmar" element={
+          <Route path="/adminFirmar/:userFileId/:status" element={
             <ProtectedRoute>
               <RoleRoute allowedRoles={[1]}>
                 <AdminFirmar />
@@ -81,7 +81,7 @@ function App() {
             </ProtectedRoute>
           } />
 
-          <Route path='/userFirmar' element={
+          <Route path='/userFirmar/:userFileId/:status' element={
             <ProtectedRoute>
               <RoleRoute allowedRoles={[2]}>
                 <UserFirmar />
