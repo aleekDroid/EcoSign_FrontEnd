@@ -1,4 +1,4 @@
-import { Text, Box, Image, Flex, InputGroup, Button, InputRightElement, Alert, AlertIcon } from '@chakra-ui/react';
+import { Text, Box, Image, Flex, InputGroup, Button, InputRightElement, Alert, AlertIcon, InputGroup, InputRightElement, Text } from '@chakra-ui/react';
 import { Eye, EyeClosed } from 'lucide-react';
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
@@ -170,22 +170,58 @@ function Register() {
                         onChange={handleChange}
                         isRequired
                     />
-                    <EcoSignInput
-                        placeholder="Contraseña"
-                        name="password"
-                        type="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        isRequired
-                    />
-                    <EcoSignInput
-                        placeholder="Confirmar Contraseña"
-                        name="confirmPassword"
-                        type="password"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        isRequired
-                    />
+                    <InputGroup>
+                        <EcoSignInput
+                            placeholder="Contraseña"
+                            name="password"
+                            type={show ? "text" : "password"}
+                            value={formData.password}
+                            onChange={handleChange}
+                            isRequired
+                        />
+                        <InputRightElement width='4.5rem'>
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={show ? 'eye' : 'eyeClosed'}
+                                    variants={iconVariants}
+                                    initial="hidden"
+                                    animate="visible"
+                                    exit="exit"
+                                    transition={{ duration: 0.08 }}
+                                >
+                                    <Button h='1.75rem' size='sm' onClick={handleClick} bg="transparent" p={0} _hover={{ bg: 'transparent', color: 'accent-default' }}>
+                                        {show ? <Eye /> : <EyeClosed />}
+                                    </Button>
+                                </motion.div>
+                            </AnimatePresence>
+                        </InputRightElement>
+                    </InputGroup>
+                    <InputGroup>
+                        <EcoSignInput
+                            placeholder="Confirmar Contraseña"
+                            name="confirmPassword"
+                            type={show ? "text" : "password"}
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            isRequired
+                        />
+                        <InputRightElement width='4.5rem'>
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={show ? 'eye' : 'eyeClosed'}
+                                    variants={iconVariants}
+                                    initial="hidden"
+                                    animate="visible"
+                                    exit="exit"
+                                    transition={{ duration: 0.08 }}
+                                >
+                                    <Button h='1.75rem' size='sm' onClick={handleClick} bg="transparent" p={0} _hover={{ bg: 'transparent', color: 'accent-default' }}>
+                                        {show ? <Eye /> : <EyeClosed />}
+                                    </Button>
+                                </motion.div>
+                            </AnimatePresence>
+                        </InputRightElement>
+                    </InputGroup>
                     <EcoSignInput
                         placeholder="Número de teléfono"
                         type="number"

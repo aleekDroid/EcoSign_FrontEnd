@@ -12,7 +12,7 @@ import React from 'react';
 
 function LoginPage() {
 
-    
+
     // const { formData, handleChange, handleSubmit, isLoading } = useLoginForm();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -31,7 +31,7 @@ function LoginPage() {
         exit: { opacity: 0, scale: 0.5, rotate: 180 }
     };
 
-const handleLogin = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         setError(null);
@@ -75,21 +75,21 @@ const handleLogin = async (e) => {
                             mx="auto"
                             mb={0}
                         />
-                        <EcoSignInput 
-                        placeholder="Correo electrónico" 
-                        type="email" 
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        isDisabled = { isLoading }
+                        <EcoSignInput
+                            placeholder="Correo electrónico"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            isDisabled={isLoading}
                         />
                         <InputGroup>
-                            <EcoSignInput 
-                            placeholder="Contraseña"
-                            type = { show ? "text" : "password" }
-                            name = "password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            isDisabled = { isLoading }
+                            <EcoSignInput
+                                placeholder="Contraseña"
+                                type={show ? "text" : "password"}
+                                name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                isDisabled={isLoading}
                             />
 
                             <InputRightElement width='4.5rem'>
@@ -110,10 +110,10 @@ const handleLogin = async (e) => {
                             </InputRightElement>
 
                             {error && (
-                            <Text color="red.500" fontSize="sm" px={4}>
-                                {error}
-                            </Text>
-                        )}
+                                <Text color="red.500" fontSize="sm" px={4}>
+                                    {error}
+                                </Text>
+                            )}
 
                         </InputGroup>
 
