@@ -8,6 +8,7 @@ import { DocumentTable } from '../components/documents/DocumentTable';
 
 import { useFetchDocuments } from '../hooks/useFetchDocuments';
 import { uploadDocument } from '../services/documentService';
+import React, { useRef, useState } from 'react';
 
 function Archivo() {
 
@@ -107,6 +108,9 @@ function Archivo() {
                         p={4}
                         color="bg-default"
                         _hover={{ bg: 'primary-default' }}
+                        isLoading={isUploading}
+                        loadingText="Cargando..."
+                        onClick={handleButtonClick}
                     >
                         Subir
                         <Box as="span" display={{ base: 'none', md: 'inline' }} ml={1}>
