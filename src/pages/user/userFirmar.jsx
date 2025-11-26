@@ -74,7 +74,6 @@ function UserFirmar() {
     }, [userFileId, status]);
 
     const handleSignDocument = async () => {
-        // ✅ PROTECCIÓN: Evita doble clic
         if (isSigning) return;
 
         setIsSigning(true);

@@ -73,7 +73,7 @@ function Archivo() {
             });
         } finally {
             setIsUploading(false);
-            event.target.value = null; // Limpiar input.
+            event.target.value = null;
         }
     };
 

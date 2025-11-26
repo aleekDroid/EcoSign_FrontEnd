@@ -11,7 +11,7 @@ export function DocumentTable({ documents, isLoading, error }) {
 
     const handleNavigateToDoc = async (docId, docStatus) => {
         const role = await localforage.getItem('user_role');
-        const basePath = role === 1 ? '/userFirmar' : '/adminFirmar';
+        const basePath = role == 1 ? '/adminFirmar' : '/userFirmar';
         navigate(`${basePath}/${docId}/${docStatus}`);
     };
 
@@ -87,12 +87,7 @@ export function DocumentTable({ documents, isLoading, error }) {
                                             bg="accent-default"
                                             color="bg-default"
                                             _hover={{ bg: 'primary-default' }}
-                                            onClick={() => {
-                                                const basePath = localforage.getItem('user_role') === 1 ?
-                                                    '/userFirmar' : '/adminFirmar';
-                                                navigate(`${basePath}/${document.id}/${document.status}`);
-                                            }
-                                            }
+                                            onClick={() => {handleNavigateToDoc(document.id, document.status)}}
                                         >
                                             Por firmar
                                         </Button>
