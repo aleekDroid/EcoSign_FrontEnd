@@ -12,11 +12,11 @@ export function useSearchFilterUsers(users) {
         const lowerCaseSearch = searchTerm.toLowerCase();
 
         return users.filter(user => {
-            const fullName = `${user.nombres} ${user.apellidoPaterno} ${user.apellidoMaterno}`.toLowerCase();
+            const fullName = `${user.name} ${user.lastName} ${user.middleName}`.toLowerCase();
             return (
                 fullName.includes(lowerCaseSearch) ||
-                user.correo.toLowerCase().includes(lowerCaseSearch) ||
-                user.rol.toLowerCase().includes(lowerCaseSearch)
+                user.email.toLowerCase().includes(lowerCaseSearch) ||
+                user.role.toLowerCase().includes(lowerCaseSearch)
             );
         });
     }, [users, searchTerm]);
