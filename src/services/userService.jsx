@@ -48,4 +48,26 @@ export async function getAllUsers(page = 1, size = 100, filters = {}) {
         console.error("[UserService] Error:", error);
         throw error;
     }
-}
+};
+
+export const deleteUserService = async (userId, statutsParam) => {
+    try {
+        const status = statutsParam;
+        const response = await api.delete(`/api/user/delete/${userId}/${status}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const updateUserRole = async (userId, newRoleId) => {
+    try {
+        const payload = {
+            role: newRoleId
+        };
+        const response = await api.put(`/api/user/update/${userId}`, payload);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
