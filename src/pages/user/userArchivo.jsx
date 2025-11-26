@@ -9,14 +9,14 @@ import Header from '../../components/layout/Header';
 import { DocumentTable } from '../../components/documents/DocumentTable';
 import UserSearchInput from '../../components/forms/user/UserSearchInput';
 
-import { useFetchDocuments } from '../../hooks/useFetchDocuments';
+import {useFetchDocuments, useFetchDocumentsForUser} from '../../hooks/useFetchDocuments';
 import { useSearchFilterDocuments } from '../../hooks/useSearchFilterDocuments';
 import { uploadDocument } from '../../services/documentService';
 
 function UserArchivo() {
 
-    const { documents, isLoading, error, refetch } = useFetchDocuments();
-    const { filteredUsers: filteredDocuments, searchTerm, setSearchTerm } = useSearchFilterDocuments(documents);
+    const { documents, isLoading, error, refetch } = useFetchDocumentsForUser();
+    const { filteredDocuments, searchTerm, setSearchTerm } = useSearchFilterDocuments(documents);
 
     const hiddenFileInputRef = useRef(null);
     const [isUploading, setIsUploading] = useState(false);
@@ -27,13 +27,15 @@ function UserArchivo() {
         hiddenFileInputRef.current.click();
     };
 
+    // Al seleccionar archivo.
     const handleFileChange = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
 
+        // Validación PDF.
         if (file.type !== 'application/pdf') {
             toast({
-                title: "Formato incorrecto",
+                title: "Formato incorrecto.",
                 description: "Solo se permiten archivos PDF.",
                 status: "warning",
                 duration: 4000,
@@ -46,6 +48,7 @@ function UserArchivo() {
         try {
             setIsUploading(true);
 
+            // Llamamos al servicio (ya no pasamos userId aquí, el servicio lo busca solo).
             await uploadDocument(file);
 
             toast({
@@ -56,7 +59,6 @@ function UserArchivo() {
                 isClosable: true,
                 position: 'top-right'
             });
-
             refetch();
 
         } catch (err) {
@@ -71,7 +73,7 @@ function UserArchivo() {
             });
         } finally {
             setIsUploading(false);
-            event.target.value = null;
+            event.target.value = null; // Limpiar input.
         }
     };
 

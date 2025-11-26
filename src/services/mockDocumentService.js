@@ -39,7 +39,7 @@ export const getAllDocumentsMock = async (page = 1, size = 100, filters = {}) =>
             resolve({
                 codeStatus: 'OK',
                 message: 'Documentos obtenidos (MOCK)',
-                userFiles: MOCK_DOCS, // Nota: el servicio real devuelve 'entity', aquí lo mapeamos directo.
+                userFiles: MOCK_DOCS,
                 totalPages: 1,
                 totalElements: MOCK_DOCS.length,
                 currentPage: 1
