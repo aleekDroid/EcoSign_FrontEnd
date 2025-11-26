@@ -4,26 +4,28 @@ import {
     Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,
     useDisclosure, useToast, Spinner, Center, Alert, AlertIcon
 } from '@chakra-ui/react';
-import { FileText, AlertCircle } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 
 import EcoSignLogo from '../../assets/EcoSign.PNG';
-import UserSidebar from '../../components/layout/Usersidebar';
 import Header from '../../components/layout/Header';
 import api from '../../services/api';
-import {signDocument} from "../../services/signService";
+import { signDocument } from "../../services/signService";
 import AdminSidebar from "../../components/layout/AdminSidebar";
 
 function AdminFirmar() {
     const { userFileId, status } = useParams();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
+
     const [isSigning, setIsSigning] = useState(false);
 
     const [pdfUrl, setPdfUrl] = useState(null);
     const [isLoadingPreview, setIsLoadingPreview] = useState(true);
     const [previewError, setPreviewError] = useState(null);
     const [fileName, setFileName] = useState("Documento");
+
+    const isReadOnly = status === 'FIRMADO' || status === 'ACTIVO';
 
     // --- EFECTO DE CARGA (PREVIEW) ---
     useEffect(() => {
@@ -77,12 +79,13 @@ function AdminFirmar() {
     }, [userFileId]);
 
     const handleSignDocument = async () => {
+
+        if (isSigning) return;
+
         setIsSigning(true);
         try {
-
             // LLAMADA LIMPIA AL SERVICIO
             await signDocument(userFileId);
-
             toast({
                 title: "Documento firmado",
                 status: "success",
@@ -90,6 +93,7 @@ function AdminFirmar() {
                 isClosable: true,
             });
             onClose();
+            window.location.reload();
 
         } catch (error) {
             console.error(error);
@@ -121,7 +125,7 @@ function AdminFirmar() {
                 <Image src={EcoSignLogo} alt="EcoSign Logo" w="40%" mb={4} />
 
                 <Text as="h2" fontSize="3xl" fontWeight="bold" mb={6} color="text-default">
-                    Firma de Documento: {fileName}
+                    {isReadOnly ? `Visualizando: ${fileName}` : `Firma de Documento: ${fileName}`}
                 </Text>
 
                 <Flex direction={{ base: 'column', lg: 'row' }} gap={8} align="start" justify="center">
@@ -135,7 +139,7 @@ function AdminFirmar() {
                     >
                         {isLoadingPreview && (
                             <VStack>
-                                <Spinner size="xl" color="accent-default" thickness="4px"/>
+                                <Spinner size="xl" color="accent-default" thickness="4px" />
                                 <Text color="gray.500" mt={4}>Cargando vista previa segura...</Text>
                             </VStack>
                         )}
@@ -158,18 +162,23 @@ function AdminFirmar() {
                         )}
                     </Box>
 
-                    {/* ACCIONES */}
                     <VStack spacing={4} w={{ base: 'full', lg: '300px' }} align="stretch">
-                        <Box p={4} bg="bg-default" borderRadius="md" borderWidth="1px">
+                        <Box p={1} bg="bg-default" borderRadius="md">
                             <VStack spacing={4}>
                                 <Button variant="outline" w="full" borderColor="secondary-default" color="secondary-default"
-                                        onClick={openDocumentInNewTab} isDisabled={!pdfUrl}>
+                                    onClick={openDocumentInNewTab} isDisabled={!pdfUrl}>
                                     Abrir en Pestaña Nueva
                                 </Button>
 
-                                <Button bg="accent-default" color="bg-default" w="full" _hover={{ bg: 'primary-default' }}
-                                        onClick={onOpen} isDisabled={!pdfUrl || !!previewError}>
-                                    Firmar documento
+                                <Button
+                                    bg={isReadOnly ? "gray.400" : "accent-default"}
+                                    color="bg-default"
+                                    w="full"
+                                    _hover={isReadOnly ? { bg: "gray.400" } : { bg: 'primary-default' }}
+                                    onClick={onOpen}
+                                    isDisabled={!pdfUrl || !!previewError || isReadOnly}
+                                >
+                                    {isReadOnly ? "Firmado - Solo Lectura" : "Firmar documento"}
                                 </Button>
                             </VStack>
                         </Box>
@@ -187,16 +196,23 @@ function AdminFirmar() {
                 <ModalOverlay />
                 <ModalContent bg="bg-default">
                     <ModalHeader color="text-default">Confirmar Firma</ModalHeader>
-                    <ModalCloseButton />
+                    {!isSigning && <ModalCloseButton />}
                     <ModalBody>
                         <Text color="text-default">
-                            ¿Estás seguro de firmar <b>{fileName}</b>? <br/>
+                            ¿Estás seguro de firmar <b>{fileName}</b>? <br />
                             Se aplicará tu firma digital criptográfica.
                         </Text>
                     </ModalBody>
                     <ModalFooter>
                         <Button variant="ghost" mr={3} onClick={onClose} color="text-default">Cancelar</Button>
-                        <Button bg="primary-default" color="white" _hover={{ bg: "accent-default" }} onClick={handleSignDocument}>
+                        <Button 
+                            bg="primary-default" 
+                            color="white" 
+                            _hover={{ bg: "accent-default" }} 
+                            onClick={handleSignDocument}
+                            isLoading = {isSigning}
+                            loadingText = "Firmando..."
+                        >
                             Firmar
                         </Button>
                     </ModalFooter>

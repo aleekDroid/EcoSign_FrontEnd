@@ -1,17 +1,59 @@
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Text, Spinner, Center } from "@chakra-ui/react";
+import {
+    Table, Thead, Tbody, Tr, Th, Td, TableContainer, Text,
+    Spinner, Center, Button, Tooltip, VStack, Icon, Box
+} from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import { WifiOff, RefreshCw, FileX } from "lucide-react";
 
 export function UserDocumentTable({ documents, isLoading, error }) {
+    const navigate = useNavigate();
+
+    const handleNavigateToDoc = (docId, docStatus) => {
+        navigate(`/userFirmar/${docId}/${docStatus}`);
+    };
 
     if (isLoading) {
-        return <Center py={10}><Spinner size="xl" color="secondary-default" thickness="4px" /></Center>;
+        return (
+            <Center py={20}>
+                <VStack spacing={4}>
+                    <Spinner size="xl" color="accent-default" thickness="4px" />
+                    <Text color="secondary-default">Cargando documentos...</Text>
+                </VStack>
+            </Center>
+        );
     }
 
     if (error) {
-        return <Center py={10}><Text color="red.500">Error al cargar documentos: {error}</Text></Center>;
+        return (
+            <Center py={10} bg="bg-default" borderRadius="lg" borderWidth="1px" borderStyle="dashed">
+                <VStack spacing={4} textAlign="center">
+                    <Icon as={WifiOff} boxSize={12} color="red.400" />
+                    <Text size="lg" color="text-default">Error de conexión</Text>
+                    <Text size="sm" color="secondary-default" maxW="sm">
+                        No pudimos obtener la lista de documentos.
+                    </Text>
+                    <Button
+                        leftIcon={<RefreshCw size={18} />}
+                        colorScheme="blue"
+                        variant="outline"
+                        onClick={() => window.location.reload()}
+                    >
+                        Recargar página
+                    </Button>
+                </VStack>
+            </Center>
+        );
     }
-    
-    if (!documents ||  documents.length === 0) {
-        return <Center py={10}><Text color="secondary-default">No hay documentos registrados.</Text></Center>;
+
+    if (!documents || documents.length === 0) {
+        return (
+            <Center py={10} bg="bg-default" borderRadius="lg" borderWidth="1px" borderStyle="dashed">
+                <VStack spacing={3}>
+                    <Icon as={FileX} boxSize={10} color="gray.400" />
+                    <Text color="secondary-default">No hay documentos registrados.</Text>
+                </VStack>
+            </Center>
+        );
     }
 
     return (
@@ -28,10 +70,50 @@ export function UserDocumentTable({ documents, isLoading, error }) {
                 <Tbody>
                     {documents.map(document => (
                         <Tr key={document.id}>
-                            <Td color="text">{ document.name}</Td>
-                            <Td color="secondary">{ document.date}</Td>
-                            <Td color="secondary">{ document.type}</Td>
-                            <Td color="secondary">{ document.status}</Td>
+                            <Td color="text-default" maxW="250px" isTruncated title={document.fileName}>
+                                {document.fileName}
+                            </Td>
+                            <Td color="text-default">
+                                {new Date(document.createdAt).toLocaleDateString()}
+                            </Td>
+                            <Td color="text-default">{document.fileCategory}</Td>
+
+                            {/* COLUMNA ESTADO (CONTIENE LA ACCIÓN) */}
+                            <Td>
+                                {document.status === 'PENDIENTE' ? (
+                                    <Tooltip label="Firmar documento" placement="top">
+                                        <Button
+                                            size="xs"
+                                            bg="accent-default"
+                                            color="bg-default"
+                                            _hover={{ bg: 'primary-default' }}
+                                            onClick={() => handleNavigateToDoc(document.id, document.status)}
+                                        >
+                                            Por firmar
+                                        </Button>
+                                    </Tooltip>
+                                ) : (
+                                    // Botón verde inteligente (Badge -> Hover -> Abrir)
+                                    <Tooltip label="Ver documento firmado" placement="top">
+                                        <Button
+                                            size="xs"
+                                            borderRadius="full"
+                                            colorScheme="green"
+                                            variant="outline"
+                                            w="80px"
+                                            onClick={() => handleNavigateToDoc(document.id, document.status)}
+                                            css={{
+                                                "&:hover .text-status": { display: "none" },
+                                                "&:hover .text-hover": { display: "block" },
+                                                ".text-hover": { display: "none" }
+                                            }}
+                                        >
+                                            <Box as="span" className="text-status">FIRMADO</Box>
+                                            <Box as="span" className="text-hover">ABRIR</Box>
+                                        </Button>
+                                    </Tooltip>
+                                )}
+                            </Td>
                         </Tr>
                     ))}
                 </Tbody>
@@ -40,4 +122,4 @@ export function UserDocumentTable({ documents, isLoading, error }) {
     );
 }
 
-export default  UserDocumentTable;
+export default UserDocumentTable;

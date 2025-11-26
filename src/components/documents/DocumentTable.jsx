@@ -1,6 +1,6 @@
 import {
     Table, Thead, Tbody, Tr, Th, Td, TableContainer, Text,
-    Spinner, Center, Button, Badge, Tooltip, VStack, Heading, Icon
+    Spinner, Center,Box, Button, Badge, Tooltip, VStack, Heading, Icon
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import localforage from "localforage";
@@ -8,6 +8,12 @@ import { WifiOff, RefreshCw, FileX } from "lucide-react";
 
 export function DocumentTable({ documents, isLoading, error }) {
     const navigate = useNavigate();
+
+    const handleNavigateToDoc = async (docId, docStatus) => {
+        const role = await localforage.getItem('user_role');
+        const basePath = role === 1 ? '/userFirmar' : '/adminFirmar';
+        navigate(`${basePath}/${docId}/${docStatus}`);
+    };
 
     if (isLoading) {
         return (
@@ -92,14 +98,24 @@ export function DocumentTable({ documents, isLoading, error }) {
                                         </Button>
                                     </Tooltip>
                                 ) : (
-                                    <Badge
-                                        colorScheme={document.status === 'FIRMADO' ? 'green' : 'gray'}
-                                        variant="subtle"
-                                        borderRadius="full"
-                                        px={2}
-                                    >
-                                        {document.status}
-                                    </Badge>
+                                    <Tooltip label="Ver documento firmado" placement="top">
+                                        <Button
+                                            size="xs"
+                                            borderRadius="full"
+                                            colorScheme="green"
+                                            variant="outline"
+                                            w="80px"
+                                            onClick={() => handleNavigateToDoc(document.id, document.status)}
+                                            css={{
+                                                "&:hover .text-status": { display: "none" },
+                                                "&:hover .text-hover": { display: "block" },
+                                                ".text-hover": { display: "none" }
+                                            }}
+                                        >
+                                            <Box as="span" className="text-status">FIRMADO</Box>
+                                            <Box as="span" className="text-hover">ABRIR</Box>
+                                        </Button>
+                                    </Tooltip>
                                 )}
                             </Td>
                         </Tr>

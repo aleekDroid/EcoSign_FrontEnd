@@ -2,21 +2,22 @@ import React, { useState, useEffect } from 'react';
 import {
     Text, Box, Image, Flex, Button, VStack, Icon,
     Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,
-    useDisclosure, useToast, Spinner, Center, Alert, AlertIcon
+    useDisclosure, useToast, Spinner, Alert, AlertIcon
 } from '@chakra-ui/react';
-import { FileText, AlertCircle } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 
 import EcoSignLogo from '../../assets/EcoSign.PNG';
 import UserSidebar from '../../components/layout/Usersidebar';
 import Header from '../../components/layout/Header';
 import api from '../../services/api';
-import {signDocument} from "../../services/signService";
+import { signDocument } from "../../services/signService";
 
 function UserFirmar() {
     const { userFileId, status } = useParams();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
+    
     const [isSigning, setIsSigning] = useState(false);
 
     const [pdfUrl, setPdfUrl] = useState(null);
@@ -24,7 +25,8 @@ function UserFirmar() {
     const [previewError, setPreviewError] = useState(null);
     const [fileName, setFileName] = useState("Documento");
 
-    // --- EFECTO DE CARGA (PREVIEW) ---
+    const isReadOnly = status === 'FIRMADO' || status === 'ACTIVO';
+
     useEffect(() => {
         let objectUrl = null;
 
@@ -39,12 +41,10 @@ function UserFirmar() {
             setPreviewError(null);
 
             try {
-
                 const response = await api.get(`/api/file/preview/${userFileId}/${status}`, {
                     responseType: 'blob'
                 });
 
-                // Intentar sacar el nombre real del header content-disposition
                 const disposition = response.headers['content-disposition'];
                 if (disposition && disposition.includes('filename=')) {
                     const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition);
@@ -53,7 +53,6 @@ function UserFirmar() {
                     }
                 }
 
-                // Crear URL temporal del Blob para el iframe
                 const fileType = response.headers['content-type'];
                 const blob = new Blob([response.data], { type: fileType });
                 objectUrl = URL.createObjectURL(blob);
@@ -61,7 +60,7 @@ function UserFirmar() {
 
             } catch (err) {
                 console.error("Error cargando preview:", err);
-                setPreviewError("No se pudo visualizar el documento. Verifica que el archivo exista y sea un PDF o Imagen válida.");
+                setPreviewError("No se pudo visualizar el documento.");
             } finally {
                 setIsLoadingPreview(false);
             }
@@ -69,17 +68,17 @@ function UserFirmar() {
 
         loadFilePreview();
 
-        // Cleanup: Revocar URL para liberar memoria al salir
         return () => {
             if (objectUrl) URL.revokeObjectURL(objectUrl);
         };
-    }, [userFileId]);
+    }, [userFileId, status]);
 
     const handleSignDocument = async () => {
+        // ✅ PROTECCIÓN: Evita doble clic
+        if (isSigning) return;
+
         setIsSigning(true);
         try {
-
-            // LLAMADA LIMPIA AL SERVICIO
             await signDocument(userFileId);
 
             toast({
@@ -89,6 +88,8 @@ function UserFirmar() {
                 isClosable: true,
             });
             onClose();
+            
+            window.location.reload(); 
 
         } catch (error) {
             console.error(error);
@@ -120,12 +121,11 @@ function UserFirmar() {
                 <Image src={EcoSignLogo} alt="EcoSign Logo" w="40%" mb={4} />
 
                 <Text as="h2" fontSize="3xl" fontWeight="bold" mb={6} color="text-default">
-                    Firma de Documento: {fileName}
+                    {isReadOnly ? `Visualizando: ${fileName}` : `Firma de Documento: ${fileName}`}
                 </Text>
 
                 <Flex direction={{ base: 'column', lg: 'row' }} gap={8} align="start" justify="center">
 
-                    {/* VISUALIZADOR */}
                     <Box
                         flex="1" bg="gray.100" h="75vh" w="full" maxW="900px"
                         borderRadius="md" boxShadow="lg" border="1px solid" borderColor="gray.300"
@@ -157,7 +157,6 @@ function UserFirmar() {
                         )}
                     </Box>
 
-                    {/* ACCIONES */}
                     <VStack spacing={4} w={{ base: 'full', lg: '300px' }} align="stretch">
                         <Box p={4} bg="bg-default" borderRadius="md" borderWidth="1px">
                             <VStack spacing={4}>
@@ -166,9 +165,15 @@ function UserFirmar() {
                                     Abrir en Pestaña Nueva
                                 </Button>
 
-                                <Button bg="accent-default" color="bg-default" w="full" _hover={{ bg: 'primary-default' }}
-                                        onClick={onOpen} isDisabled={!pdfUrl || !!previewError}>
-                                    Firmar documento
+                                <Button 
+                                    bg={isReadOnly ? "gray.400" : "accent-default"} 
+                                    color="bg-default" 
+                                    w="full" 
+                                    _hover={isReadOnly ? { bg: "gray.400" } : { bg: 'primary-default' }}
+                                    onClick={onOpen} 
+                                    isDisabled={!pdfUrl || !!previewError || isReadOnly}
+                                >
+                                    {isReadOnly ? "Firmado - Solo Lectura" : "Firmar documento"}
                                 </Button>
                             </VStack>
                         </Box>
@@ -181,12 +186,12 @@ function UserFirmar() {
                 </Flex>
             </Box>
 
-            {/* MODAL */}
-            <Modal isOpen={isOpen} onClose={onClose} isCentered>
+            <Modal isOpen={isOpen} onClose={onClose} isCentered closeOnOverlayClick={!isSigning}>
                 <ModalOverlay />
                 <ModalContent bg="bg-default">
                     <ModalHeader color="text-default">Confirmar Firma</ModalHeader>
-                    <ModalCloseButton />
+                    {!isSigning && <ModalCloseButton />} 
+                    
                     <ModalBody>
                         <Text color="text-default">
                             ¿Estás seguro de firmar <b>{fileName}</b>? <br/>
@@ -194,8 +199,18 @@ function UserFirmar() {
                         </Text>
                     </ModalBody>
                     <ModalFooter>
-                        <Button variant="ghost" mr={3} onClick={onClose} color="text-default">Cancelar</Button>
-                        <Button bg="primary-default" color="white" _hover={{ bg: "accent-default" }} onClick={handleSignDocument}>
+                        <Button variant="ghost" mr={3} onClick={onClose} color="text-default" isDisabled={isSigning}>
+                            Cancelar
+                        </Button>
+                        
+                        <Button 
+                            bg="primary-default" 
+                            color="white" 
+                            _hover={{ bg: "accent-default" }} 
+                            onClick={handleSignDocument}
+                            isLoading={isSigning}
+                            loadingText="Firmando..."
+                        >
                             Firmar
                         </Button>
                     </ModalFooter>
