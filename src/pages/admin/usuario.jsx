@@ -1,4 +1,5 @@
-import { Box, Flex, Heading, Image, Table, Thead, Tr, Th, TableContainer, Td, Tbody, Text, Button, Icon, Menu, MenuButton, MenuList, MenuItem, navigate } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image, Table, Thead, Tr, Th, TableContainer, Td, 
+    Tbody, Text, Button, Icon, Menu, MenuButton, MenuList, MenuItem, navigate, Tooltip } from "@chakra-ui/react";
 import EcoSign from "../../assets/EcoSign.PNG";
 
 import { User, ChevronDown } from "lucide-react";
@@ -34,11 +35,11 @@ function Usuario() {
     return (
         <Flex minH="100vh" bg="bg-default" w="full">
             <AdminSidebar />
-            <Box 
-                w="full" 
-                p={10} 
-                maxW="full" 
-                pl = {{ base: '90px', md: '290px' }}
+            <Box
+                w="full"
+                p={10}
+                maxW="full"
+                pl={{ base: '90px', md: '290px' }}
             >
                 <Box display="flex" justifyContent="flex-end" mb={4}>
                     <Header />
@@ -52,22 +53,26 @@ function Usuario() {
                         as="b"
                         borderRadius="md"
                         bg="accent-default"
-                        w = {{ base: 'auto', md: '20%' }}
-                        p = {4}
+                        w={{ base: 'auto', md: '20%' }}
+                        p={4}
                         color="bg-default"
                         _hover={{ bg: 'primary-default' }}
                     >
-                        Registrar 
+                        Registrar
                         <Box as="span" display={{ base: 'none', md: 'inline' }} ml={1}>
                             usuario
                         </Box>
                     </Button>
-                    <SearchInput 
-                    placeholder="Buscar usuario" 
-                    mb={4} 
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    />
+                    <Tooltip
+                        label="Buscar usuario por correo o rol."
+                        placement="top">
+                        <SearchInput
+                            placeholder="Buscar usuario"
+                            mb={4}
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </Tooltip>
                 </Flex>
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text-default" textAlign="left">
                     Usuarios

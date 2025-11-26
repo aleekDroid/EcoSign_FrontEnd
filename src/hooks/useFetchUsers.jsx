@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getAllUsers } from '../services/userService';
-// import { getAllUsersMock as getAllUsers } from '../services/mockUserService';
+// import { getAllUsers } from '../services/userService';
+import { getAllUsersMock as getAllUsers } from '../services/mockUserService';
 
 export function useFetchUsers(page = 1, size = 100, filters = {}) {
     const [users, setUsers] = useState([]);

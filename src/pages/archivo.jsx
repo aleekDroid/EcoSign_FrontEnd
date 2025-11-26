@@ -1,4 +1,4 @@
-import { Text, Box, Image, Flex, Button, useToast } from '@chakra-ui/react';
+import { Text, Box, Image, Flex, Button, useToast, Tooltip } from '@chakra-ui/react';
 import EcoSign from "../assets/EcoSign.PNG";
 import AdminSidebar from '../components/layout/AdminSidebar';
 import { useNavigate } from 'react-router-dom';
@@ -120,12 +120,16 @@ function Archivo() {
                             documento
                         </Box>
                     </Button>
-                    <SearchInput
-                        placeholder="Buscar documento"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        mb={4}
-                    />
+                    <Tooltip 
+                        label="Buscar documento por nombre, tipo o estado." 
+                        placement="top">
+                        <SearchInput
+                            placeholder="Buscar documento"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            mb={4}
+                        />
+                    </Tooltip>
 
                 </Flex>
 
