@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { getAllUsers } from '../services/userService';
+// import { getAllUsers } from '../services/userService';
+import { getAllUsersMock as getAllUsers } from '../services/mockUserService';
 
 export function useFetchUsers(page = 1, size = 100, filters = {}) {
     const [users, setUsers] = useState([]);
-    const [pagination, setPagination] = useState({ totalPages: 0, totalElements: 0 }); // Extra útil
+    const [pagination, setPagination] = useState({ totalPages: 0, totalElements: 0 });
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 

@@ -8,9 +8,12 @@ import {
     ModalBody,
     ModalCloseButton,
     useDisclosure,
-    useToast
+    useToast,
+    VStack,  
+    Heading,
+    background
 } from "@chakra-ui/react";
-import { X, Check } from "lucide-react"; // Importamos X para eliminar y Check para activar
+import { X, Check, WifiOff, RefreshCw } from "lucide-react"; // Importamos X para eliminar y Check para activar
 // Ajusta esta ruta si tu carpeta services está en otro nivel
 import { deleteUserService, updateUserRole } from '../../services/userService';
 
@@ -39,16 +42,46 @@ export function UserTable({ users, isLoading, error, onUserUpdated }) {
         }
     }, [users]);
 
-    if (isLoading) {
-        return <Center py={10}><Spinner size="xl" color="accent-default" thickness="4px" /></Center>;
+if (isLoading) {
+        return (
+            <Center py={20}>
+                <VStack spacing={4}>
+                    <Spinner size="xl" color="accent-default" thickness="4px" />
+                    <Text color="secondary-default">Cargando usuarios...</Text>
+                </VStack>
+            </Center>
+        );
     }
 
-    if (error) {
-        return <Center py={10}><Text color="red.500">Error al cargar usuarios: {error}</Text></Center>;
+if (error) {
+        return (
+            <Center py={10} bg="bg-default" borderRadius="lg" borderWidth="1px" borderStyle="dashed">
+                <VStack spacing={4} textAlign="center">
+                    <Icon as={WifiOff} boxSize={12} color="red.400" />
+                    <Text size="lg" color="text-default">No pudimos conectar con el servidor</Text>
+                    <Text size="sm"  color="secondary-default" maxW="sm">
+                        Parece que hay un problema de conexión. Intenta recargar la página.
+                    </Text>
+                    
+                    <Button 
+                        leftIcon={<RefreshCw size={18}/>} 
+                        colorScheme="blue" 
+                        variant="outline"
+                        onClick={() => window.location.reload()}
+                    >
+                        Recargar página
+                    </Button>
+                </VStack>
+            </Center>
+        );
     }
 
-    if (!localUsers || localUsers.length === 0) {
-        return <Center py={10}><Text color="secondary">No hay usuarios registrados.</Text></Center>;
+if (!localUsers || localUsers.length === 0) {
+        return (
+            <Center py={10} bg="bg-default" borderRadius="lg" borderWidth="1px" borderStyle="dashed">
+                <Text color="secondary-default">No se encontraron usuarios registrados.</Text>
+            </Center>
+        );
     }
 
     // Maneja el click en el botón de acción (X o Palomita)
