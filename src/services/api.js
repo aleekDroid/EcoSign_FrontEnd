@@ -9,7 +9,7 @@ const USER_ID = 'user_id';
 const USER_NAME = 'user_name';
 // 2. Crea la instancia de axios
 const api = axios.create({
-    baseURL: 'http://localhost:8080'
+    baseURL: 'https://the-workers-gateway.zeabur.app'
 });
 
 api.interceptors.request.use(
