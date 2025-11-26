@@ -3,20 +3,27 @@ import { useState, useMemo } from 'react';
 export function useSearchFilterUsers(users) {
     const [searchTerm, setSearchTerm] = useState('');
 
-    // useMemo solo recalcula la lista filtrada cuando 'users' o 'searchTerm' cambian.
     const filteredUsers = useMemo(() => {
-        if (!searchTerm) {
-            return users;
-        }
+        // Si no hay usuarios o no hay búsqueda, regresamos todo igual.
+        if (!users) return [];
+        if (!searchTerm) return users;
 
         const lowerCaseSearch = searchTerm.toLowerCase();
 
         return users.filter(user => {
-            const fullName = `${user.name} ${user.lastName} ${user.middleName}`.toLowerCase();
+            const name = (user.name || '').toLowerCase();
+            const lastName = (user.lastName || '').toLowerCase();
+            const middleName = (user.middleName || '').toLowerCase();
+            const email = (user.email || '').toLowerCase();
+            
+            const fullName = `${name} ${lastName} ${middleName}`;
+
+            const roleName = (user.roleId === 1) ? 'administrador admin' : 'usuario';
+
             return (
                 fullName.includes(lowerCaseSearch) ||
-                user.email.toLowerCase().includes(lowerCaseSearch) ||
-                user.role.toLowerCase().includes(lowerCaseSearch)
+                email.includes(lowerCaseSearch) ||
+                roleName.includes(lowerCaseSearch)
             );
         });
     }, [users, searchTerm]);
