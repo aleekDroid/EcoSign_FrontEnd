@@ -1,4 +1,4 @@
-import { Center, Box, Heading, Image, Button, VStack, Input, InputGroup, InputRightElement, Text } from "@chakra-ui/react";
+import { Center, Box, Heading, Image, Button, VStack, Input, InputGroup, InputRightElement, Text, useToast } from "@chakra-ui/react";
 import { Eye, EyeClosed } from 'lucide-react';
 import { AnimatePresence, motion } from "framer-motion";
 import EcoSign from "../assets/EcoSign.PNG";
@@ -80,6 +80,7 @@ function LoginPage() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             isDisabled={isLoading}
+                            isInvalid={!!error}
                         />
                         <InputGroup>
                             <EcoSignInput
@@ -89,6 +90,7 @@ function LoginPage() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 isDisabled={isLoading}
+                                isInvalid={!!error}
                             />
 
                             <InputRightElement width='4.5rem'>
@@ -107,12 +109,6 @@ function LoginPage() {
                                     </motion.div>
                                 </AnimatePresence>
                             </InputRightElement>
-
-                            {error && (
-                                <Text color="red.500" fontSize="sm" px={4}>
-                                    {error}
-                                </Text>
-                            )}
 
                         </InputGroup>
 

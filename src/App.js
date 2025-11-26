@@ -66,19 +66,19 @@ function App() {
           } />
 
           <Route path="/register" element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={[1]}>
+            // <ProtectedRoute>
+            //   <RoleRoute allowedRoles={[1]}>
                 <Register />
-              </RoleRoute>
-            </ProtectedRoute>
+            //   </RoleRoute>
+            // </ProtectedRoute>
           } />
 
           <Route path="/adminFirmar/:userFileId/:status" element={
-             <ProtectedRoute>
-               <RoleRoute allowedRoles={[1]}>
+            //  <ProtectedRoute>
+            //    <RoleRoute allowedRoles={[1]}>
                 <AdminFirmar />
-               </RoleRoute>
-             </ProtectedRoute>
+            //    </RoleRoute>
+            //  </ProtectedRoute>
           } />
 
           <Route path='/userFirmar/:userFileId/:status' element={
