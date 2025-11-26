@@ -11,7 +11,7 @@ import { useFetchDocumentsForUser } from "../../hooks/useFetchDocuments";
 import { DocumentTable } from "../../components/documents/DocumentTable";
 import { getRecentDocuments } from "../../utils/recentDocuments";
 
-function AdminDashboard() {
+function UserHome() {
 
     const navigate = useNavigate();
     const { documents, isLoading, error } = useFetchDocumentsForUser();
@@ -48,4 +48,4 @@ function AdminDashboard() {
     )
 }
 
-export default AdminDashboard;
+export default UserHome;

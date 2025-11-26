@@ -19,11 +19,6 @@ function AdminDashboard() {
 
     const { colorMode } = useColorMode();
 
-    const logOut = (e) => {
-        if (e & e.preventDefault) e.preventDefault();
-        navigate('/login', { replace: true });
-    }
-
     return (
         <Flex bg="bg-default" w="full">
             <AdminSidebar />
@@ -31,7 +26,6 @@ function AdminDashboard() {
                 w="full" 
                 p={10} 
                 maxW="full" 
-                // pl="300px"
                 pl = {{ base: '90px', md: '290px' }}
             >
                 <Box display="flex" justifyContent="flex-end" mb={4}>

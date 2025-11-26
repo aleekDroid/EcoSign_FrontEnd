@@ -1,15 +1,17 @@
 import { Text, Box, Image, Flex, Button, useToast, Tooltip } from '@chakra-ui/react';
+import React, { useRef, useState } from 'react';
 import EcoSign from "../assets/EcoSign.PNG";
-import AdminSidebar from '../components/layout/AdminSidebar';
 import { useNavigate } from 'react-router-dom';
-import Header from '../components/layout/Header';
-import SearchInput from '../components/forms/SearchInput';
-import { DocumentTable } from '../components/documents/DocumentTable';
-import { useSearchFilterDocuments } from '../hooks/useSearchFilterDocuments';
 
+import AdminSidebar from '../components/layout/AdminSidebar';
+import Header from '../components/layout/Header';
+import { DocumentTable } from '../components/documents/DocumentTable';
+import SearchInput from '../components/forms/SearchInput';
+
+import { useSearchFilterDocuments } from '../hooks/useSearchFilterDocuments';
 import { useFetchDocuments } from '../hooks/useFetchDocuments';
 import { uploadDocument } from '../services/documentService';
-import React, { useRef, useState } from 'react';
+
 
 function Archivo() {
 
