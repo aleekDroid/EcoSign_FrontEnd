@@ -13,7 +13,7 @@ export function useFetchDocuments(page = 1, size = 100, filters = {}) {
     const [error, setError] = useState(null);
     const [pagination, setPagination] = useState({ totalPages: 0, totalElements: 0 });
 
-    const fetchDocs = useCallback(() => {
+    const fetchDocs = useCallback( async () => {
         setIsLoading(true);
         setError(null);
 

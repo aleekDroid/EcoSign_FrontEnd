@@ -1,20 +1,23 @@
-import { Text, Box, Image, Flex, Button, useToast, Tooltip } from '@chakra-ui/react';
-import EcoSign from "../assets/EcoSign.PNG";
-import AdminSidebar from '../components/layout/AdminSidebar';
-import { useNavigate } from 'react-router-dom';
-import Header from '../components/layout/Header';
-import SearchInput from '../components/forms/SearchInput';
-import { DocumentTable } from '../components/documents/DocumentTable';
-import { useSearchFilterDocuments } from '../hooks/useSearchFilterDocuments';
-
-import { useFetchDocuments } from '../hooks/useFetchDocuments';
-import { uploadDocument } from '../services/documentService';
 import React, { useRef, useState } from 'react';
+import { Text, Box, Image, Flex, Button, useToast, Tooltip } from '@chakra-ui/react';
+import EcoSign from "../../assets/EcoSign.PNG";
+import { useColorMode } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
-function Archivo() {
+import UserSidebar from '../../components/layout/Usersidebar';
+import Header from '../../components/layout/Header';
+import { DocumentTable } from '../../components/documents/DocumentTable';
+import UserSearchInput from '../../components/forms/user/UserSearchInput';
+
+import { useFetchDocuments } from '../../hooks/useFetchDocuments';
+import { useSearchFilterDocuments } from '../../hooks/useSearchFilterDocuments';
+
+import { uploadDocument } from '../../services/documentService';
+
+function UserArchivo() {
 
     const { documents, isLoading, error, refetch } = useFetchDocuments();
-    const { filteredDocuments, searchTerm, setSearchTerm } = useSearchFilterDocuments(documents);
+    const { filteredUsers: filteredDocuments, searchTerm, setSearchTerm } = useSearchFilterDocuments(documents);
 
     const hiddenFileInputRef = useRef(null);
     const [isUploading, setIsUploading] = useState(false);
@@ -25,15 +28,13 @@ function Archivo() {
         hiddenFileInputRef.current.click();
     };
 
-    // Al seleccionar archivo.
     const handleFileChange = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
 
-        // Validación PDF.
         if (file.type !== 'application/pdf') {
             toast({
-                title: "Formato incorrecto.",
+                title: "Formato incorrecto",
                 description: "Solo se permiten archivos PDF.",
                 status: "warning",
                 duration: 4000,
@@ -46,7 +47,6 @@ function Archivo() {
         try {
             setIsUploading(true);
 
-            // Llamamos al servicio (ya no pasamos userId aquí, el servicio lo busca solo).
             await uploadDocument(file);
 
             toast({
@@ -57,6 +57,7 @@ function Archivo() {
                 isClosable: true,
                 position: 'top-right'
             });
+
             refetch();
 
         } catch (err) {
@@ -71,13 +72,15 @@ function Archivo() {
             });
         } finally {
             setIsUploading(false);
-            event.target.value = null; // Limpiar input.
+            event.target.value = null;
         }
     };
 
+    const { colorMode } = useColorMode();
+
     return (
         <Flex minH="100vh" bg="bg-default" w="full">
-            <AdminSidebar />
+            <UserSidebar />
             <Box
                 w="full"
                 p={10}
@@ -87,11 +90,11 @@ function Archivo() {
                 <Box display="flex" justifyContent="flex-end" mb={4}>
                     <Header />
                 </Box>
-                <Image 
-                    src={EcoSign} 
-                    alt="EcoSign Logo" 
-                    w="40%" 
-                    mb={4} 
+                <Image
+                    src={EcoSign}
+                    alt="EcoSign Logo"
+                    w="40%"
+                    mb={4}
                 />
                 <Flex
                     gap={4}>
@@ -105,11 +108,11 @@ function Archivo() {
                     <Button
                         as="b"
                         borderRadius="md"
-                        bg="accent-default"
+                        bg="secondary-default"
                         w={{ base: 'auto', md: '20%' }}
                         p={4}
                         color="bg-default"
-                        _hover={{ bg: 'primary-default' }}
+                        _hover={{ bg: 'text-default' }}
                         isLoading={isUploading}
                         loadingText="Cargando..."
                         onClick={handleButtonClick}
@@ -119,10 +122,10 @@ function Archivo() {
                             documento
                         </Box>
                     </Button>
-                    <Tooltip 
-                        label="Buscar documento por nombre, tipo o estado." 
+                    <Tooltip
+                        label="Buscar documento por nombre, tipo o estado."
                         placement="top">
-                        <SearchInput
+                        <UserSearchInput
                             placeholder="Buscar documento"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
@@ -141,4 +144,4 @@ function Archivo() {
     )
 }
 
-export default Archivo;
+export default UserArchivo;

@@ -9,7 +9,7 @@ import UserHome from './pages/user/userHome';
 import Usuario from './pages/admin/usuario';
 import Archivo from './pages/archivo';
 import Register from './pages/admin/register';
-import ArchivoUser from './pages/user/archivoUser';
+import UserArchivo from './pages/user/userArchivo';
 import AdminFirmar from './pages/admin/adminFirmar';
 import UserFirmar from './pages/user/userFirmar'
 
@@ -57,10 +57,10 @@ function App() {
             // </ProtectedRoute>
           } />
 
-          <Route path="/archivoUser" element={
+          <Route path="/userArchivo" element={
             // <ProtectedRoute>
             //   <RoleRoute allowedRoles={[2]}>
-                <ArchivoUser />
+                <UserArchivo />
             //   </RoleRoute>
             // </ProtectedRoute>
           } />
