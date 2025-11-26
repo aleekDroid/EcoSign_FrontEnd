@@ -1,20 +1,56 @@
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Text, Spinner, Center, Button, Badge, Tooltip } from "@chakra-ui/react";
+import {
+    Table, Thead, Tbody, Tr, Th, Td, TableContainer, Text,
+    Spinner, Center, Button, Badge, Tooltip, VStack, Heading, Icon
+} from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import localforage from "localforage";
+import { WifiOff, RefreshCw, FileX } from "lucide-react";
 
 export function DocumentTable({ documents, isLoading, error }) {
     const navigate = useNavigate();
 
     if (isLoading) {
-        return <Center py={10}><Spinner size="xl" color="accent-default" thickness="4px" /></Center>;
+        return (
+            <Center py={20}>
+                <VStack spacing={4}>
+                    <Spinner size="xl" color="accent-default" thickness="4px" />
+                    <Text color="secondary-default">Cargando documentos...</Text>
+                </VStack>
+            </Center>
+        );
     }
 
     if (error) {
-        return <Center py={10}><Text color="red.500">Error al cargar documentos: {error}</Text></Center>;
+        return (
+            <Center py={10} bg="bg-default" borderRadius="lg" borderWidth="1px" borderStyle="dashed">
+                <VStack spacing={4} textAlign="center">
+                    <Icon as={WifiOff} boxSize={12} color="red.400" />
+                    <Text size="lg" color="text-default">Error de conexión</Text>
+                    <Text size="sm" color="secondary-default" maxW="sm">
+                        No pudimos obtener la lista de documentos.
+                    </Text>
+                    <Button
+                        leftIcon={<RefreshCw size={18} />}
+                        colorScheme="blue"
+                        variant="outline"
+                        onClick={() => window.location.reload()}
+                    >
+                        Recargar página
+                    </Button>
+                </VStack>
+            </Center>
+        );
     }
-    
-    if (!documents ||  documents.length === 0) {
-        return <Center py={10}><Text color="text-default">No hay documentos registrados.</Text></Center>;
+
+    if (!documents || documents.length === 0) {
+        return (
+            <Center py={10} bg="bg-default" borderRadius="lg" borderWidth="1px" borderStyle="dashed">
+                <VStack spacing={3}>
+                    <Icon as={FileX} boxSize={10} color="gray.400" />
+                    <Text color="secondary-default">No hay documentos registrados.</Text>
+                </VStack>
+            </Center>
+        );
     }
 
     return (
@@ -36,29 +72,30 @@ export function DocumentTable({ documents, isLoading, error }) {
                             </Td>
                             <Td color="text-default">{document.createdAt}</Td>
                             <Td color="text-default">{document.fileCategory}</Td>
-                            
+
                             <Td>
                                 {document.status === 'PENDIENTE' ? (
                                     <Tooltip label="Firmar documento" placement="top">
-                                        <Button 
-                                            size="xs" 
-                                            bg="accent-default" 
+                                        <Button
+                                            size="xs"
+                                            bg="accent-default"
                                             color="bg-default"
                                             _hover={{ bg: 'primary-default' }}
-                                            onClick={() =>{
+                                            onClick={() => {
                                                 const basePath = localforage.getItem('user_role') === 1 ?
                                                     '/userFirmar' : '/adminFirmar';
-                                                navigate(`${basePath}/${document.id}/${document.status}`); }
+                                                navigate(`${basePath}/${document.id}/${document.status}`);
+                                            }
                                             }
                                         >
                                             Por firmar
                                         </Button>
                                     </Tooltip>
                                 ) : (
-                                    <Badge 
+                                    <Badge
                                         colorScheme={document.status === 'FIRMADO' ? 'green' : 'gray'}
-                                        variant="subtle" 
-                                        borderRadius="full" 
+                                        variant="subtle"
+                                        borderRadius="full"
                                         px={2}
                                     >
                                         {document.status}

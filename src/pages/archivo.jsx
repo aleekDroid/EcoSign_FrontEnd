@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import SearchInput from '../components/forms/SearchInput';
 import { DocumentTable } from '../components/documents/DocumentTable';
+import { useSearchFilterDocuments } from '../hooks/useSearchFilterDocuments';
 
 import { useFetchDocuments } from '../hooks/useFetchDocuments';
 import { uploadDocument } from '../services/documentService';
@@ -13,6 +14,8 @@ import React, { useRef, useState } from 'react';
 function Archivo() {
 
     const { documents, isLoading, error, refetch } = useFetchDocuments();
+    const { filteredDocuments, searchTerm, setSearchTerm } = useSearchFilterDocuments(documents);
+
     const hiddenFileInputRef = useRef(null);
     const [isUploading, setIsUploading] = useState(false);
     const toast = useToast();
@@ -119,8 +122,8 @@ function Archivo() {
                     </Button>
                     <SearchInput
                         placeholder="Buscar documento"
-                        // value={searchTerm}
-                        // onChange={(e) => setSearchTerm(e.target.value)}
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                         mb={4}
                     />
 
@@ -129,7 +132,7 @@ function Archivo() {
                 <Text as="b" fontSize="30px" mt={8} mb={4} color="text-default" textAlign="left">
                     Todos los documentos
                 </Text>
-                <DocumentTable documents={documents} isLoading={isLoading} error={error} />
+                <DocumentTable documents={filteredDocuments} isLoading={isLoading} error={error} />
             </Box>
         </Flex>
     )

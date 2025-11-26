@@ -1,5 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import {getAllDocuments, getDocumentsByUserId} from '../services/documentService';
+// import {getAllDocuments, getDocumentsByUserId} from '../services/documentService';
+import { 
+    getAllDocumentsMock as getAllDocuments, 
+    getDocumentsByUserIdMock as getDocumentsByUserId 
+} from '../services/mockDocumentService';
 import localforage from "localforage";
 
 
@@ -9,15 +13,13 @@ export function useFetchDocuments(page = 1, size = 100, filters = {}) {
     const [error, setError] = useState(null);
     const [pagination, setPagination] = useState({ totalPages: 0, totalElements: 0 });
 
-
-
     const fetchDocs = useCallback(() => {
         setIsLoading(true);
         setError(null);
 
         getAllDocuments( page, size, filters)
             .then(data => {
-                setDocuments(data.userFiles || []);
+                setDocuments(data.userFiles || data.entity || []);
                 setPagination({
                     totalPages: data.totalPages,
                     totalElements: data.totalElements,
