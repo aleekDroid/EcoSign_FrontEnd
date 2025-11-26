@@ -12,8 +12,7 @@ function Header() {
 
     const navigate = useNavigate();
     const { colorMode, toggleColorMode } = useColorMode();
-
-    const [userName, setUserName] = useState("Usuario");
+    const [userName, setUserName] = useState("Cargando...");
 
     // 2. useEffect Asíncrono para leer de IndexedDB
     useEffect(() => {
@@ -22,9 +21,12 @@ function Header() {
                 const storedName = await localforage.getItem('user_name');
                 if (storedName) {
                     setUserName(storedName);
+                } else {
+                    setUserName("Usuario");
                 }
             } catch (err) {
                 console.error("Error cargando nombre de usuario:", err);
+                setUserName("Usuario");
             }
         };
 
@@ -42,7 +44,7 @@ function Header() {
         if (e && e.preventDefault) e.preventDefault();
 
         try {
-            await logoutUser(); // Limpia tokens, llaves privadas y datos de usuario
+            await logoutUser(); // Limpia tokens, llaves privadas y datos de usuario.
             navigate('/login', { replace: true });
         } catch (error) {
             console.error("Error al cerrar sesión", error);

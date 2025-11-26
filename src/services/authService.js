@@ -13,6 +13,9 @@ export const loginUser = async (email, password) => {
         // --- TAREA 1: GENERAR CLAVES PRIMERO ---
         await keyUtils.clearClientKeys();
 
+        // Limpiamos cualquier residuo anterior para evitar conflictos
+        await keyUtils.clearClientKeys();
+
         // --- TAREA 2: LLAMAR A LOGIN CON TODO ---
         console.log('[AuthService] Enviando credenciales y clave pública a /api/auth/login...');
         const response = await api.post('/api/auth/login', {
@@ -25,15 +28,19 @@ export const loginUser = async (email, password) => {
         }
 
         const { entity } = response.data;
-        const { token } = entity; // El 'id' ya no es necesario aquí
+        const { token } = entity; // El 'id' ya no es necesario aquí.
         console.log('[AuthService] Login exitoso. Token (con claim ECC) recibido.');
 
         // --- TAREA 3: GUARDAR EL TOKEN Y LA CLAVE PRIVADA ---
+        const safeName = (entity.name || '').trim();
+        const safeLastName = (entity.lastName || '').trim();
+        const fullName = `${safeName} ${safeLastName}`.trim() || 'Usuario';
+
         // Guarda el JWT (que ya tiene la clave pública)
         await setAuthToken(token);
         await setUserRole(entity.roleId);
         await setUserId(entity.id);
-        await setUserName(entity.name + ' ' + entity.lastName);
+        await setUserName(fullName);
 
         console.log('[AuthService] LOGIN COMPLETO: Token y role privada guardados.');
         return entity;
@@ -56,5 +63,7 @@ export const logoutUser = async () => {
     console.log('[AuthService] Iniciando cierre de sesión...');
     await keyUtils.clearClientKeys();
     await setAuthToken(null);
+//  Limpiar también el nombre para que no aparezca al recargar
+    await setUserName(null);
     console.log('[AuthService] Cierre de sesión completado.');
 };

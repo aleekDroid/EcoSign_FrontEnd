@@ -1,21 +1,28 @@
 import { useState } from 'react';
-import { collection, addDoc } from "firebase/firestore";
-import { db } from '../firebase/config';
+import { useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react';
+import api from '../services/api';
+
+// --- CLAVE PÚBLICA DEL BACKEND (secp256k1) ---
+const BACKEND_PUBLIC_KEY = 'MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEvK/cRv4McpZnjINlh6oZa7oQjWusMCD2gavNEkUO8ULrCXvPm15DwRFxB9tD4+gUDtHc0axwo5gh7/kCd7CBxA==';
 
 export function useRegisterForm() {
     const toast = useToast();
+    const navigate = useNavigate();
+    
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const [formData, setFormData] = useState({
-        nombres: '',
-        apellidoPaterno: '',
-        apellidoMaterno: '',
-        correo: '',
+        name: '',
+        lastName: '',
+        middleName: '',
+        email: '',
+        employeeNumber: '',
         password: '',
         confirmPassword: '',
-        telefono: '',
-        rol: ''
+        role: '',
+        status: "ACTIVO" 
     });
 
     const handleChange = (e) => {
@@ -23,19 +30,30 @@ export function useRegisterForm() {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const validateForm = () => {
-        const { correo, password, confirmPassword, telefono, rol } = formData;
+    const showToast = (title, desc, status) => {
+        toast({ title, description: desc, status, duration: 4000, isClosable: true, position: 'top-right' });
+    };
 
-        if (!correo.endsWith('@uteq.edu.mx') && !correo.endsWith('@uteq.edu')) {
-            showToast("Error", "El correo debe ser institucional (@uteq.edu)", "error");
+    // Manejador para el Select de Rol (si usas EcoSignSelect o un select normal)
+    const handleRolChange = (e) => {
+        setFormData(prev => ({
+            ...prev,
+            role: parseInt(e.target.value)
+        }));
+    };
+
+    // --- VALIDACIONES ---
+    const validateForm = () => {
+        const { email, password, confirmPassword, role } = formData;
+
+        if (!email.endsWith('@uteq.edu.mx') && !email.endsWith('@uteq.edu')) {
+            showToast("Correo inválido", "El correo debe ser institucional (@uteq.edu.mx)", "error");
             return false;
         }
 
-        // validación de la contraseña con caracteres especiales.
         const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{12,}$/;
-
         if (!passwordRegex.test(password)) {
-            showToast("Contraseña débil", "Mínimo 12 caracteres, un número y un símbolo especial.", "error");
+            showToast("Contraseña débil", "Mínimo 12 caracteres, un número y un símbolo especial.", "warning");
             return false;
         }
 
@@ -44,49 +62,74 @@ export function useRegisterForm() {
             return false;
         }
 
-        if (telefono.length > 10) {
-            showToast("Error", "El número de teléfono no debe exceder los 10 dígitos.", "error");
-            return false;
-        }
-
-        if (!rol) {
-            showToast("Error", "Selecciona un rol.", "error");
+        if (!role) {
+            showToast("Falta información", "Selecciona un rol.", "warning");
             return false;
         }
 
         return true;
     };
 
-    const showToast = (title, desc, status) => {
-        toast({ title, description: desc, status, duration: 4000, isClosable: true, position: 'top-right' });
-    };
-
+    /**
+     * Envía el formulario cifrado para crear el usuario.
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!validateForm()) return;
 
         setIsLoading(true);
+        setError(null);
 
+        // try {
+            // --- 2. PREPARAR DATOS (DTO EXACTO) ---
+            const UserInputDTO = {
+                name: formData.name,
+                lastName: formData.lastName,
+                middleName: formData.middleName,
+                email: formData.email,
+                employeeNumber: formData.employeeNumber,
+                password: formData.password,
+                role: parseInt(formData.role),
+                status: formData.status // "ACTIVO"
+            };
+
+            console.log("Datos en claro (UserInputDTO):", UserInputDTO);
+            
         try {
-            // se excluye confirmPassword para no guardar en la db.
-            const { confirmPassword, ...dataToSave } = formData;
+            // --- 3. CIFRAR (Tu código original comentado) ---
+            // const encryptedPayload = await hybridEncrypt(
+            //     BACKEND_PUBLIC_KEY, 
+            // );
 
-            await addDoc(collection(db, "usuario"), {
-                ...dataToSave,
+            console.log("Enviando a /api/user/create...");
+
+            // --- 4. ENVIAR (POST) ---
+            // Si activas el cifrado, aquí enviarías encryptedPayload en lugar de UserInputDTO
+            const response = await api.post('/api/user/create', UserInputDTO);
+
+            // --- 5. DESCIFRAR RESPUESTA ---
+            // const decryptedResponse = await decryptServerResponse(response.data);
+            // console.log("Respuesta descifrada:", decryptedResponse);
+
+            // ÉXITO.
+            showToast("Usuario Creado", "El usuario se ha registrado exitosamente.", "success");
+            
+            // Limpiar formulario
+            setFormData({
+                name: '', lastName: '', middleName: '', email: '', 
+                employeeNumber: '', password: '', confirmPassword: '', role: '', status: "ACTIVO"
             });
 
-            showToast("Usuario Creado", "El usuario se ha registrado exitosamente.", "success");
-
-            setFormData({ nombres: '', apellidoPaterno: '', apellidoMaterno: '', correo: '', password: '', confirmPassword: '', telefono: '', rol: '' });
-
-        } catch (error) {
-            console.error("Error:", error);
-            showToast("Error de Servidor", "No se pudo conectar con la base de datos.", "error");
+        } catch (err) {
+            console.error("Error al crear usuario:", err);
+            const msg = err.response?.data?.message || "Ocurrió un error al crear el usuario.";
+            setError(msg);
+            showToast("Error", msg, "error");
         } finally {
             setIsLoading(false);
         }
     };
 
-    return { formData, handleChange, handleSubmit, isLoading };
+    return { formData, handleChange, handleSubmit, isLoading, error };
 }

@@ -46,7 +46,8 @@ export function DocumentTable({ documents, isLoading, error }) {
                                             color="bg-default"
                                             _hover={{ bg: 'primary-default' }}
                                             onClick={() =>{
-                                                const basePath = localforage.getItem('user_role') === 1 ? '/adminFirmar' : '/userfirmar';
+                                                const basePath = localforage.getItem('user_role') === 1 ?
+                                                    '/userFirmar' : '/adminFirmar';
                                                 navigate(`${basePath}/${document.id}/${document.status}`); }
                                             }
                                         >

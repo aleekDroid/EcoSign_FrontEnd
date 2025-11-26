@@ -72,6 +72,10 @@ export function UserTable({ users, isLoading, error }) {
                                     </Tooltip>
                                 </Td>
                                 <Td color="secondary-default">
+                                    {/*
+                                                ======  |   COMENTARIO DE JUAN      |   =====
+                                        IMPLEMENTAR ENDPOINT DE ELIMINAR USUARIO
+                                    */}
                                     <Button
                                         onClick={() => handleDeleteClick(user.id)}
                                         bg="transparent"

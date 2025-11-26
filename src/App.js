@@ -11,7 +11,7 @@ import Archivo from './pages/archivo';
 import Register from './pages/admin/register';
 import ArchivoUser from './pages/user/archivoUser';
 import AdminFirmar from './pages/admin/adminFirmar';
-import UserFirmar from './pages/user/UserFirmar'
+import UserFirmar from './pages/user/userFirmar'
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import RoleRoute from "./routes/RoleRoute";
@@ -26,43 +26,43 @@ function App() {
           <Route path="/" element={<Navigate to="/login" replace />} />
 
           <Route path="/adminHome" element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={[1]}>
+            // <ProtectedRoute>
+            //   <RoleRoute allowedRoles={[1]}>
                 <AdminHome />
-              </RoleRoute>
-            </ProtectedRoute>
+            //   </RoleRoute>
+            // </ProtectedRoute>
           } />
 
           <Route path="/userHome" element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={[2]}>
+            // <ProtectedRoute>
+            //   <RoleRoute allowedRoles={[2]}>
                 <UserHome />
-              </RoleRoute>
-            </ProtectedRoute>
+            //   </RoleRoute>
+            // </ProtectedRoute>
           } />
 
           <Route path="/usuario" element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={[1]}>
+            // <ProtectedRoute>
+            //   <RoleRoute allowedRoles={[1]}>
                 <Usuario />
-              </RoleRoute>
-            </ProtectedRoute>
+            //   </RoleRoute>
+            // </ProtectedRoute>
           } />
 
           <Route path="/archivo" element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={[1]}>
+            // <ProtectedRoute>
+            //   <RoleRoute allowedRoles={[1]}>
                 <Archivo />
-              </RoleRoute>
-            </ProtectedRoute>
+            //   </RoleRoute>
+            // </ProtectedRoute>
           } />
 
           <Route path="/archivoUser" element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={[2]}>
+            // <ProtectedRoute>
+            //   <RoleRoute allowedRoles={[2]}>
                 <ArchivoUser />
-              </RoleRoute>
-            </ProtectedRoute>
+            //   </RoleRoute>
+            // </ProtectedRoute>
           } />
 
           <Route path="/register" element={
@@ -74,19 +74,19 @@ function App() {
           } />
 
           <Route path="/adminFirmar/:userFileId/:status" element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={[1]}>
+             <ProtectedRoute>
+               <RoleRoute allowedRoles={[1]}>
                 <AdminFirmar />
-              </RoleRoute>
-            </ProtectedRoute>
+               </RoleRoute>
+             </ProtectedRoute>
           } />
 
           <Route path='/userFirmar/:userFileId/:status' element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={[2]}>
+            // <ProtectedRoute>
+            //   <RoleRoute allowedRoles={[2]}>
                 <UserFirmar />
-              </RoleRoute>
-            </ProtectedRoute>
+            //   </RoleRoute>
+            // </ProtectedRoute>
           } />
 
         </Routes>
