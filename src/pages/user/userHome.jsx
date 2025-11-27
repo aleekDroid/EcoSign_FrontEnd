@@ -7,14 +7,14 @@ import Header from "../../components/layout/Header";
 import UserSidebar from "../../components/layout/Usersidebar";
 
 import { useNavigate } from "react-router-dom";
-import { useFetchDocuments } from "../../hooks/useFetchDocuments";
+import { useFetchDocumentsForUser } from "../../hooks/useFetchDocuments";
 import { UserDocumentTable } from "../../components/documents/user/UserDocumentTable";
 import { getRecentDocuments } from "../../utils/recentDocuments";
 
 function UserHome() {
 
     const navigate = useNavigate();
-    const { documents, isLoading, error } = useFetchDocuments();
+    const { documents, isLoading, error } = useFetchDocumentsForUser();
     const recentDocuments = getRecentDocuments(documents);
 
     const { colorMode } = useColorMode();

@@ -13,7 +13,7 @@ import { UserDocumentTable } from '../../components/documents/user/UserDocumentT
 import UserSearchInput from '../../components/forms/user/UserSearchInput';
 
 import { useSearchFilterDocuments } from '../../hooks/useSearchFilterDocuments';
-import { useFetchDocuments } from '../../hooks/useFetchDocuments';
+import {useFetchDocumentsForUser} from '../../hooks/useFetchDocuments';
 import { uploadDocument } from '../../services/documentService';
 
 const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024; // 10 MB
@@ -28,7 +28,7 @@ const FILE_CATEGORIES = [
 
 function UserArchivo() {
 
-    const { documents, isLoading, error, refetch } = useFetchDocuments();
+    const { documents, isLoading, error, refetch } = useFetchDocumentsForUser();
     const { filteredDocuments, searchTerm, setSearchTerm } = useSearchFilterDocuments(documents);
 
     const hiddenFileInputRef = useRef(null);

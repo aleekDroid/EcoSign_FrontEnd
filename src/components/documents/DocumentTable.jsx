@@ -100,7 +100,7 @@ export function DocumentTable({ documents, isLoading, error }) {
     return (
         <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="secondary-default" bg="bg-default" color="secondary-default">
             <Table size="md">
-<Thead>
+                <Thead>
                     <Tr>
                         {/* ENCABEZADOS CLICABLES */}
                         <Th cursor="pointer" onClick={() => requestSort('fileName')} _hover={{ color: "accent-default" }}>
