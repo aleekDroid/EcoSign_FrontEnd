@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import {getAllDocuments, getDocumentsByUserId} from '../services/documentService';
-//import { getAllDocumentsMock as getAllDocuments, getDocumentsByUserIdMock as getDocumentsByUserId } from '../services/mockDocumentService';
+// import {getAllDocuments, getDocumentsByUserId} from '../services/documentService';
+import { getAllDocumentsMock as getAllDocuments, getDocumentsByUserIdMock as getDocumentsByUserId } from '../services/mockDocumentService';
 import localforage from "localforage";
 
 

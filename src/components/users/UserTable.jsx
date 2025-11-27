@@ -1,20 +1,10 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
     Table, Thead, Tbody, Tr, Th, Td, TableContainer, Text, Spinner, Center, Icon, Tooltip, Button, Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    useDisclosure,
-    useToast,
-    VStack,  
-    Heading,
-    background
+    ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure, useToast, VStack, Heading,
+    Flex
 } from "@chakra-ui/react";
-import { X, Check, WifiOff, RefreshCw } from "lucide-react"; // Importamos X para eliminar y Check para activar
-// Ajusta esta ruta si tu carpeta services está en otro nivel
+import { X, Check, WifiOff, RefreshCw, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import { deleteUserService, updateUserRole } from '../../services/userService';
 
 export function UserTable({ users, isLoading, error, onUserUpdated }) {
@@ -26,13 +16,13 @@ export function UserTable({ users, isLoading, error, onUserUpdated }) {
     // Estado local para actualización optimista
     const [localUsers, setLocalUsers] = useState([]);
     const [selectedUserId, setSelectedUserId] = useState(null);
-
-    // Estado para saber qué estatus vamos a aplicar ("ACTIVO" o "INACTIVO")
     const [targetStatus, setTargetStatus] = useState("INACTIVO");
 
     // Estados de carga independientes
     const [isProcessingStatus, setIsProcessingStatus] = useState(false);
     const [isUpdatingRole, setIsUpdatingRole] = useState(false);
+
+    const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
 
     const toast = useToast();
 
@@ -42,7 +32,51 @@ export function UserTable({ users, isLoading, error, onUserUpdated }) {
         }
     }, [users]);
 
-if (isLoading) {
+    const requestSort = (key) => {
+        let direction = 'ascending';
+        if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+            direction = 'descending';
+        }
+        setSortConfig({ key, direction });
+    };
+
+    const sortedUsers = useMemo(() => {
+        let sortableItems = [...localUsers];
+        if (sortConfig.key !== null) {
+            sortableItems.sort((a, b) => {
+                // Manejo especial para Rol (porque es numérico pero se necesita ordenar por nombre 'Admin' vs 'Usuario').
+                let aValue, bValue;
+                if (sortConfig.key === 'roleId') {
+                    aValue = a.roleId === 1 ? 'administrador' : 'usuario';
+                    bValue = b.roleId === 1 ? 'administrador' : 'usuario';
+                } else {
+                    aValue = a[sortConfig.key] ? a[sortConfig.key].toString().toLowerCase() : '';
+                    bValue = b[sortConfig.key] ? b[sortConfig.key].toString().toLowerCase() : '';
+                }
+
+                if (aValue < bValue) {
+                    return sortConfig.direction === 'ascending' ? -1 : 1;
+                }
+                if (aValue > bValue) {
+                    return sortConfig.direction === 'ascending' ? 1 : -1;
+                }
+                return 0;
+            });
+        }
+        return sortableItems;
+    }, [localUsers, sortConfig]);
+
+    const getSortIcon = (columnKey) => {
+        if (sortConfig.key !== columnKey) {
+            return <Icon as={ArrowUpDown} boxSize={3} color="gray.400" ml={1} />;
+        }
+        if (sortConfig.direction === 'ascending') {
+            return <Icon as={ArrowUp} boxSize={3} color="accent-default" ml={1} />;
+        }
+        return <Icon as={ArrowDown} boxSize={3} color="accent-default" ml={1} />;
+    };
+
+    if (isLoading) {
         return (
             <Center py={20}>
                 <VStack spacing={4}>
@@ -53,19 +87,19 @@ if (isLoading) {
         );
     }
 
-if (error) {
+    if (error) {
         return (
             <Center py={10} bg="bg-default" borderRadius="lg" borderWidth="1px" borderStyle="dashed">
                 <VStack spacing={4} textAlign="center">
                     <Icon as={WifiOff} boxSize={12} color="red.400" />
                     <Text size="lg" color="text-default">No pudimos conectar con el servidor</Text>
-                    <Text size="sm"  color="secondary-default" maxW="sm">
+                    <Text size="sm" color="secondary-default" maxW="sm">
                         Parece que hay un problema de conexión. Intenta recargar la página.
                     </Text>
-                    
-                    <Button 
-                        leftIcon={<RefreshCw size={18}/>} 
-                        colorScheme="blue" 
+
+                    <Button
+                        leftIcon={<RefreshCw size={18} />}
+                        colorScheme="blue"
                         variant="outline"
                         onClick={() => window.location.reload()}
                     >
@@ -76,7 +110,7 @@ if (error) {
         );
     }
 
-if (!localUsers || localUsers.length === 0) {
+    if (!localUsers || localUsers.length === 0) {
         return (
             <Center py={10} bg="bg-default" borderRadius="lg" borderWidth="1px" borderStyle="dashed">
                 <Text color="secondary-default">No se encontraron usuarios registrados.</Text>
@@ -137,7 +171,6 @@ if (!localUsers || localUsers.length === 0) {
         }
     };
 
-    // --- LÓGICA DE ACTUALIZACIÓN DE ROL ---
     const handleConfirmRoleChange = async (newRoleId) => {
         if (!selectedUserId) return;
 
@@ -178,15 +211,23 @@ if (!localUsers || localUsers.length === 0) {
                 <Table size="md">
                     <Thead>
                         <Tr>
-                            <Th>Nombre</Th>
-                            <Th>Correo</Th>
-                            <Th>Status</Th>
-                            <Th>Rol</Th>
+                            <Th cursor="pointer" onClick={() => requestSort('name')} _hover={{ color: "accent-default" }}>
+                                <Flex align="center">Nombre {getSortIcon('name')}</Flex>
+                            </Th>
+                            <Th cursor="pointer" onClick={() => requestSort('email')} _hover={{ color: "accent-default" }}>
+                                <Flex align="center">Correo {getSortIcon('email')}</Flex>
+                            </Th>
+                            <Th cursor="pointer" onClick={() => requestSort('status')} _hover={{ color: "accent-default" }}>
+                                <Flex align="center">Status {getSortIcon('status')}</Flex>
+                            </Th>
+                            <Th cursor="pointer" onClick={() => requestSort('roleId')} _hover={{ color: "accent-default" }}>
+                                <Flex align="center">Rol {getSortIcon('roleId')}</Flex>
+                            </Th>
                             <Th></Th>
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {localUsers.map(user => {
+                        {sortedUsers.map(user => {
                             const isInactive = user.status === 'INACTIVO';
                             return (
                                 <Tr key={user.id} bg={isInactive ? 'gray.50' : 'transparent'}>

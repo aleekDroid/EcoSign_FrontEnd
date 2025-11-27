@@ -1,15 +1,53 @@
-import {
-    Table, Thead, Tbody, Tr, Th, Td, TableContainer, Text,
-    Spinner, Center, Button, Tooltip, VStack, Icon, Box
-} from "@chakra-ui/react";
+import React, { useState, useMemo } from 'react';
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Text,
+    Spinner, Center, Button, Tooltip, VStack, Icon, Box, Flex } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { WifiOff, RefreshCw, FileX } from "lucide-react";
+import { WifiOff, RefreshCw, FileX, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 
 export function UserDocumentTable({ documents, isLoading, error }) {
     const navigate = useNavigate();
 
+    const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
+
     const handleNavigateToDoc = (docId, docStatus) => {
         navigate(`/userFirmar/${docId}/${docStatus}`);
+    };
+
+    const requestSort = (key) => {
+        let direction = 'ascending';
+        if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+            direction = 'descending';
+        }
+        setSortConfig({ key, direction });
+    };
+
+    const sortedDocuments = useMemo(() => {
+        let sortableItems = [...(documents || [])]; 
+        if (sortConfig.key !== null) {
+            sortableItems.sort((a, b) => {
+                const aValue = a[sortConfig.key] ? a[sortConfig.key].toString().toLowerCase() : '';
+                const bValue = b[sortConfig.key] ? b[sortConfig.key].toString().toLowerCase() : '';
+
+                if (aValue < bValue) {
+                    return sortConfig.direction === 'ascending' ? -1 : 1;
+                }
+                if (aValue > bValue) {
+                    return sortConfig.direction === 'ascending' ? 1 : -1;
+                }
+                return 0;
+            });
+        }
+        return sortableItems;
+    }, [documents, sortConfig]);
+
+    const getSortIcon = (columnKey) => {
+        if (sortConfig.key !== columnKey) {
+            return <Icon as={ArrowUpDown} boxSize={3} color="gray.400" ml={1} />;
+        }
+        if (sortConfig.direction === 'ascending') {
+            return <Icon as={ArrowUp} boxSize={3} color="accent-default" ml={1} />;
+        }
+        return <Icon as={ArrowDown} boxSize={3} color="accent-default" ml={1} />;
     };
 
     if (isLoading) {
@@ -61,14 +99,30 @@ export function UserDocumentTable({ documents, isLoading, error }) {
             <Table size="md">
                 <Thead>
                     <Tr>
-                        <Th>Nombre</Th>
-                        <Th>Fecha</Th>
-                        <Th>Tipo</Th>
-                        <Th>Estado</Th>
+                        <Th cursor="pointer" onClick={() => requestSort('fileName')} _hover={{ color: "accent-default" }}>
+                            <Flex align="center">
+                                Nombre {getSortIcon('fileName')}
+                            </Flex>
+                        </Th>
+                        <Th cursor="pointer" onClick={() => requestSort('createdAt')} _hover={{ color: "accent-default" }}>
+                            <Flex align="center">
+                                Fecha {getSortIcon('createdAt')}
+                            </Flex>
+                        </Th>
+                        <Th cursor="pointer" onClick={() => requestSort('fileCategory')} _hover={{ color: "accent-default" }}>
+                            <Flex align="center">
+                                Tipo {getSortIcon('fileCategory')}
+                            </Flex>
+                        </Th>
+                        <Th cursor="pointer" onClick={() => requestSort('status')} _hover={{ color: "accent-default" }}>
+                            <Flex align="center">
+                                Estado {getSortIcon('status')}
+                            </Flex>
+                        </Th>
                     </Tr>
                 </Thead>
                 <Tbody>
-                    {documents.map(document => (
+                    {sortedDocuments.map(document => (
                         <Tr key={document.id}>
                             <Td color="text-default" maxW="250px" isTruncated title={document.fileName}>
                                 {document.fileName}
@@ -78,7 +132,6 @@ export function UserDocumentTable({ documents, isLoading, error }) {
                             </Td>
                             <Td color="text-default">{document.fileCategory}</Td>
 
-                            {/* COLUMNA ESTADO (CONTIENE LA ACCIÓN) */}
                             <Td>
                                 {document.status === 'PENDIENTE' ? (
                                     <Tooltip label="Firmar documento" placement="top">
@@ -93,7 +146,6 @@ export function UserDocumentTable({ documents, isLoading, error }) {
                                         </Button>
                                     </Tooltip>
                                 ) : (
-                                    // Botón verde inteligente (Badge -> Hover -> Abrir)
                                     <Tooltip label="Ver documento firmado" placement="top">
                                         <Button
                                             size="xs"
