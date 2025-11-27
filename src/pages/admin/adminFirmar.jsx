@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import {
     Text, Box, Image, Flex, Button, VStack, Icon,
     Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,
-    useDisclosure, useToast, Spinner, Center, Alert, AlertIcon
+    useDisclosure, useToast, Spinner, Alert, AlertIcon
 } from '@chakra-ui/react';
 import { AlertCircle } from 'lucide-react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import EcoSignLogo from '../../assets/EcoSign.PNG';
 import Header from '../../components/layout/Header';
@@ -17,6 +17,8 @@ function AdminFirmar() {
     const { userFileId, status } = useParams();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
+    
+    const navigate = useNavigate();
 
     const [isSigning, setIsSigning] = useState(false);
 
@@ -27,7 +29,6 @@ function AdminFirmar() {
 
     const isReadOnly = status === 'FIRMADO' || status === 'ACTIVO';
 
-    // --- EFECTO DE CARGA (PREVIEW) ---
     useEffect(() => {
         let objectUrl = null;
 
@@ -42,12 +43,10 @@ function AdminFirmar() {
             setPreviewError(null);
 
             try {
-
                 const response = await api.get(`/api/file/preview/${userFileId}/${status}`, {
                     responseType: 'blob'
                 });
 
-                // Intentar sacar el nombre real del header content-disposition
                 const disposition = response.headers['content-disposition'];
                 if (disposition && disposition.includes('filename=')) {
                     const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition);
@@ -56,7 +55,6 @@ function AdminFirmar() {
                     }
                 }
 
-                // Crear URL temporal del Blob para el iframe
                 const fileType = response.headers['content-type'];
                 const blob = new Blob([response.data], { type: fileType });
                 objectUrl = URL.createObjectURL(blob);
@@ -72,28 +70,27 @@ function AdminFirmar() {
 
         loadFilePreview();
 
-        // Cleanup: Revocar URL para liberar memoria al salir
         return () => {
             if (objectUrl) URL.revokeObjectURL(objectUrl);
         };
-    }, [userFileId]);
+    }, [userFileId, status]); 
 
     const handleSignDocument = async () => {
-
         if (isSigning) return;
 
         setIsSigning(true);
         try {
-            // LLAMADA LIMPIA AL SERVICIO
             await signDocument(userFileId);
+
             toast({
                 title: "Documento firmado",
+                description: "La firma se ha aplicado correctamente.",
                 status: "success",
-                duration: 3000,
+                duration: 5000,
                 isClosable: true,
             });
             onClose();
-            window.location.reload();
+            navigate(`/adminFirmar/${userFileId}/FIRMADO`, { replace: true });
 
         } catch (error) {
             console.error(error);
@@ -139,7 +136,7 @@ function AdminFirmar() {
                     >
                         {isLoadingPreview && (
                             <VStack>
-                                <Spinner size="xl" color="accent-default" thickness="4px" />
+                                <Spinner size="xl" color="accent-default" thickness="4px"/>
                                 <Text color="gray.500" mt={4}>Cargando vista previa segura...</Text>
                             </VStack>
                         )}
@@ -162,23 +159,25 @@ function AdminFirmar() {
                         )}
                     </Box>
 
+                    {/* ACCIONES */}
                     <VStack spacing={4} w={{ base: 'full', lg: '300px' }} align="stretch">
-                        <Box p={1} bg="bg-default" borderRadius="md">
+                        <Box p={4} bg="bg-default" borderRadius="md" borderWidth="1px">
                             <VStack spacing={4}>
                                 <Button variant="outline" w="full" borderColor="secondary-default" color="secondary-default"
-                                    onClick={openDocumentInNewTab} isDisabled={!pdfUrl}>
+                                        onClick={openDocumentInNewTab} isDisabled={!pdfUrl}>
                                     Abrir en Pestaña Nueva
                                 </Button>
 
-                                <Button
-                                    bg={isReadOnly ? "gray.400" : "accent-default"}
-                                    color="bg-default"
-                                    w="full"
+                                <Button 
+                                    bg={isReadOnly ? "gray.400" : "accent-default"} 
+                                    color="bg-default" 
+                                    w="full" 
                                     _hover={isReadOnly ? { bg: "gray.400" } : { bg: 'primary-default' }}
-                                    onClick={onOpen}
+                                    onClick={onOpen} 
+                                    // Se deshabilita si: No hay PDF, hay error, O si ya es ReadOnly (firmado)
                                     isDisabled={!pdfUrl || !!previewError || isReadOnly}
                                 >
-                                    {isReadOnly ? "Firmado - Solo Lectura" : "Firmar documento"}
+                                    {isReadOnly ? "Firmado / Solo Lectura" : "Firmar documento"}
                                 </Button>
                             </VStack>
                         </Box>
@@ -191,27 +190,30 @@ function AdminFirmar() {
                 </Flex>
             </Box>
 
-            {/* MODAL */}
-            <Modal isOpen={isOpen} onClose={onClose} isCentered>
+            {/* MODAL DE CONFIRMACIÓN */}
+            <Modal isOpen={isOpen} onClose={onClose} isCentered closeOnOverlayClick={!isSigning}>
                 <ModalOverlay />
                 <ModalContent bg="bg-default">
                     <ModalHeader color="text-default">Confirmar Firma</ModalHeader>
-                    {!isSigning && <ModalCloseButton />}
+                    {!isSigning && <ModalCloseButton />} 
+                    
                     <ModalBody>
                         <Text color="text-default">
-                            ¿Estás seguro de firmar <b>{fileName}</b>? <br />
+                            ¿Estás seguro de firmar <b>{fileName}</b>? <br/>
                             Se aplicará tu firma digital criptográfica.
                         </Text>
                     </ModalBody>
                     <ModalFooter>
-                        <Button variant="ghost" mr={3} onClick={onClose} color="text-default">Cancelar</Button>
+                        <Button variant="ghost" mr={3} onClick={onClose} color="text-default" isDisabled={isSigning}>
+                            Cancelar
+                        </Button>
                         <Button 
                             bg="primary-default" 
                             color="white" 
                             _hover={{ bg: "accent-default" }} 
                             onClick={handleSignDocument}
-                            isLoading = {isSigning}
-                            loadingText = "Firmando..."
+                            isLoading={isSigning}
+                            loadingText="Firmando..."
                         >
                             Firmar
                         </Button>

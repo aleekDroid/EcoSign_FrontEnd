@@ -137,9 +137,9 @@ export function UserDocumentTable({ documents, isLoading, error }) {
                                     <Tooltip label="Firmar documento" placement="top">
                                         <Button
                                             size="xs"
-                                            bg="accent-default"
+                                            bg="secondary-default"
                                             color="bg-default"
-                                            _hover={{ bg: 'primary-default' }}
+                                            _hover={{ bg: 'text-default' }}
                                             onClick={() => handleNavigateToDoc(document.id, document.status)}
                                         >
                                             Por firmar
@@ -150,7 +150,7 @@ export function UserDocumentTable({ documents, isLoading, error }) {
                                         <Button
                                             size="xs"
                                             borderRadius="full"
-                                            colorScheme="green"
+                                            colorScheme="blue"
                                             variant="outline"
                                             w="80px"
                                             onClick={() => handleNavigateToDoc(document.id, document.status)}

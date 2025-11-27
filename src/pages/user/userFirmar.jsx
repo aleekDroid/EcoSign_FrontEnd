@@ -5,7 +5,7 @@ import {
     useDisclosure, useToast, Spinner, Alert, AlertIcon
 } from '@chakra-ui/react';
 import { AlertCircle } from 'lucide-react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import EcoSignLogo from '../../assets/EcoSign.PNG';
 import UserSidebar from '../../components/layout/Usersidebar';
@@ -17,6 +17,8 @@ function UserFirmar() {
     const { userFileId, status } = useParams();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
+
+    const navigate = useNavigate();
     
     const [isSigning, setIsSigning] = useState(false);
 
@@ -82,13 +84,13 @@ function UserFirmar() {
 
             toast({
                 title: "Documento firmado",
+                description: "La firma se ha aplicado correctamente.",
                 status: "success",
-                duration: 3000,
+                duration: 5000,
                 isClosable: true,
             });
             onClose();
-            
-            window.location.reload(); 
+            navigate(`/userFirmar/${userFileId}/FIRMADO`, { replace: true });
 
         } catch (error) {
             console.error(error);
@@ -133,7 +135,7 @@ function UserFirmar() {
                     >
                         {isLoadingPreview && (
                             <VStack>
-                                <Spinner size="xl" color="accent-default" thickness="4px"/>
+                                <Spinner size="xl" color="secondary-default" thickness="4px"/>
                                 <Text color="gray.500" mt={4}>Cargando vista previa segura...</Text>
                             </VStack>
                         )}
