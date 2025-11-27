@@ -62,9 +62,8 @@ export async function getDocumentsByUserId(userId) {
     }
 }
 
-export async function uploadDocument(file) {
+export async function uploadDocument(file, categorySelected) {
     try {
-        // 1. Obtenemos el ID del usuario logueado.
         const userId = await localforage.getItem('user_id');
         if (!userId) throw new Error("No se pudo identificar al usuario (Falta ID).");
 
@@ -73,11 +72,8 @@ export async function uploadDocument(file) {
         formData.append('file', file);
         formData.append('userId', userId);
         formData.append('fileName', file.name);
-        formData.append('category', 'AVISO');
-
-        
+        formData.append('category', categorySelected);
         // El backend espera un ENUM, revisar que 'ACTIVO' exista en FileStatus.java
-        // Revisar si es activo o active.
         formData.append('status', 'PENDIENTE');
 
         const response = await api.post('/api/file/upload', formData, {
