@@ -16,7 +16,6 @@ export function useFetchUsers(page = 1, size = 100, filters = {}) {
             .then(data => {
                 setUsers(data.users || []);
 
-                // Guardamos la info de paginación por si la necesitas
                 setPagination({
                     totalPages: data.totalPages,
                     totalElements: data.totalElements,
