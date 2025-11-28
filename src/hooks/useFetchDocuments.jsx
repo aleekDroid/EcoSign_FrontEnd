@@ -81,7 +81,6 @@ export function useFetchDocumentsForUser() {
         fetchData();
     }, [fetchData]);
 
-    // 3. ¡AQUÍ ESTÁ LA SOLUCIÓN! Agregamos 'refetch: fetchData' al return
     return { 
         documents, 
         pagination, 
