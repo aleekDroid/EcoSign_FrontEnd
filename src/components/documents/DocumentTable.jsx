@@ -98,7 +98,7 @@ export function DocumentTable({ documents, isLoading, error }) {
     }
 
     return (
-        <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="secondary-default" bg="bg-default" color="secondary-default">
+        <TableContainer w="full" mt={4} borderRadius="lg" borderWidth="2px" borderColor="accent-default" bg="bg-default" color="secondary-default">
             <Table size="md">
                 <Thead>
                     <Tr>

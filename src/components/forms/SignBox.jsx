@@ -107,6 +107,8 @@ const UserSignBox = React.forwardRef(({ onUploadSuccess }, ref) => {
                 onUploadSuccess();
             }
 
+            window.location.reload();
+
         } catch (err) {
             console.error(err);
             const msg = err.response?.data?.message || err.message || "No se pudo cargar el archivo.";
@@ -133,7 +135,7 @@ const UserSignBox = React.forwardRef(({ onUploadSuccess }, ref) => {
                 alignItems="center"
                 p={2}
                 bg="bg-default"
-                borderColor="secondary-default"
+                borderColor="accent-default"
                 borderWidth="2px"
                 borderRadius="lg"
                 fontFamily="body"
@@ -155,10 +157,10 @@ const UserSignBox = React.forwardRef(({ onUploadSuccess }, ref) => {
                         as="b"
                         size="sm"
                         borderRadius="md"
-                        bg="secondary-default"
+                        bg="accent-default"
                         w={{ base: 'auto', md: '20%' }}
                         color="bg-default"
-                        _hover={{ bg: 'text-default' }}
+                        _hover={{ bg: 'primary-default' }}
                         isLoading={isUploading}
                         loadingText="Cargando..."
                         onClick={handleStartUpload} 

@@ -6,7 +6,6 @@ import {
 } from '@chakra-ui/react';
 import { uploadDocument } from '../../../services/documentService';
 
-// --- CONSTANTES DE VALIDACIÓN ---
 const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024; // 10 MB
 const WARNING_FILE_SIZE_BYTES = 7 * 1024 * 1024; // 7 MB
 
@@ -23,17 +22,14 @@ const UserSignBox = React.forwardRef(({ onUploadSuccess }, ref) => {
     const [isUploading, setIsUploading] = useState(false);
     const toast = useToast();
 
-    // Estado del Modal y Categoría
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [selectedCategory, setSelectedCategory] = useState("");
 
-    // 1. Inicia el proceso: Abre el Modal
     const handleStartUpload = () => {
-        setSelectedCategory(""); // Resetear selección
+        setSelectedCategory(""); 
         onOpen();
     };
 
-    // 2. Continúa el proceso: Cierra modal y abre Explorador de Archivos
     const handleContinueToUpload = () => {
         if (!selectedCategory) {
             toast({
@@ -52,12 +48,10 @@ const UserSignBox = React.forwardRef(({ onUploadSuccess }, ref) => {
         }
     };
 
-    // 3. Proceso final: Validación y Subida
     const handleFileChange = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
 
-        // Validación PDF
         if (file.type !== 'application/pdf') {
             toast({
                 title: "Formato incorrecto",
@@ -98,7 +92,6 @@ const UserSignBox = React.forwardRef(({ onUploadSuccess }, ref) => {
         try {
             setIsUploading(true);
 
-            // ✅ Pasamos el archivo Y la categoría seleccionada
             await uploadDocument(file, selectedCategory);
 
             toast({
@@ -109,6 +102,8 @@ const UserSignBox = React.forwardRef(({ onUploadSuccess }, ref) => {
                 isClosable: true,
                 position: 'top-right'
             });
+
+            window.location.reload();
 
             if (onUploadSuccess) {
                 onUploadSuccess();
@@ -127,7 +122,7 @@ const UserSignBox = React.forwardRef(({ onUploadSuccess }, ref) => {
             });
         } finally {
             setIsUploading(false);
-            event.target.value = null; // Limpiar input
+            event.target.value = null;
         }
     };
 
@@ -149,7 +144,6 @@ const UserSignBox = React.forwardRef(({ onUploadSuccess }, ref) => {
             >
                 <Text color="secondary-default" fontWeight="medium">Firmar documento</Text>
                 
-                {/* Input invisible */}
                 <input
                     type="file"
                     ref={hiddenFileInputRef}
@@ -169,7 +163,7 @@ const UserSignBox = React.forwardRef(({ onUploadSuccess }, ref) => {
                         _hover={{ bg: 'text-default' }}
                         isLoading={isUploading}
                         loadingText="Cargando..."
-                        onClick={handleStartUpload} // ✅ Ahora abre el modal primero
+                        onClick={handleStartUpload}
                     >
                         Subir
                         <Box 
@@ -182,7 +176,6 @@ const UserSignBox = React.forwardRef(({ onUploadSuccess }, ref) => {
                 </Tooltip>
             </Box>
 
-            {/* --- MODAL DE SELECCIÓN DE CATEGORÍA --- */}
             <Modal isOpen={isOpen} onClose={onClose} isCentered closeOnOverlayClick={false}>
                 <ModalOverlay />
                 <ModalContent bg="bg-default">
