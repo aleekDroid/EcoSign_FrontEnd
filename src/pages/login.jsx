@@ -12,7 +12,6 @@ import React from 'react';
 
 function LoginPage() {
 
-    // const { formData, handleChange, handleSubmit, isLoading } = useLoginForm();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -20,6 +19,7 @@ function LoginPage() {
     const [error, setError] = useState(null);
 
     const navigate = useNavigate();
+    const toast = useToast(); 
 
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
@@ -30,16 +30,52 @@ function LoginPage() {
         exit: { opacity: 0, scale: 0.5, rotate: 180 }
     };
 
+    const validateInputs = () => {
+        if (!email.trim() || !password.trim()) {
+            showToast("Campos vacíos", "Por favor ingresa tu correo y contraseña.", "warning");
+            return false;
+        }
+
+        // Regex: Mínimo 12 caracteres, al menos 1 mayúscula, al menos 1 caracter especial
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{12,}$/;
+        
+        if (!passwordRegex.test(password)) {
+            showToast(
+                "Contraseña inválida", 
+                "La contraseña debe tener al menos 12 caracteres, una mayúscula y un símbolo especial.", 
+                "warning"
+            );
+            return false;
+        }
+
+        return true;
+    };
+
+    const showToast = (title, desc, status) => {
+        toast({ 
+            title: title, 
+            description: desc, 
+            status: status, 
+            duration: 5000, 
+            isClosable: true, 
+            position: 'top-right' 
+        });
+    };
+
     const handleLogin = async (e) => {
         e.preventDefault();
+        if (!validateInputs()) {
+            return;
+        }
+
         setIsLoading(true);
         setError(null);
 
         try {
-            // Llama al servicio real con la lógica de ECC
             const userData = await loginUser(email, password);
 
             setIsLoading(false);
+            showToast("Bienvenido", `¡Hola ${userData.name || 'Usuario'}! Has iniciado sesión correctamente.`, "success");
 
             // Redirige basado en el ROL que viene de la API
             if (userData.roleId === 1) {
@@ -50,7 +86,10 @@ function LoginPage() {
 
         } catch (err) {
             setIsLoading(false);
-            setError(err.message);
+            const msg = err.message || 'Error al iniciar sesión';
+            setError(msg);
+
+            showToast("Error de inicio de sesión", msg, "error");
             setPassword('');
         }
     }

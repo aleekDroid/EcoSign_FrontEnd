@@ -28,7 +28,11 @@ export const loginUser = async (email, password) => {
         }
 
         const { entity } = response.data;
-        const { token } = entity; // El 'id' ya no es necesario aquí.
+        if (entity.status === 'INACTIVO') {
+            throw new Error("Este usuario está inactivo. Contacte al administrador.");
+        }
+
+        const { token } = entity;
         console.log('[AuthService] Login exitoso. Token (con claim ECC) recibido.');
 
         // --- TAREA 3: GUARDAR EL TOKEN Y LA CLAVE PRIVADA ---
