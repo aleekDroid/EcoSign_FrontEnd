@@ -55,6 +55,10 @@ export const loginUser = async (email, password) => {
         // --- ROLLBACK ---
         await keyUtils.clearClientKeys();
 
+        if (err.response && err.response.status === 429) {
+            throw new Error('Demasiados intentos de inicio de sesión. Por favor, inténtelo más tarde.');
+        }
+
         const errorMessage = err.response?.data?.message || err.message || 'Error al iniciar sesión';
         throw new Error(errorMessage);
     }
