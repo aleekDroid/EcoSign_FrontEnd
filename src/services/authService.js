@@ -24,6 +24,9 @@ export const loginUser = async (email, password) => {
         });
 
         if (!(response.data && response.data.codeStatus === 'OK')) {
+            if(response.status === 429){
+                throw new Error('Limite de peticiones alcanzado. Reintentalo en un minuto');
+            }
             throw new Error(response.data.message || 'Credenciales inválidas');
         }
 
