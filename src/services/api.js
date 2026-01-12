@@ -1,13 +1,13 @@
 // src/services/api.js
 import axios from 'axios';
-import localforage from 'localforage'; // 👈 Importamos localforage
+import localforage from 'localforage';
 
 // 1. Define una clave para guardar el token
 const TOKEN_STORAGE_KEY = 'jwt_auth_token';
 
 // 2. Crea la instancia de axios
 const api = axios.create({
-    baseURL: 'http://localhost:8080'
+    baseURL: 'http://theworkersapigateway.zeabur.internal:8080'
 });
 
 api.interceptors.request.use(
